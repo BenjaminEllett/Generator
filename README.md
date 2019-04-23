@@ -1,13 +1,13 @@
 # Generator
+Generator is a command line tool which uses a cryptographically secure random number generator to create truly random passwords.  Here are the program's features:
 
-Generator is a command line tool which creates secure passwords.  Generator uses a cryptography secure random number generator to create a truly random password.  Here are the program's features:
-
-- It can create a password of 1 to 256 characters.  The characters can come from 2 of three sets:
+- It can create passwords which have 1 to 256 characters.  The characters can come from one of the following sets:
     - Alpha-numeric characters (a-z, A-Z and 0-9)
-    - Any key a user can type on a United States English 101 key keyboard
+    - Any character which can be typed on a United States English 101 key keyboard
 - It displays the password's strength in bits.
 - Anyone can easily read the code and verify it is secure.  They can do this because they program is short and the code is not complicated.
-- Generator uses the built in .NET Core secure random number generator class.  It uses System.Security.Cryptography.RandomNumberGenerator (https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.randomnumbergenerator?view=netcore-2.1).
+- Generator uses one of .NET Core's built in secure random number generator classes.  It uses System.Security.Cryptography.RandomNumberGenerator (https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.randomnumbergenerator?view=netcore-2.1).
+
 
 # Generator Usage Documentation 
 
