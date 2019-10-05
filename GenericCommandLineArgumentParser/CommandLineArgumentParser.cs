@@ -32,6 +32,11 @@ namespace GenericCommandLineArgumentParser
     {
         public Command ParseCommandLineArguments(string[] args)
         {
+            if (args.Length == 0)
+            {
+
+            }
+            
             const string COMMAND_ARGUMENT_PREFIX = "/";
 
             // The first command line argument is the command argument.  The command argument selects what the command line program will do (display 
@@ -59,10 +64,10 @@ namespace GenericCommandLineArgumentParser
             if (!command.IsNumberOfArgumentsValid(commandArguments.Length))
             {
                 throw new InvalidCommandLineArgument(
-                         ErrorMessages.InvalidNumberOfCommandLineArgumentsForAParticularCommand,
-                         args.Length,
-                         checked(command.MinNumberOfArguments + 1), // We add 1 for the command command line parameter.
-                         checked(command.MaxNumberOfArguments + 1)); // We add 1 for the command command line parameter.
+                    ErrorMessages.InvalidNumberOfCommandLineArgumentsForAParticularCommand,
+                    args.Length,
+                    checked(command.MinNumberOfArguments + 1), // We add 1 for the command command line parameter.
+                    checked(command.MaxNumberOfArguments + 1)); // We add 1 for the command command line parameter.
             }
 
             bool commandHasArguments = (args.Length > 1);

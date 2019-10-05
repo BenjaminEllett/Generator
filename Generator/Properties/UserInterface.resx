@@ -175,6 +175,6 @@ Generator /?
 - This message is displayed.</value>
   </data>
   <data name="WeakPassword" xml:space="preserve">
-    <value>This password should not be used because it is too short and attackers can guess it.</value>
+    <value>This password should only be used for PINs and other passwords where the number of guesses can be limited.  If the number of guesses cannot be limited, it should not be used because it </value>
   </data>
 </root>

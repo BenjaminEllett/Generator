@@ -1,4 +1,4 @@
-//
+﻿//
 // MIT License
 //
 // Copyright(c) 2019 Benjamin Ellett
@@ -22,26 +22,18 @@
 // SOFTWARE.
 //
 
-using GenericCommandLineArgumentParser;
-using System.Collections.Generic;
-
 namespace Generator
-{ 
-    public class GeneratorCommandLineArgumentParser : CommandLineArgumentParser
+{
+    public class GeneratePinCommand : GeneratePasswordCommand
     {
-        public GeneratorCommandLineArgumentParser()
+        public GeneratePinCommand() :
+            base(shortCommandParameterName: "P", longCommandParameterName: "PIN")
         {
-            this.commandList = new List<Command>()
-                {
-                    new GeneratePinCommand(),
-                    new GenerateAlphaNumericPasswordCommand(),
-                    new GeneratePasswordUsingAnyCharacterOnAKeyboardCommand(),
-                    new DisplayUsageCommand(),
-                };
         }
 
-        protected override IReadOnlyList<Command> CommandList => this.commandList;
-
-        private readonly List<Command> commandList;
+        protected override Password GeneratePassword(int passwordLengthInCharacters)
+        {
+            return new Password(PasswordType.Numeric, passwordLengthInCharacters);
+        }
     }
 }

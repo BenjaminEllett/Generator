@@ -42,16 +42,6 @@ namespace Generator
             {
                 e.Display();
             }
-
-#if DEBUG
-            if (Debugger.IsAttached)
-            {
-                // This message is not in a strings file because it should never be translated.  It's
-                // only used when debugging the application.
-                Console.WriteLine("Press ENTER to exit application.");
-                Console.ReadLine();
-            }
-#endif
         }
     }
 }
