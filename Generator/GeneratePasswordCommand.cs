@@ -43,6 +43,11 @@ namespace Generator
 
         public override void ParseCommandArguments(string[] commandsArguments)
         {
+            if (commandsArguments == null)
+            {
+                throw new ArgumentNullException(nameof(commandsArguments));
+            }
+
             Debug.Assert(
                 1 == commandsArguments.Length,
                 "Generate password commands only have one argument.");
@@ -56,17 +61,17 @@ namespace Generator
             {
                 // Parse the password length command line parameter.  This parameter's
                 // type is a integer number.
-                passwordLengthInCharacters = int.Parse(passwordLengthParameter, NumberStyles.None);
+                passwordLengthInCharacters = int.Parse(passwordLengthParameter, NumberStyles.None, CultureInfo.CurrentCulture);
             }
             catch (FormatException e)
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.PasswordLengthDoesNotContainAValidNumber,
+                throw new InvalidCommandLineArgumentException(ErrorMessages.PasswordLengthDoesNotContainAValidNumber,
                                                      passwordLengthParameter,
                                                      e);
             }
             catch (OverflowException e)
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.PasswordLengthOutOfRangeFormatString,
+                throw new InvalidCommandLineArgumentException(ErrorMessages.PasswordLengthOutOfRangeFormatString,
                                                      Constants.MINIMUM_PASSWORD_LENGTH_IN_CHARACTERS,
                                                      Constants.MAXIMUM_PASSWORD_LENGTH_IN_CHARACTERS,
                                                      passwordLengthParameter,
@@ -76,7 +81,7 @@ namespace Generator
             if ((passwordLengthInCharacters < Constants.MINIMUM_PASSWORD_LENGTH_IN_CHARACTERS) ||
                 (Constants.MAXIMUM_PASSWORD_LENGTH_IN_CHARACTERS < passwordLengthInCharacters))
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.PasswordLengthOutOfRangeFormatString,
+                throw new InvalidCommandLineArgumentException(ErrorMessages.PasswordLengthOutOfRangeFormatString,
                                                      Constants.MINIMUM_PASSWORD_LENGTH_IN_CHARACTERS,
                                                      Constants.MAXIMUM_PASSWORD_LENGTH_IN_CHARACTERS,
                                                      passwordLengthParameter);

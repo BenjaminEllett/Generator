@@ -23,8 +23,9 @@
 //
 
 using GenericCommandLineArgumentParser;
-using System;
-using System.Diagnostics;
+using System.Resources;
+
+[assembly: NeutralResourcesLanguageAttribute("en")]
 
 namespace Generator
 {
@@ -38,7 +39,7 @@ namespace Generator
                 Command specifiedCommand = commandLineArgumentParser.ParseCommandLineArguments(args);
                 specifiedCommand.Run();
             }
-            catch (InvalidCommandLineArgument e)
+            catch (InvalidCommandLineArgumentException e)
             {
                 e.Display();
             }

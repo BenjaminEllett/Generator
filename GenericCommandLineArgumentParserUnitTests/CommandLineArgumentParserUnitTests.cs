@@ -125,7 +125,7 @@ namespace GenericCommandLineArgumentParserUnitTests
         {
             var testCommandLineArgumentParser2 = new TestCommandLineArgumentParser2();
 
-            TestHelper.TestActionWhichShouldThrowAnException<InvalidCommandLineArgument>(
+            TestHelper.TestActionWhichShouldThrowAnException<InvalidCommandLineArgumentException>(
                 () => testCommandLineArgumentParser2.ParseCommandLineArguments(invalidCommandLineArguments),
                 expectedExceptionText);
         }

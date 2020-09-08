@@ -98,7 +98,7 @@ namespace GeneratorUnitTest
                     throw new Exception("This case should never occur.");
             }
 
-            TestHelper.TestActionWhichShouldThrowAnException<InvalidCommandLineArgument>(
+            TestHelper.TestActionWhichShouldThrowAnException<InvalidCommandLineArgumentException>(
                 () => generatePasswordCommand.ParseCommandArguments(new string[] { invalidDataLengthString }),
                 expectedExceptionText);
         }

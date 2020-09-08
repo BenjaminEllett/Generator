@@ -23,7 +23,9 @@
 //
 
 using GenericCommandLineArgumentParser.Properties;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace GenericCommandLineArgumentParser
@@ -37,24 +39,22 @@ namespace GenericCommandLineArgumentParser
 
             }
             
-            const string COMMAND_ARGUMENT_PREFIX = "/";
-
             // The first command line argument is the command argument.  The command argument selects what the command line program will do (display 
             // help, do A, do B, etc.).
             string commandArgumentFromCommandLine = args[0];
-            if (!commandArgumentFromCommandLine.StartsWith(COMMAND_ARGUMENT_PREFIX))
+            if (!commandArgumentFromCommandLine.StartsWith(UserInterface.CommandArgumentPrefix, StringComparison.CurrentCulture))
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.CommandParameterMissingBackSlashPrefix, commandArgumentFromCommandLine);
+                throw new InvalidCommandLineArgumentException(ErrorMessages.CommandParameterMissingBackSlashPrefix, commandArgumentFromCommandLine);
             }
 
             const int FIRST_CHARACTER_AFTER_COMMAND_PREFIX = 1;
 
             string commandNameWithoutPrefex = commandArgumentFromCommandLine.Substring(FIRST_CHARACTER_AFTER_COMMAND_PREFIX);
-            commandNameWithoutPrefex = commandNameWithoutPrefex.ToLower();
+            commandNameWithoutPrefex = commandNameWithoutPrefex.ToLower(CultureInfo.CurrentCulture);
             Command command = CommandList.FirstOrDefault(currentCommand => currentCommand.IsName(commandNameWithoutPrefex));
             if (null == command)
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.InvalidCommandParameterSpecified, commandArgumentFromCommandLine);
+                throw new InvalidCommandLineArgumentException(ErrorMessages.InvalidCommandParameterSpecified, commandArgumentFromCommandLine);
             }
 
             // The first command line parameter always selects the command to execute.  The rest of the comand line 
@@ -63,7 +63,7 @@ namespace GenericCommandLineArgumentParser
                                             .ToArray<string>();
             if (!command.IsNumberOfArgumentsValid(commandArguments.Length))
             {
-                throw new InvalidCommandLineArgument(
+                throw new InvalidCommandLineArgumentException(
                     ErrorMessages.InvalidNumberOfCommandLineArgumentsForAParticularCommand,
                     args.Length,
                     checked(command.MinNumberOfArguments + 1), // We add 1 for the command command line parameter.

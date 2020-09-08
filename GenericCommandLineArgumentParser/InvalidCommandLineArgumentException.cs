@@ -24,36 +24,37 @@
 
 using GenericCommandLineArgumentParser.Properties;
 using System;
+using System.Globalization;
 
 namespace GenericCommandLineArgumentParser
 {
-    public class InvalidCommandLineArgument : Exception
+    public class InvalidCommandLineArgumentException : Exception
     {
-        public InvalidCommandLineArgument()
+        public InvalidCommandLineArgumentException()
         {
         }
 
-        public InvalidCommandLineArgument(string message) :
+        public InvalidCommandLineArgumentException(string message) :
             base(message)
         {
         }
 
-        public InvalidCommandLineArgument(string message, Exception innerException) :
+        public InvalidCommandLineArgumentException(string message, Exception innerException) :
             base(message, innerException)
         {
         }
 
-        public InvalidCommandLineArgument(string messageFormatString, params object[] objectList) :
-            base(string.Format(messageFormatString, objectList))
+        public InvalidCommandLineArgumentException(string messageFormatString, params object[] objectList) :
+            base(string.Format(CultureInfo.CurrentCulture, messageFormatString, objectList))
         {
         }
 
-        public InvalidCommandLineArgument(Exception innerException, string messageFormatString, params object[] objectList) :
-            base(string.Format(messageFormatString, objectList), innerException)
+        public InvalidCommandLineArgumentException(Exception innerException, string messageFormatString, params object[] objectList) :
+            base(string.Format(CultureInfo.CurrentCulture, messageFormatString, objectList), innerException)
         {
         }
 
-        public override string Message => string.Format(ErrorMessages.ICLAExceptionMessageFormatString, base.Message);
+        public override string Message => string.Format(CultureInfo.CurrentCulture, ErrorMessages.ICLAExceptionMessageFormatString, base.Message);
 
         public void Display()
         {
