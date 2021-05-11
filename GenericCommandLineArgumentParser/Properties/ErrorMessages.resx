@@ -130,4 +130,7 @@
   <data name="InvalidNumberOfCommandLineArgumentsForAParticularCommand" xml:space="preserve">
     <value>The user passed {0} command line parameters to the program but the specified command only has between {1} and {2} command line parameters (this count includes the command parameter).</value>
   </data>
+  <data name="NoCommandLineArgumentsSpecified" xml:space="preserve">
+    <value>The user did not specify any command line arguments.</value>
+  </data>
 </root>

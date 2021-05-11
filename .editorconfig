@@ -1,4 +1,7 @@
 ﻿[*.cs]
 
-# CA1707: Identifiers should not contain underscores
-dotnet_diagnostic.CA1707.severity = none
+# CA3076: Insecure XSLT script processing.
+dotnet_diagnostic.CA3076.severity = error
+
+# CA3077: Insecure Processing in API Design, XmlDocument and XmlTextReader
+dotnet_diagnostic.CA3077.severity = error

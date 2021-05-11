@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ namespace GenericCommandLineArgumentParser
         {
             if (args.Length == 0)
             {
-
+                throw new InvalidCommandLineArgumentException(ErrorMessages.NoCommandLineArgumentsSpecified);
             }
             
             // The first command line argument is the command argument.  The command argument selects what the command line program will do (display 
@@ -47,9 +47,9 @@ namespace GenericCommandLineArgumentParser
                 throw new InvalidCommandLineArgumentException(ErrorMessages.CommandParameterMissingBackSlashPrefix, commandArgumentFromCommandLine);
             }
 
-            const int FIRST_CHARACTER_AFTER_COMMAND_PREFIX = 1;
+            const int FirstCharacterAfterCommandPrefix = 1;
 
-            string commandNameWithoutPrefex = commandArgumentFromCommandLine.Substring(FIRST_CHARACTER_AFTER_COMMAND_PREFIX);
+            string commandNameWithoutPrefex = commandArgumentFromCommandLine.Substring(FirstCharacterAfterCommandPrefix);
             commandNameWithoutPrefex = commandNameWithoutPrefex.ToLower(CultureInfo.CurrentCulture);
             Command command = CommandList.FirstOrDefault(currentCommand => currentCommand.IsName(commandNameWithoutPrefex));
             if (null == command)

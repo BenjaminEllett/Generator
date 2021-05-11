@@ -1,7 +1,7 @@
 ﻿//
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,7 @@ using Generator;
 using GenericCommandLineArgumentParser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Globalization;
 using TestUtil;
 
 namespace GeneratorUnitTest
@@ -91,7 +92,7 @@ namespace GeneratorUnitTest
                     break;
 
                 case TestStringType.ZeroOrPositiveInteger:
-                    expectedExceptionText = $"The password length command line parameter contains a number which is either too low or too high.  This program can generate a password which has {Constants.MINIMUM_PASSWORD_LENGTH_IN_CHARACTERS} and {Constants.MAXIMUM_PASSWORD_LENGTH_IN_CHARACTERS} characters (inclusive).  Here is the parameter's value: {invalidDataLengthString}.";
+                    expectedExceptionText = $"The password length command line parameter contains a number which is either too low or too high.  This program can generate a password which has {Constants.MinimumPasswordLengthInChars} and {Constants.MaximumPasswordLengthInChars} characters (inclusive).  Here is the parameter's value: {invalidDataLengthString}.";
                     break;
 
                 default:
@@ -101,6 +102,29 @@ namespace GeneratorUnitTest
             TestHelper.TestActionWhichShouldThrowAnException<InvalidCommandLineArgumentException>(
                 () => generatePasswordCommand.ParseCommandArguments(new string[] { invalidDataLengthString }),
                 expectedExceptionText);
+        }
+
+        [DataTestMethod]
+
+        // The shortest possible PIN (not recommended)  
+        [DataRow(1)]
+
+        // Common PIN lengths
+        [DataRow(4)]
+        [DataRow(5)]
+        [DataRow(6)]
+
+        // The longest possible PIN 
+        [DataRow(256)]
+
+        public void TestGeneratePinCommandClass(int validPasswordLength)
+        {
+            var generatePinCommand = new GeneratePinCommand();
+            string[] commandArguments = { validPasswordLength.ToString(CultureInfo.InvariantCulture) };
+            generatePinCommand.ParseCommandArguments(commandArguments);
+
+            // The test passes if there are no exceptions.
+            generatePinCommand.Run();
         }
     }
 }

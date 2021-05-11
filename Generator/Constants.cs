@@ -1,7 +1,7 @@
 ﻿//
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ namespace Generator
     public static class Constants
     {
         // These are the minimum and maximum support password lengths.
-        public const int MINIMUM_PASSWORD_LENGTH_IN_CHARACTERS = 1;
-        public const int MAXIMUM_PASSWORD_LENGTH_IN_CHARACTERS = 256;
+        public const int MinimumPasswordLengthInChars = 1;
+        public const int MaximumPasswordLengthInChars = 256;
     }
 }
