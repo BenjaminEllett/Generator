@@ -6,9 +6,9 @@ Generator is a command line tool which uses a cryptographically secure random nu
     - Alpha-numeric characters (a-z, A-Z and 0-9)
     - Any numeric character (0-9)
     
-- It displays the password's strength in bits
+- It displays a new password's strength in bits
 - Anyone can easily read the code and verify it is secure.  They can do this because the program is short and the code is not complicated.
-- Generator uses one of .NET built in secure random number generator classes.  It uses System.Security.Cryptography.RandomNumberGenerator (https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.randomnumbergenerator?view=net-5.0).
+- Generator uses one of the built in .NET secure random number generator classes.  It uses System.Security.Cryptography.RandomNumberGenerator (https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.randomnumbergenerator?view=net-5.0).
 
 # Generator Usage Documentation 
 
@@ -22,7 +22,7 @@ Generator /Help
 
 /AKB
 /GeneratePasswordUsingAnyCharacterOnAKeyboard
-     If this command is specified, the created password can have any character
+     If this command is specified, the new password can have any character
      which can be typed on a keyboard.  Each character in the password can be 
      a letter, number, punctuation character (“ . , ‘), mathematical operator
      (+ - / *), bracket ([ ] { }), parenthesis ( ( ) ), etc.

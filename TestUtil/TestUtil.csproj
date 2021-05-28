@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <StartupObject />
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

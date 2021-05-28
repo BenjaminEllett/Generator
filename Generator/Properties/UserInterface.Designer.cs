@@ -106,8 +106,9 @@ namespace Generator.Properties {
         ///
         ////AKB
         ////GeneratePasswordUsingAnyCharacterOnAKeyboard
-        ///     If this command is specified, the created password can have any character
-        ///     which can be typed on a keyboard.  Each character in the password can be         /// [rest of string was truncated]&quot;;.
+        ///     If this command is specified, the new password can have any character
+        ///     which can be typed on a keyboard.  Each character in the password can be 
+        ///    [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Usage {
             get {
