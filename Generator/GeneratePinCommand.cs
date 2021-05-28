@@ -27,7 +27,7 @@ namespace Generator
     public class GeneratePinCommand : GeneratePasswordCommand
     {
         public GeneratePinCommand() :
-            base(shortCommandParameterName: "P", longCommandParameterName: "PIN")
+            base(shortCommandParameterName: "PIN", longCommandParameterName: "GeneratePersonalIdentificationNumber")
         {
         }
 

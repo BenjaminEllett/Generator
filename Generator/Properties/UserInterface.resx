@@ -130,44 +130,45 @@
     <value>New password strength in bits: {0}</value>
   </data>
   <data name="Usage" xml:space="preserve">
-    <value>Generator [/AKB | /AN | /P] [new password length]
+    <value>Generator [/AKB | /AN | /PIN] [new password length]
 Generator /GeneratePasswordUsingAnyCharacterOnAKeyboard] [new password length]
 Generator /GenerateAlphaNumericPassword [new password length]
-Generator /PIN [new password length]
+Generator /GeneratePersonalIdentificationNumber [new password length]
 Generator /?
 Generator /Help
 
 /AKB
 /GeneratePasswordUsingAnyCharacterOnAKeyboard
      If this command is specified, the created password can have any character
-     which can be typed on a keyboard.  Each character in the password can be a  
-     letter, number, punctuation character (“ . , ‘), mathematical operator (+ - 
-     / *), bracket ([ ] { }), parenthesis ( ( ) ), etc.
+     which can be typed on a keyboard.  Each character in the password can be 
+     a letter, number, punctuation character (“ . , ‘), mathematical operator
+     (+ - / *), bracket ([ ] { }), parenthesis ( ( ) ), etc.
 
 /AN
 /GenerateAlphaNumericPassword
      If this command is specified, a new password is generated using only
      letters and numbers.  
 
-/P
 /PIN
+/GeneratePersonalIdentificationNumber
      If this command is specified, a new password is generated using only
-     numbers.  This type of passwords is typically called a PIN.  PINs should 
-     only be used on devices which limit the number of attempts.  iPhones, 
-     Smart cards and USB security keys are examples are devices which limit 
-     the number of PIN guesses.  PINs should never be used for web site, 
-     computer or any password for a remote device.  Note that Windows has 
-     PINs and passwords.  On Windows, passwords should be complex (have 
-     letters, numbers and symbols) because they can be used for remote 
-     authentication while PINs can be short because they are only used for 
-     local authentication.
+     numbers.  This type of passwords is typically called a PIN.  PINs should
+     only be used on devices which limit the number of attempts.  iPhones,
+     Smart cards and USB security keys are examples are devices which limit
+     the number of PIN guesses.  PINs should never be used for web sites,
+     computers or any password for a remote device.  Note that Windows has
+     PINs and passwords.  On Windows, passwords should be complex (have
+     the possibility of having letters, numbers and symbols) because they can
+     be used for remote authentication while PINs can be short because they
+     are only used for local authentication (which allows Windows to limi
+     the number of PIN guesses).
 
 /?
 /Help
      This message is displayed.
 
-- All commands are case insensitive.  /AKB, /? and /GenerateAlphaNumericPassword
-  are examples of commands.
+- All commands are case insensitive.  /AKB, /? and
+  /GenerateAlphaNumericPassword are examples of commands.
 
 - All password lengths are in characters.
 
@@ -185,11 +186,11 @@ Generator /AN 32
 - Creates a password using only letters and numbers.  The password is 32
 characters long.
 
-Generator /P 6
-- Creates a 6 digit password using only numbers.  PINs should only be used on 
-devices which limit the number of attempts.  iPhones, smart cards and 
-USB security keys are examples are devices which limit the number of PIN 
-guesses.
+Generator /PIN 6
+- Creates a 6 digit password using only numbers.  PINs should only be used on
+devices which limit the number of attempts to guess a PIN.  iPhones, smart
+cards and USB security keys are examples are devices which limit the number of
+PIN guesses.
 
 Generator /?
 - This message is displayed.</value>

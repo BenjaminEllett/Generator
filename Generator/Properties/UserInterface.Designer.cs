@@ -97,18 +97,17 @@ namespace Generator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generator [/AKB | /AN | /P] [new password length]
+        ///   Looks up a localized string similar to Generator [/AKB | /AN | /PIN] [new password length]
         ///Generator /GeneratePasswordUsingAnyCharacterOnAKeyboard] [new password length]
         ///Generator /GenerateAlphaNumericPassword [new password length]
-        ///Generator /PIN [new password length]
+        ///Generator /GeneratePersonalIdentificationNumber [new password length]
         ///Generator /?
         ///Generator /Help
         ///
         ////AKB
         ////GeneratePasswordUsingAnyCharacterOnAKeyboard
         ///     If this command is specified, the created password can have any character
-        ///     which can be typed on a keyboard.  Each character in the password can be a  
-        ///     letter, number, punctuatio [rest of string was truncated]&quot;;.
+        ///     which can be typed on a keyboard.  Each character in the password can be         /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Usage {
             get {
