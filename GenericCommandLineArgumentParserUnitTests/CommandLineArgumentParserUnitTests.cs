@@ -1,7 +1,7 @@
 ﻿//
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -88,12 +88,15 @@ namespace GenericCommandLineArgumentParserUnitTests
 
 
 
-
         //
         // Invalid Input Tests
         //
 
         [DataTestMethod]
+
+        [DataRow(
+            new string[0],
+            "The user did not specify any command line arguments.")]
 
         // This data is invalid because the command (/CommandWhichDoesNoteExist) does not exist.
         [DataRow(
@@ -125,7 +128,7 @@ namespace GenericCommandLineArgumentParserUnitTests
         {
             var testCommandLineArgumentParser2 = new TestCommandLineArgumentParser2();
 
-            TestHelper.TestActionWhichShouldThrowAnException<InvalidCommandLineArgument>(
+            TestHelper.TestActionWhichShouldThrowAnException<InvalidCommandLineArgumentException>(
                 () => testCommandLineArgumentParser2.ParseCommandLineArguments(invalidCommandLineArguments),
                 expectedExceptionText);
         }

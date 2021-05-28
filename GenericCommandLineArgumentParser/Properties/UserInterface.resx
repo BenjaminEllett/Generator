@@ -117,20 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CommandParameterMissingBackSlashPrefix" xml:space="preserve">
-    <value>The user did not specify a valid command parameter because the command parameter did not start with a / character.  A command parameter is the first parameter passed to the program (i.e. the parameter which comes right after the program's name on the command line).  Here is the invalid command parameter: {0}</value>
-  </data>
-  <data name="ICLAExceptionMessageFormatString" xml:space="preserve">
-    <value>INVALID COMMAND LINE ARGUMENT: {0}</value>
-    <comment>ICLA stands for Invalid Command Line Argument</comment>
-  </data>
-  <data name="InvalidCommandParameterSpecified" xml:space="preserve">
-    <value>The command parameter is not valid because it does not correspond to a valid command.  Here is the invalid command parameter: {0} </value>
-  </data>
-  <data name="InvalidNumberOfCommandLineArgumentsForAParticularCommand" xml:space="preserve">
-    <value>The user passed {0} command line parameters to the program but the specified command only has between {1} and {2} command line parameters (this count includes the command parameter).</value>
-  </data>
-  <data name="NoCommandLineArgumentsSpecified" xml:space="preserve">
-    <value>The user did not specify any command line arguments.</value>
+  <data name="CommandArgumentPrefix" xml:space="preserve">
+    <value>/</value>
   </data>
 </root>

@@ -129,4 +129,7 @@
   <data name="PasswordLengthTooShort" xml:space="preserve">
     <value>A valid password must have at least 1 character.</value>
   </data>
+  <data name="ThisCaseShouldNeverOccur" xml:space="preserve">
+    <value>Bug Detected: This case should never occur.</value>
+  </data>
 </root>

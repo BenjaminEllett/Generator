@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -43,43 +43,51 @@ namespace Generator
 
         public override void ParseCommandArguments(string[] commandsArguments)
         {
+            if (commandsArguments == null)
+            {
+                throw new ArgumentNullException(nameof(commandsArguments));
+            }
+
             Debug.Assert(
                 1 == commandsArguments.Length,
                 "Generate password commands only have one argument.");
 
-            const uint PASSWORD_LENGTH_ARGUMENT_INDEX = 0;
+            const uint PasswordLengthArgumentIndex = 0;
 
             int passwordLengthInCharacters;
-            string passwordLengthParameter = commandsArguments[PASSWORD_LENGTH_ARGUMENT_INDEX];
+            string passwordLengthParameter = commandsArguments[PasswordLengthArgumentIndex];
 
             try
             {
                 // Parse the password length command line parameter.  This parameter's
                 // type is a integer number.
-                passwordLengthInCharacters = int.Parse(passwordLengthParameter, NumberStyles.None);
+                passwordLengthInCharacters = int.Parse(passwordLengthParameter, NumberStyles.None, CultureInfo.CurrentCulture);
             }
             catch (FormatException e)
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.PasswordLengthDoesNotContainAValidNumber,
-                                                     passwordLengthParameter,
-                                                     e);
+                throw new InvalidCommandLineArgumentException(
+                    ErrorMessages.PasswordLengthDoesNotContainAValidNumber,
+                    passwordLengthParameter,
+                    e);
             }
             catch (OverflowException e)
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.PasswordLengthOutOfRangeFormatString,
-                                                     Constants.MINIMUM_PASSWORD_LENGTH_IN_CHARACTERS,
-                                                     Constants.MAXIMUM_PASSWORD_LENGTH_IN_CHARACTERS,
-                                                     passwordLengthParameter,
-                                                     e);
+                throw new InvalidCommandLineArgumentException(
+                    ErrorMessages.PasswordLengthOutOfRangeFormatString,
+                    Constants.MinimumPasswordLengthInChars,
+                    Constants.MaximumPasswordLengthInChars,
+                    passwordLengthParameter,
+                    e);
             }
 
-            if ((passwordLengthInCharacters < Constants.MINIMUM_PASSWORD_LENGTH_IN_CHARACTERS) ||
-                (Constants.MAXIMUM_PASSWORD_LENGTH_IN_CHARACTERS < passwordLengthInCharacters))
+            if ((passwordLengthInCharacters < Constants.MinimumPasswordLengthInChars) ||
+                (Constants.MaximumPasswordLengthInChars < passwordLengthInCharacters))
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.PasswordLengthOutOfRangeFormatString,
-                                                     Constants.MINIMUM_PASSWORD_LENGTH_IN_CHARACTERS,
-                                                     Constants.MAXIMUM_PASSWORD_LENGTH_IN_CHARACTERS,
-                                                     passwordLengthParameter);
+                throw new InvalidCommandLineArgumentException(
+                    ErrorMessages.PasswordLengthOutOfRangeFormatString,
+                    Constants.MinimumPasswordLengthInChars,
+                    Constants.MaximumPasswordLengthInChars,
+                    passwordLengthParameter);
             }
 
             this.passwordLengthInCharacters = passwordLengthInCharacters;
@@ -109,7 +117,7 @@ namespace Generator
                     return UserInterface.WeakPassword;
 
                 default:
-                    throw new Exception("This case should never occur.");
+                    throw new Exception(ErrorMessages.ThisCaseShouldNeverOccur);
             }
         }
 

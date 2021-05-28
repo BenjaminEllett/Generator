@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Generator.Properties {
+namespace GenericCommandLineArgumentParser.Properties {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Generator.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ErrorMessages {
+    internal class UserInterface {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorMessages() {
+        internal UserInterface() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Generator.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Generator.Properties.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GenericCommandLineArgumentParser.Properties.UserInterface", typeof(UserInterface).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,11 @@ namespace Generator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password length command line parameter contains invalid data because it does not contain a positive integer number.  Here is what the parameter contains: {0}..
+        ///   Looks up a localized string similar to /.
         /// </summary>
-        internal static string PasswordLengthDoesNotContainAValidNumber {
+        internal static string CommandArgumentPrefix {
             get {
-                return ResourceManager.GetString("PasswordLengthDoesNotContainAValidNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The password length command line parameter contains a number which is either too low or too high.  This program can generate a password which has {0} and {1} characters (inclusive).  Here is the parameter&apos;s value: {2}..
-        /// </summary>
-        internal static string PasswordLengthOutOfRangeFormatString {
-            get {
-                return ResourceManager.GetString("PasswordLengthOutOfRangeFormatString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This program does not support passwords longer than 256 characters..
-        /// </summary>
-        internal static string PasswordLengthTooLong {
-            get {
-                return ResourceManager.GetString("PasswordLengthTooLong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A valid password must have at least 1 character..
-        /// </summary>
-        internal static string PasswordLengthTooShort {
-            get {
-                return ResourceManager.GetString("PasswordLengthTooShort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bug Detected: This case should never occur..
-        /// </summary>
-        internal static string ThisCaseShouldNeverOccur {
-            get {
-                return ResourceManager.GetString("ThisCaseShouldNeverOccur", resourceCulture);
+                return ResourceManager.GetString("CommandArgumentPrefix", resourceCulture);
             }
         }
     }

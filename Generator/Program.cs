@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,8 +23,6 @@
 //
 
 using GenericCommandLineArgumentParser;
-using System;
-using System.Diagnostics;
 
 namespace Generator
 {
@@ -38,20 +36,10 @@ namespace Generator
                 Command specifiedCommand = commandLineArgumentParser.ParseCommandLineArguments(args);
                 specifiedCommand.Run();
             }
-            catch (InvalidCommandLineArgument e)
+            catch (InvalidCommandLineArgumentException e)
             {
                 e.Display();
             }
-
-#if DEBUG
-            if (Debugger.IsAttached)
-            {
-                // This message is not in a strings file because it should never be translated.  It's
-                // only used when debugging the application.
-                Console.WriteLine("Press ENTER to exit application.");
-                Console.ReadLine();
-            }
-#endif
         }
     }
 }

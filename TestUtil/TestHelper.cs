@@ -1,7 +1,7 @@
 ﻿//
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +38,7 @@ namespace TestUtil
                 actionWhichShouldThrowException();
                 Assert.Fail($"This code should never execute because {nameof(actionWhichShouldThrowException)}() should throw an exception.");
             }
-            catch (ExpectedExceptionType e) when (e.Message.Contains(expectedExceptionText))
+            catch (ExpectedExceptionType e) when (e.Message.Contains(expectedExceptionText, StringComparison.InvariantCulture))
             {
                 // Ignore the exception if it contains the expected exception text.  If this occurs, it means the test passed
                 // because it triggered the right exception.

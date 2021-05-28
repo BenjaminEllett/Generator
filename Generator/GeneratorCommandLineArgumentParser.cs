@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,7 @@ namespace Generator
         {
             this.commandList = new List<Command>()
                 {
+                    new GeneratePinCommand(),
                     new GenerateAlphaNumericPasswordCommand(),
                     new GeneratePasswordUsingAnyCharacterOnAKeyboardCommand(),
                     new DisplayUsageCommand(),

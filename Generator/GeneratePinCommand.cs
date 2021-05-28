@@ -1,4 +1,4 @@
-//
+﻿//
 // MIT License
 //
 // Copyright(c) 2019-2021 Benjamin Ellett
@@ -24,16 +24,16 @@
 
 namespace Generator
 {
-    public class GeneratePasswordUsingAnyCharacterOnAKeyboardCommand : GeneratePasswordCommand
+    public class GeneratePinCommand : GeneratePasswordCommand
     {
-        public GeneratePasswordUsingAnyCharacterOnAKeyboardCommand() :
-            base(shortCommandParameterName: "AKB", longCommandParameterName: "GeneratePasswordUsingAnyCharacterOnAKeyboard")
+        public GeneratePinCommand() :
+            base(shortCommandParameterName: "PIN", longCommandParameterName: "GeneratePersonalIdentificationNumber")
         {
         }
 
         protected override Password GeneratePassword(int passwordLengthInCharacters)
         {
-            return new Password(PasswordType.AnyKeyOnAnEnglishKeyboard, passwordLengthInCharacters);
+            return new Password(PasswordType.Numeric, passwordLengthInCharacters);
         }
     }
 }

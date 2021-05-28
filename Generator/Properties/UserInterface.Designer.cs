@@ -19,7 +19,7 @@ namespace Generator.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class UserInterface {
@@ -97,21 +97,17 @@ namespace Generator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generator [/AKB | /AN] [new password length]
-        ///Generator /GenerateAlphaNumericPassword [new password length]
+        ///   Looks up a localized string similar to Generator [/AKB | /AN | /PIN] [new password length]
         ///Generator /GeneratePasswordUsingAnyCharacterOnAKeyboard] [new password length]
+        ///Generator /GenerateAlphaNumericPassword [new password length]
+        ///Generator /GeneratePersonalIdentificationNumber [new password length]
         ///Generator /?
         ///Generator /Help
         ///
-        /// - /AN
-        /// - /GenerateAlphaNumericPassword
-        ///     If this command is specified, a new password is generated using only
-        ///     letters and numbers.  
-        ///
-        /// - /AKB
-        /// - /GeneratePasswordUsingAnyCharacterOnAKeyboard
+        ////AKB
+        ////GeneratePasswordUsingAnyCharacterOnAKeyboard
         ///     If this command is specified, the created password can have any character
-        ///    [rest of string was truncated]&quot;;.
+        ///     which can be typed on a keyboard.  Each character in the password can be         /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Usage {
             get {
@@ -120,7 +116,7 @@ namespace Generator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This password should not be used because it is too short and attackers can guess it..
+        ///   Looks up a localized string similar to This password should only be used for PINs and other passwords where the number of guesses can be limited.  If the number of guesses cannot be limited, it should not be used because it can easily be brute forced (i.e. a computer program may be able to try all of possible password values and find the right password)..
         /// </summary>
         internal static string WeakPassword {
             get {

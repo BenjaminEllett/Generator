@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -35,15 +35,15 @@ namespace GenericCommandLineArgumentParserUnitTests
             this.testCommand = new TestCommand(
                 shortCommandParameterName: "TC",
                 longCommandParameterName: "TestCommand",
-                minNumberOfArguments: MIN_NUM_ARGUMNETS,
-                maxNumberOfArguments: MAX_NUM_ARGUMNETS);
+                minNumberOfArguments: MinNumberOfArguments,
+                maxNumberOfArguments: MaxNumberOfArguments);
         }
 
         [TestMethod]
         public void ConstructorShouldInitialize_MinNumberOfArguments_Property()
         {
             Assert.IsTrue(
-                this.testCommand.MinNumberOfArguments == MIN_NUM_ARGUMNETS,
+                this.testCommand.MinNumberOfArguments == MinNumberOfArguments,
                 "If this assert fires, it means that that value passed to the constructor's minNumberOfArguments parameter is not the " +
                 "value of the class's MinNumberOfArguments property.  This is a bug.");
         }
@@ -52,7 +52,7 @@ namespace GenericCommandLineArgumentParserUnitTests
         public void ConstructorShouldInitialize_MaxNumberOfArguments_Property()
         {
             Assert.IsTrue(
-                this.testCommand.MaxNumberOfArguments == MAX_NUM_ARGUMNETS,
+                this.testCommand.MaxNumberOfArguments == MaxNumberOfArguments,
                 "If this assert fires, it means that that value passed to the constructor's maxNumberOfArguments parameter is not the " +
                 "value of the class's MaxNumberOfArguments property.  This is a bug.");
         }
@@ -85,9 +85,9 @@ namespace GenericCommandLineArgumentParserUnitTests
         /// values between the minumum and maxium number of arguments a command can take (inclusive).
         /// </summary>
         [DataTestMethod]
-        [DataRow((int)MIN_NUM_ARGUMNETS)]
+        [DataRow((int)MinNumberOfArguments)]
         [DataRow(100)] // This value is inbetween the minimum and maxium number of valid arguments.
-        [DataRow((int)MAX_NUM_ARGUMNETS)]
+        [DataRow((int)MaxNumberOfArguments)]
         public void IsNumberOfArgumentsValidTests(int validNumberOfArguments)
         {
             Assert.IsTrue(this.testCommand.IsNumberOfArgumentsValid(validNumberOfArguments));
@@ -98,8 +98,8 @@ namespace GenericCommandLineArgumentParserUnitTests
         /// IsNumberOfArgumentsValid() and makes sure IsNumberOfArgumentsValid() returns false.  
         /// </summary>
         [DataTestMethod]
-        [DataRow(((int)MIN_NUM_ARGUMNETS) - 1)]
-        [DataRow(((int)MAX_NUM_ARGUMNETS) + 1)]
+        [DataRow(((int)MinNumberOfArguments) - 1)]
+        [DataRow(((int)MaxNumberOfArguments) + 1)]
         public void IsNumberOfArguments_Invalid_Tests(int invalidNumberOfArguments)
         {
             Assert.IsFalse(this.testCommand.IsNumberOfArgumentsValid(invalidNumberOfArguments));
@@ -107,8 +107,8 @@ namespace GenericCommandLineArgumentParserUnitTests
 
         private readonly TestCommand testCommand;
 
-        private const uint MIN_NUM_ARGUMNETS = 10;
-        private const uint MAX_NUM_ARGUMNETS = 999;
+        private const uint MinNumberOfArguments = 10;
+        private const uint MaxNumberOfArguments = 999;
     }
 }
 

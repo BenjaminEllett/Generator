@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -50,12 +50,12 @@ namespace Generator
     {
         public Password(PasswordType passwordType, int passwordLengthInCharacters)
         {
-            if (passwordLengthInCharacters < Constants.MINIMUM_PASSWORD_LENGTH_IN_CHARACTERS)
+            if (passwordLengthInCharacters < Constants.MinimumPasswordLengthInChars)
             {
                 throw new ArgumentException(ErrorMessages.PasswordLengthTooShort);
             }
 
-            if (passwordLengthInCharacters > Constants.MAXIMUM_PASSWORD_LENGTH_IN_CHARACTERS)
+            if (passwordLengthInCharacters > Constants.MaximumPasswordLengthInChars)
             {
                 throw new ArgumentException(ErrorMessages.PasswordLengthTooLong);
             }
@@ -71,17 +71,17 @@ namespace Generator
 
         public double StrengthInBits { get; private set; }
 
-        private IReadOnlyList<char> GetCharactersWhichCanBeInPasswordList(PasswordType passwordType)
+        private static IReadOnlyList<char> GetCharactersWhichCanBeInPasswordList(PasswordType passwordType)
         {
             // LOCALIZATION: This code will have to be modified if this program is modified to work with other languages.
             // Right now, it only supports generating passwords which can be typed on English keyboards.
 
-            List<char> NUMERIC_CHARACTERS = new List<char>()
+            IReadOnlyList<char> NumericCharacters = new List<char>()
                 {
                     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
                 };
 
-            List<char> ALPHA_NUMERIC_CHARACTERS = new List<char>()
+            IReadOnlyList<char> AlphaNumericCharacters = new List<char>(NumericCharacters)
                 {
                     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
                     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -89,10 +89,9 @@ namespace Generator
                     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
                 };
-            ALPHA_NUMERIC_CHARACTERS.AddRange(NUMERIC_CHARACTERS);
 
             // These characters can be typed on a standard 101 key US English keyboard.
-            List<char> ANY_CHARACTER_WHICH_CAN_BE_TYPED_ON_A_ENGLISH_KEYBOARD = new List<char>()
+            IReadOnlyList<char> AnyCharacterWhichCanBeTypedOnAEnglishKeyboard = new List<char>(AlphaNumericCharacters)
                 {
                     ')', '!', '@', '#', '$', '%', '^', '&', '*', '(',
 
@@ -102,21 +101,20 @@ namespace Generator
 
                     ' '
                 };
-            ANY_CHARACTER_WHICH_CAN_BE_TYPED_ON_A_ENGLISH_KEYBOARD.AddRange(ALPHA_NUMERIC_CHARACTERS);
 
             switch (passwordType)
             {
                 case PasswordType.Numeric:
-                    return NUMERIC_CHARACTERS;
+                    return NumericCharacters;
 
                 case PasswordType.AlphaNumericPassword:
-                    return ALPHA_NUMERIC_CHARACTERS;
+                    return AlphaNumericCharacters;
 
                 case PasswordType.AnyKeyOnAnEnglishKeyboard:
-                    return ANY_CHARACTER_WHICH_CAN_BE_TYPED_ON_A_ENGLISH_KEYBOARD;
+                    return AnyCharacterWhichCanBeTypedOnAEnglishKeyboard;
 
                 default:
-                    throw new Exception("This case should never occur.");
+                    throw new Exception(ErrorMessages.ThisCaseShouldNeverOccur);
             }
         }
 
@@ -124,9 +122,9 @@ namespace Generator
         { 
 #if DEBUG
             {
-                const int MAXIMUM_SUPPORTED_LIST_LENGTH = 256;
+                const int MaximumSupportedListLength = 256;
 
-                Debug.Assert(validPasswordCharactersList.Count <= MAXIMUM_SUPPORTED_LIST_LENGTH,
+                Debug.Assert(validPasswordCharactersList.Count <= MaximumSupportedListLength,
                              "arrayOfValidPasswordCharacters should contain no more than 256 entries.  If it contains more entries, this function will not work.");
             }
 #endif
@@ -135,10 +133,10 @@ namespace Generator
             RandomNumberGenerator randomNumberGenerator = RandomNumberGenerator.Create();
             using (randomNumberGenerator)
             {
-                const uint ONE_CHARACTER = 1;
+                const uint OneCharacter = 1;
 
                 byte passwordCharacterIndex;
-                byte[] passwordCharacterIndexArray = new byte[ONE_CHARACTER];
+                byte[] passwordCharacterIndexArray = new byte[OneCharacter];
 
                 StringBuilder newPassword = new StringBuilder(passwordLengthInCharacters);
 
@@ -162,9 +160,9 @@ namespace Generator
 
             bool IsThereAnEqualChanceEachCharacterCouldBeSelected(byte indexOfCharacterToSelect)
             {
-                const int TOTAL_NUMBER_OF_DISTINCT_BYTE_VALUES = 256;
+                const int TotalNumberOfDistinctByteValues = 256;
 
-                int totalNumberOfWholeRangesInAByte = checked(TOTAL_NUMBER_OF_DISTINCT_BYTE_VALUES / validPasswordCharactersList.Count);
+                int totalNumberOfWholeRangesInAByte = checked(TotalNumberOfDistinctByteValues / validPasswordCharactersList.Count);
                 int indexOfLastNumberInLastWholeRange = checked((totalNumberOfWholeRangesInAByte * validPasswordCharactersList.Count) - 1);
 
                 return (indexOfCharacterToSelect <= indexOfLastNumberInLastWholeRange);
@@ -177,13 +175,13 @@ namespace Generator
             double passwordStrengthInBits = bitsPerPasswordCharacter * passwordLengthInCharacters;
 
             // SECURITY: I choose 128 bits as the minimum number of bits of entropy for a secure password because it's infeasible to 
-            //           guess all combinations of a password with 128 bits of entropy.  Even a very sophisticated attacked 
+            //           guess all combinations of a password with 128 bits of entropy.  Even a very sophisticated attacker 
             //           cannot do this.
-            const double MINIUMUM_NUMBER_OF_BITS_IN_A_PASSWORD_WHICH_IS_ADEQUATE_FOR_PROTECTING_ALL_OF_YOUR_DATA = 128;
+            const double MiniumumNumberOfBitsInAPasswordWhichIsAdequateForProtectingAllOfYourData = 128;
 
             PasswordStrength passwordStrength;
 
-            if (MINIUMUM_NUMBER_OF_BITS_IN_A_PASSWORD_WHICH_IS_ADEQUATE_FOR_PROTECTING_ALL_OF_YOUR_DATA <= passwordStrengthInBits)
+            if (MiniumumNumberOfBitsInAPasswordWhichIsAdequateForProtectingAllOfYourData <= passwordStrengthInBits)
             {
                 passwordStrength = PasswordStrength.AdequateForProtectingAllOfYourData;
             }

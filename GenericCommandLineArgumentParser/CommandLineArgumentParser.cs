@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,9 @@
 //
 
 using GenericCommandLineArgumentParser.Properties;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace GenericCommandLineArgumentParser
@@ -32,24 +34,27 @@ namespace GenericCommandLineArgumentParser
     {
         public Command ParseCommandLineArguments(string[] args)
         {
-            const string COMMAND_ARGUMENT_PREFIX = "/";
-
+            if (args.Length == 0)
+            {
+                throw new InvalidCommandLineArgumentException(ErrorMessages.NoCommandLineArgumentsSpecified);
+            }
+            
             // The first command line argument is the command argument.  The command argument selects what the command line program will do (display 
             // help, do A, do B, etc.).
             string commandArgumentFromCommandLine = args[0];
-            if (!commandArgumentFromCommandLine.StartsWith(COMMAND_ARGUMENT_PREFIX))
+            if (!commandArgumentFromCommandLine.StartsWith(UserInterface.CommandArgumentPrefix, StringComparison.CurrentCulture))
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.CommandParameterMissingBackSlashPrefix, commandArgumentFromCommandLine);
+                throw new InvalidCommandLineArgumentException(ErrorMessages.CommandParameterMissingBackSlashPrefix, commandArgumentFromCommandLine);
             }
 
-            const int FIRST_CHARACTER_AFTER_COMMAND_PREFIX = 1;
+            const int FirstCharacterAfterCommandPrefix = 1;
 
-            string commandNameWithoutPrefex = commandArgumentFromCommandLine.Substring(FIRST_CHARACTER_AFTER_COMMAND_PREFIX);
-            commandNameWithoutPrefex = commandNameWithoutPrefex.ToLower();
+            string commandNameWithoutPrefex = commandArgumentFromCommandLine.Substring(FirstCharacterAfterCommandPrefix);
+            commandNameWithoutPrefex = commandNameWithoutPrefex.ToLower(CultureInfo.CurrentCulture);
             Command command = CommandList.FirstOrDefault(currentCommand => currentCommand.IsName(commandNameWithoutPrefex));
             if (null == command)
             {
-                throw new InvalidCommandLineArgument(ErrorMessages.InvalidCommandParameterSpecified, commandArgumentFromCommandLine);
+                throw new InvalidCommandLineArgumentException(ErrorMessages.InvalidCommandParameterSpecified, commandArgumentFromCommandLine);
             }
 
             // The first command line parameter always selects the command to execute.  The rest of the comand line 
@@ -58,11 +63,11 @@ namespace GenericCommandLineArgumentParser
                                             .ToArray<string>();
             if (!command.IsNumberOfArgumentsValid(commandArguments.Length))
             {
-                throw new InvalidCommandLineArgument(
-                         ErrorMessages.InvalidNumberOfCommandLineArgumentsForAParticularCommand,
-                         args.Length,
-                         checked(command.MinNumberOfArguments + 1), // We add 1 for the command command line parameter.
-                         checked(command.MaxNumberOfArguments + 1)); // We add 1 for the command command line parameter.
+                throw new InvalidCommandLineArgumentException(
+                    ErrorMessages.InvalidNumberOfCommandLineArgumentsForAParticularCommand,
+                    args.Length,
+                    checked(command.MinNumberOfArguments + 1), // We add 1 for the command command line parameter.
+                    checked(command.MaxNumberOfArguments + 1)); // We add 1 for the command command line parameter.
             }
 
             bool commandHasArguments = (args.Length > 1);

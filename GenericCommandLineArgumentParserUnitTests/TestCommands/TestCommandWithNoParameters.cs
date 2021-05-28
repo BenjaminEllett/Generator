@@ -1,7 +1,7 @@
 ﻿//
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -45,7 +45,7 @@ namespace GenericCommandLineArgumentParserUnitTests.TestCommands
 
         public override void ParseCommandArguments(string[] commandsArguments)
         {
-            throw new Exception("This method should not be called because this command does not have any arguments.");
+            throw new Exception("Bug Detected: This method should not be called because this command does not have any arguments.");
         }
     }
 }

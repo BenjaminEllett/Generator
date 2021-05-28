@@ -1,7 +1,7 @@
 //
 // MIT License
 //
-// Copyright(c) 2019 Benjamin Ellett
+// Copyright(c) 2019-2021 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,8 @@
 using Generator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics;
+using System.Linq;
 
 namespace GeneratorUnitTest
 {
@@ -43,7 +45,7 @@ namespace GeneratorUnitTest
         [DataRow(PasswordType.Numeric, 6, PasswordStrength.Weak, 19.0)]
 
         // Test common password lengths 
-        [DataRow(PasswordType.AlphaNumericPassword, 16, PasswordStrength.Weak, 95.0)] // Unfortunately, Office 365 limits passwords to 16 characters
+        [DataRow(PasswordType.AlphaNumericPassword, 16, PasswordStrength.Weak, 95.0)]
         [DataRow(PasswordType.AlphaNumericPassword, 20, PasswordStrength.Weak, 119.0)]
         [DataRow(PasswordType.AlphaNumericPassword, 24, PasswordStrength.AdequateForProtectingAllOfYourData, 142.0)]
 
@@ -77,6 +79,20 @@ namespace GeneratorUnitTest
         }
 
         [TestMethod]
+        public void PinPasswordsShouldOnlyContainNumericCharacters()
+        {
+            const int requestedPinLength = Constants.MaximumPasswordLengthInChars;
+
+            Password pin = new Password(PasswordType.Numeric, passwordLengthInCharacters: requestedPinLength);
+            char[] passwordCharacters = pin.Value.ToCharArray();
+
+            Trace.WriteLine($"Here are the PIN's digits: {pin.Value}");
+
+            Assert.IsTrue(passwordCharacters.Length == requestedPinLength, "The length should match the requested PIN length.");
+            Assert.IsTrue(passwordCharacters.All(currentChar => char.IsDigit(currentChar)), "All PIN chartacters should be digits.");
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void PasswordTooShortTest()
         {
@@ -87,7 +103,7 @@ namespace GeneratorUnitTest
         [ExpectedException(typeof(ArgumentException))]
         public void PasswordTooLongTest()
         {
-            TestPasswordObjectCreationWhichShouldThrowException(passwordLengthInCharacters: 257);
+            TestPasswordObjectCreationWhichShouldThrowException(passwordLengthInCharacters: Constants.MaximumPasswordLengthInChars + 1);
         }
 
         private static void TestPasswordObjectCreationWhichShouldThrowException(int passwordLengthInCharacters)
