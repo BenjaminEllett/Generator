@@ -139,7 +139,7 @@ Generator /Help
 
 /AKB
 /GeneratePasswordUsingAnyCharacterOnAKeyboard
-     If this command is specified, the created password can have any character
+     If this command is specified, the new password can have any character
      which can be typed on a keyboard.  Each character in the password can be 
      a letter, number, punctuation character (“ . , ‘), mathematical operator
      (+ - / *), bracket ([ ] { }), parenthesis ( ( ) ), etc.
