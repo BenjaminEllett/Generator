@@ -43,7 +43,7 @@ Generator /Help
      PINs and passwords.  On Windows, passwords should be complex (have
      the possibility of having letters, numbers and symbols) because they can
      be used for remote authentication while PINs can be short because they
-     are only used for local authentication (which allows Windows to limi
+     are only used for local authentication (which allows Windows to limit
      the number of PIN guesses).
 
 /?
