@@ -22,6 +22,7 @@
 // SOFTWARE.
 //
 
+using CommonGeneratorCode;
 using Generator;
 using GenericCommandLineArgumentParser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

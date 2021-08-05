@@ -22,7 +22,7 @@
 // SOFTWARE.
 //
 
-namespace Generator
+namespace CommonGeneratorCode
 {
     public static class Constants
     {

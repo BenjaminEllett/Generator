@@ -22,7 +22,6 @@
 // SOFTWARE.
 //
 
-using Generator.Properties;
 using GenericCommandLineArgumentParser;
 using System;
 

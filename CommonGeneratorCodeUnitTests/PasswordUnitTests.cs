@@ -28,7 +28,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 
-namespace GeneratorUnitTest
+namespace CommonGeneratorCodeUnitTests
 {
     [TestClass]
     public class PasswordUnitTests

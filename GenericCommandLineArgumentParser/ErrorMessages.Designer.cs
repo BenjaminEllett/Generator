@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Generator.Properties {
+namespace GenericCommandLineArgumentParser {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Generator.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UserInterface {
+    internal class ErrorMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal UserInterface() {
+        internal ErrorMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Generator.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Generator.Properties.UserInterface", typeof(UserInterface).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GenericCommandLineArgumentParser.ErrorMessages", typeof(ErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,67 +61,47 @@ namespace Generator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This password can be used to protect any data..
+        ///   Looks up a localized string similar to The user did not specify a valid command parameter because the command parameter did not start with a / character.  A command parameter is the first parameter passed to the program (i.e. the parameter which comes right after the program&apos;s name on the command line).  Here is the invalid command parameter: {0}.
         /// </summary>
-        internal static string AdequateForProtectingAllOfYourData {
+        internal static string CommandParameterMissingBackSlashPrefix {
             get {
-                return ResourceManager.GetString("AdequateForProtectingAllOfYourData", resourceCulture);
+                return ResourceManager.GetString("CommandParameterMissingBackSlashPrefix", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New password: {0}.
+        ///   Looks up a localized string similar to INVALID COMMAND LINE ARGUMENT: {0}.
         /// </summary>
-        internal static string NewPassword {
+        internal static string ICLAExceptionMessageFormatString {
             get {
-                return ResourceManager.GetString("NewPassword", resourceCulture);
+                return ResourceManager.GetString("ICLAExceptionMessageFormatString", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New password strength: {0} .
+        ///   Looks up a localized string similar to The command parameter is not valid because it does not correspond to a valid command.  Here is the invalid command parameter: {0} .
         /// </summary>
-        internal static string NewPasswordStrength {
+        internal static string InvalidCommandParameterSpecified {
             get {
-                return ResourceManager.GetString("NewPasswordStrength", resourceCulture);
+                return ResourceManager.GetString("InvalidCommandParameterSpecified", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New password strength in bits: {0}.
+        ///   Looks up a localized string similar to The user passed {0} command line parameters to the program but the specified command only has between {1} and {2} command line parameters (this count includes the command parameter)..
         /// </summary>
-        internal static string NewPasswordStrengthInBits {
+        internal static string InvalidNumberOfCommandLineArgumentsForAParticularCommand {
             get {
-                return ResourceManager.GetString("NewPasswordStrengthInBits", resourceCulture);
+                return ResourceManager.GetString("InvalidNumberOfCommandLineArgumentsForAParticularCommand", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generator [/AKB | /AN | /PIN] [new password length]
-        ///Generator /GeneratePasswordUsingAnyCharacterOnAKeyboard] [new password length]
-        ///Generator /GenerateAlphaNumericPassword [new password length]
-        ///Generator /GeneratePersonalIdentificationNumber [new password length]
-        ///Generator /?
-        ///Generator /Help
-        ///
-        ////AKB
-        ////GeneratePasswordUsingAnyCharacterOnAKeyboard
-        ///     If this command is specified, the new password can have any character
-        ///     which can be typed on a keyboard.  Each character in the password can be 
-        ///    [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to The user did not specify any command line arguments..
         /// </summary>
-        internal static string Usage {
+        internal static string NoCommandLineArgumentsSpecified {
             get {
-                return ResourceManager.GetString("Usage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This password should only be used for PINs and other passwords where the number of guesses can be limited.  If the number of guesses cannot be limited, it should not be used because it can easily be brute forced (i.e. a computer program may be able to try all of possible password values and find the right password)..
-        /// </summary>
-        internal static string WeakPassword {
-            get {
-                return ResourceManager.GetString("WeakPassword", resourceCulture);
+                return ResourceManager.GetString("NoCommandLineArgumentsSpecified", resourceCulture);
             }
         }
     }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GenericCommandLineArgumentParser.Properties {
+namespace GenericCommandLineArgumentParser {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace GenericCommandLineArgumentParser.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ErrorMessages {
+    internal class UserInterface {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorMessages() {
+        internal UserInterface() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace GenericCommandLineArgumentParser.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GenericCommandLineArgumentParser.Properties.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GenericCommandLineArgumentParser.UserInterface", typeof(UserInterface).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,11 @@ namespace GenericCommandLineArgumentParser.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user did not specify a valid command parameter because the command parameter did not start with a / character.  A command parameter is the first parameter passed to the program (i.e. the parameter which comes right after the program&apos;s name on the command line).  Here is the invalid command parameter: {0}.
+        ///   Looks up a localized string similar to /.
         /// </summary>
-        internal static string CommandParameterMissingBackSlashPrefix {
+        internal static string CommandArgumentPrefix {
             get {
-                return ResourceManager.GetString("CommandParameterMissingBackSlashPrefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to INVALID COMMAND LINE ARGUMENT: {0}.
-        /// </summary>
-        internal static string ICLAExceptionMessageFormatString {
-            get {
-                return ResourceManager.GetString("ICLAExceptionMessageFormatString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The command parameter is not valid because it does not correspond to a valid command.  Here is the invalid command parameter: {0} .
-        /// </summary>
-        internal static string InvalidCommandParameterSpecified {
-            get {
-                return ResourceManager.GetString("InvalidCommandParameterSpecified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The user passed {0} command line parameters to the program but the specified command only has between {1} and {2} command line parameters (this count includes the command parameter)..
-        /// </summary>
-        internal static string InvalidNumberOfCommandLineArgumentsForAParticularCommand {
-            get {
-                return ResourceManager.GetString("InvalidNumberOfCommandLineArgumentsForAParticularCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The user did not specify any command line arguments..
-        /// </summary>
-        internal static string NoCommandLineArgumentsSpecified {
-            get {
-                return ResourceManager.GetString("NoCommandLineArgumentsSpecified", resourceCulture);
+                return ResourceManager.GetString("CommandArgumentPrefix", resourceCulture);
             }
         }
     }

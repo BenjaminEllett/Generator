@@ -22,6 +22,8 @@
 // SOFTWARE.
 //
 
+using CommonGeneratorCode;
+
 namespace Generator
 {
     public class GenerateAlphaNumericPasswordCommand : GeneratePasswordCommand
@@ -33,7 +35,7 @@ namespace Generator
 
         protected override Password GeneratePassword(int passwordLengthInCharacters)
         {
-            return new Password(PasswordType.AlphaNumericPassword, passwordLengthInCharacters);
+            return new Password(PasswordType.AlphaNumeric, passwordLengthInCharacters);
         }
     }
 }

@@ -22,6 +22,8 @@
 // SOFTWARE.
 //
 
+using CommonGeneratorCode;
+
 namespace Generator
 {
     public class GeneratePinCommand : GeneratePasswordCommand

@@ -22,7 +22,7 @@
 // SOFTWARE.
 //
 
-using Generator.Properties;
+using CommonGeneratorCode;
 using GenericCommandLineArgumentParser;
 using System;
 using System.Diagnostics;
@@ -66,25 +66,24 @@ namespace Generator
             catch (FormatException e)
             {
                 throw new InvalidCommandLineArgumentException(
-                    ErrorMessages.PasswordLengthDoesNotContainAValidNumber,
+                    CommonErrorMessages.PasswordLengthDoesNotContainAValidNumber,
                     passwordLengthParameter,
                     e);
             }
             catch (OverflowException e)
             {
                 throw new InvalidCommandLineArgumentException(
-                    ErrorMessages.PasswordLengthOutOfRangeFormatString,
+                    CommonErrorMessages.PasswordLengthOutOfRangeFormatString,
                     Constants.MinimumPasswordLengthInChars,
                     Constants.MaximumPasswordLengthInChars,
                     passwordLengthParameter,
                     e);
             }
 
-            if ((passwordLengthInCharacters < Constants.MinimumPasswordLengthInChars) ||
-                (Constants.MaximumPasswordLengthInChars < passwordLengthInCharacters))
+            if (passwordLengthInCharacters is < Constants.MinimumPasswordLengthInChars or > Constants.MaximumPasswordLengthInChars)
             {
                 throw new InvalidCommandLineArgumentException(
-                    ErrorMessages.PasswordLengthOutOfRangeFormatString,
+                    CommonErrorMessages.PasswordLengthOutOfRangeFormatString,
                     Constants.MinimumPasswordLengthInChars,
                     Constants.MaximumPasswordLengthInChars,
                     passwordLengthParameter);
@@ -101,25 +100,10 @@ namespace Generator
             Console.WriteLine();
             Console.WriteLine(UserInterface.NewPasswordStrengthInBits, newPassword.StrengthInBits);
             Console.WriteLine();
-            Console.WriteLine(UserInterface.NewPasswordStrength, ConvertPasswordStrengthToString(newPassword.Strength));
+            Console.WriteLine(UserInterface.NewPasswordStrength, newPassword.StrengthDescription);
         }
 
         protected abstract Password GeneratePassword(int passwordLengthInCharacters);
-
-        private static string ConvertPasswordStrengthToString(PasswordStrength passwordStrength)
-        {
-            switch (passwordStrength)
-            {
-                case PasswordStrength.AdequateForProtectingAllOfYourData:
-                    return UserInterface.AdequateForProtectingAllOfYourData;
-
-                case PasswordStrength.Weak:
-                    return UserInterface.WeakPassword;
-
-                default:
-                    throw new Exception(ErrorMessages.ThisCaseShouldNeverOccur);
-            }
-        }
 
         private int passwordLengthInCharacters;
     }

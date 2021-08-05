@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Generator.Properties {
+namespace CommonGeneratorCode {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace Generator.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ErrorMessages {
+    public class CommonUserInterface {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorMessages() {
+        internal CommonUserInterface() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Generator.Properties.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CommonGeneratorCode.CommonUserInterface", typeof(CommonUserInterface).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Generator.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,47 +61,29 @@ namespace Generator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password length command line parameter contains invalid data because it does not contain a positive integer number.  Here is what the parameter contains: {0}..
+        ///   Looks up a localized string similar to This password provides adequate security.  It cannot be guessed unless a computer or website does not limit the number of password attempts and the attacker spends a lot of time and money trying to guess it.  It may also be guessable if an attacker compromises a computer or website and steals the password database.  The reason it may be guessable in the later scenario is passwords are not usually stored directly in a password database.  Instead, the password is transformed by a mathematical function and the [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string PasswordLengthDoesNotContainAValidNumber {
+        public static string AcceptablePasswordDescription {
             get {
-                return ResourceManager.GetString("PasswordLengthDoesNotContainAValidNumber", resourceCulture);
+                return ResourceManager.GetString("AcceptablePasswordDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password length command line parameter contains a number which is either too low or too high.  This program can generate a password which has {0} and {1} characters (inclusive).  Here is the parameter&apos;s value: {2}..
+        ///   Looks up a localized string similar to This password can be used to protect any data becausse it cannot be guessed..
         /// </summary>
-        internal static string PasswordLengthOutOfRangeFormatString {
+        public static string StrongPasswordDescription {
             get {
-                return ResourceManager.GetString("PasswordLengthOutOfRangeFormatString", resourceCulture);
+                return ResourceManager.GetString("StrongPasswordDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This program does not support passwords longer than 256 characters..
+        ///   Looks up a localized string similar to This password should only be used for PINs and other passwords where the number of guesses can be limited.  If the number of guesses cannot be limited, it should not be used because it can easily be guessed (i.e. a computer program may be able to try all of possible password values and find the right password)..
         /// </summary>
-        internal static string PasswordLengthTooLong {
+        public static string WeakPasswordDescription {
             get {
-                return ResourceManager.GetString("PasswordLengthTooLong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A valid password must have at least 1 character..
-        /// </summary>
-        internal static string PasswordLengthTooShort {
-            get {
-                return ResourceManager.GetString("PasswordLengthTooShort", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bug Detected: This case should never occur..
-        /// </summary>
-        internal static string ThisCaseShouldNeverOccur {
-            get {
-                return ResourceManager.GetString("ThisCaseShouldNeverOccur", resourceCulture);
+                return ResourceManager.GetString("WeakPasswordDescription", resourceCulture);
             }
         }
     }
