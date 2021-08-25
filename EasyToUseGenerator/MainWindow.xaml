@@ -29,7 +29,6 @@
                       xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
         
         Title="{x:Static resources:UserInterface.MainWindowTitle}"
-        Icon="/Resources/Generator.ico"
 
         ResizeMode="CanMinimize"
                       
@@ -62,6 +61,7 @@
                
                Style="{StaticResource StandardLabelStyle}"
                Margin="0,10,0,0"/>
+        
         <TextBlock x:Name="passwordStrengthTextBlock"
                    Text="{Binding Path=PasswordStrengthTextDescription, Mode=OneWay}"
                                
@@ -92,9 +92,12 @@
                     
                     Margin="5,0,0,0"/>
 
+            <!-- TODO - Implement Help -->
             <Button x:Name="helpButton"
                     Content="Help"                    
                     Click="OnHelpClicked"
+                    
+                    IsEnabled="False"
                     
                     TabIndex="2"
                     

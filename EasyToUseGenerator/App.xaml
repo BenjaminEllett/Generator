@@ -26,6 +26,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:EasyToUseGenerator"             
              
              StartupUri="MainWindow.xaml">
 
@@ -199,13 +200,13 @@
         
 
         <ControlTemplate x:Key="StandardWindowControlTemplate"
-                         TargetType="Window">
+                         TargetType="{x:Type local:StandardWindow}">
 
             <StackPanel Orientation="Vertical"
                         Background="{TemplateBinding Background}">
                 
                 <Border Height="{StaticResource WindowTitleBarHeightInPixels}"
-                        Background="Black"
+                        Background="{TemplateBinding TitleBarBackground}"
                         BorderThickness="0">
                     <Grid>
 
@@ -252,6 +253,7 @@
                                 Grid.Column="1"
                                 
                                 Style="{StaticResource WindowChromeButtonStyle}"
+                                Background="{TemplateBinding TitleBarBackground}"
                                 Visibility="{Binding Path=HasMinimizeButton, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                         <Button Name="CloseButton"
@@ -260,7 +262,8 @@
                                 Grid.Row="0"
                                 Grid.Column="2"
 
-                                Style="{StaticResource WindowChromeButtonStyle}"/>
+                                Style="{StaticResource WindowChromeButtonStyle}"
+                                Background="{TemplateBinding TitleBarBackground}"/>
                     </Grid>
                 </Border>
 
@@ -274,7 +277,7 @@
 
 
         <Style x:Key="StandardWindowStyle"
-               TargetType="Window"
+               TargetType="{x:Type local:StandardWindow}"
                BasedOn="{StaticResource {x:Type Window}}">
 
             <Setter Property="Template" Value="{StaticResource StandardWindowControlTemplate}"/>
