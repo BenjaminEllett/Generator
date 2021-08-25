@@ -61,7 +61,7 @@ namespace CommonGeneratorCode {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This password provides adequate security.  It cannot be guessed unless a computer or website does not limit the number of password attempts and the attacker spends a lot of time and money trying to guess it.  It may also be guessable if an attacker compromises a computer or website and steals the password database.  The reason it may be guessable in the later scenario is passwords are not usually stored directly in a password database.  Instead, the password is transformed by a mathematical function and the [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to This password provides adequate security.  It cannot be guessed unless a computer or website does not limit the number of password attempts and the attacker spends a lot of time and money trying to guess it.  It may also be guessable if an attacker compromises a computer or website and steals the password database..
         /// </summary>
         public static string AcceptablePasswordDescription {
             get {
@@ -79,7 +79,7 @@ namespace CommonGeneratorCode {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This password should only be used for PINs and other passwords where the number of guesses can be limited.  If the number of guesses cannot be limited, it should not be used because it can easily be guessed (i.e. a computer program may be able to try all of possible password values and find the right password)..
+        ///   Looks up a localized string similar to This password should only be used for PINs and other passwords where the number of guesses can be severely limited.  In general, if more than 10 guesses can be made, this type of password should not be used.  Examples of devices which severely limit the number of guesses include cell phones, ATM cards, USB Security Keys (ex. YubiKey) and smart cards.  If you are not sure if you should use this type of password, do not use it..
         /// </summary>
         public static string WeakPasswordDescription {
             get {

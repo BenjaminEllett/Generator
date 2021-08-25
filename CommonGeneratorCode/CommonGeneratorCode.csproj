@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="cOMMONErrorMessages.Designer.cs">
+    <Compile Update="CommonErrorMessages.Designer.cs">
       <DependentUpon>CommonErrorMessages.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -42,7 +42,7 @@
 
   <ItemGroup>
     <EmbeddedResource Update="CommonErrorMessages.resx">
-      <LastGenOutput>cOMMONErrorMessages.Designer.cs</LastGenOutput>
+      <LastGenOutput>CommonErrorMessages.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="CommonUserInterface.resx">

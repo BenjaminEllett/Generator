@@ -36,6 +36,7 @@ namespace CommonGeneratorCode
         // given a limited number times (usually 10 or less) to guess the PIN.
         Numeric, 
         AlphaNumeric,
+        AnyKeyOnAnEnglishKeyboardExceptASpace,
         AnyKeyOnAnEnglishKeyboard,
     };
 
@@ -56,12 +57,12 @@ namespace CommonGeneratorCode
         /// 
         /// The main advantage of this type of password is it's easier to remember and many users will not use longer passwords.
         /// 
-        /// In an online attack, the attacker repeatedly attempts to logon to a remote system (i.e. web site, windows domain, etc.).  Each 
+        /// In an online attack, the attacker repeatedly attempts to logon on to a remote system (i.e. web site, windows domain, etc.).  Each 
         /// attempt uses a different password.  These attacks are slower because each attempt takes more time and uses more resources 
         /// (ports, memory, CPU cycles, threads, etc.).  They can also be slower because the remote system may limit the number of attempts 
         /// which can be made.
         /// 
-        /// On offline attack occurs when an attacker steals a remote system's password database.  The main advantage of an offline attack 
+        /// An offline attack occurs when an attacker steals a remote system's password database.  The main advantage of an offline attack 
         /// is each password guess is much faster and the number of guesses per second cannot be limited.
         /// </summary>
         Acceptable,
@@ -88,15 +89,18 @@ namespace CommonGeneratorCode
                     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
                 };
 
-        // These characters can be typed on a standard 101 key US English keyboard.
-        private static readonly IReadOnlyList<char> AnyCharacterWhichCanBeTypedOnAEnglishKeyboard = new List<char>(AlphaNumericCharacters)
+        private static readonly IReadOnlyList<char> AnyCharacterWhichCanBeTypedOnAEnglishKeyboardExceptForASpace = new List<char>(AlphaNumericCharacters)
                 {
                     ')', '!', '@', '#', '$', '%', '^', '&', '*', '(',
 
 
                     '`', '-', '=', '[', ']', '\\', ';', '\'', ',', '.', '/',
                     '~', '_', '+', '{', '}', '|',  ':', '"',  '<', '>', '?',
+                };
 
+        // These characters can be typed on a standard 101 key US English keyboard.
+        private static readonly IReadOnlyList<char> AnyCharacterWhichCanBeTypedOnAEnglishKeyboard = new List<char>(AnyCharacterWhichCanBeTypedOnAEnglishKeyboardExceptForASpace)
+                {
                     ' '
                 };
 
@@ -147,7 +151,7 @@ namespace CommonGeneratorCode
         private static IReadOnlyList<char> GetCharactersWhichCanBeInPasswordList(PasswordType passwordType)
         {
             // LOCALIZATION: This code will have to be modified if this program is modified to work with other languages.
-            // Right now, it only supports generating passwords which can be typed on English keyboards.
+            // Right now, it only supports generating passwords which can be typed on US English keyboards.
 
             switch (passwordType)
             {
@@ -156,6 +160,9 @@ namespace CommonGeneratorCode
 
                 case PasswordType.AlphaNumeric:
                     return AlphaNumericCharacters;
+
+                case PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace:
+                    return AnyCharacterWhichCanBeTypedOnAEnglishKeyboardExceptForASpace;
 
                 case PasswordType.AnyKeyOnAnEnglishKeyboard:
                     return AnyCharacterWhichCanBeTypedOnAEnglishKeyboard;
@@ -224,7 +231,7 @@ namespace CommonGeneratorCode
             //
             // "5.1.1 Memorized Secrets
             //
-            // A Memorized Secret authenticator — commonly referred to as a password or, if numeric, a PIN — is a secret value intended to
+            // A Memorized Secret authenticator - commonly referred to as a password or, if numeric, a PIN - is a secret value intended to
             // be chosen and memorized by the user. Memorized secrets need to be of sufficient complexity and secrecy that it would be
             // impractical for an attacker to guess or otherwise discover the correct secret value.  A memorized secret is something you
             // know.
@@ -250,9 +257,7 @@ namespace CommonGeneratorCode
             double bitsPerPasswordCharacter = Math.Log(numberOfPossibleCharactersPerPasswordCharacter, newBase: 2);
             double passwordStrengthInBits = bitsPerPasswordCharacter * passwordLengthInCharacters;
 
-            // https://docs.microsoft.com/en-us/microsoft-365/admin/misc/password-policy-recommendations?view=o365-worldwide
-
-            // SECURITY: I choose 128 bits as the minimum number of bits of entropy for a verysecure password because it's infeasible to 
+            // SECURITY: I choose 128 bits as the minimum number of bits of entropy for a very secure password because it's infeasible to 
             //           guess all combinations of a password with 128 bits of entropy.  Even a very sophisticated attacker 
             //           cannot do this.
             const double MiniumumNumberOfBitsInAPasswordWhichIsAdequateForProtectingAllOfYourData = 128;
