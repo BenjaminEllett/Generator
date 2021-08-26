@@ -19,8 +19,7 @@
     <PackageProjectUrl>https://github.com/BenjaminEllett/Generator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/BenjaminEllett/Generator.git</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    <Description>Generator creates secure random passwords.  It can create passwords which can have any character on a US English keyboard, any English alpha-numeric character or a PIN.  Generator uses a cryptographically secure random number generator to create passwords.
-</Description>
+    <Description>Generator creates secure random passwords.  It's a command line program.  It can create passwords which can have any character on a US English keyboard, any English alpha-numeric character or a PIN.  Generator uses a cryptographically secure random number generator to create passwords.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -52,16 +51,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommonGeneratorCode\CommonGeneratorCode.csproj" />
     <ProjectReference Include="..\GenericCommandLineArgumentParser\GenericCommandLineArgumentParser.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\ErrorMessages.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ErrorMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\UserInterface.Designer.cs">
+    <Compile Update="UserInterface.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>UserInterface.resx</DependentUpon>
@@ -69,11 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Properties\ErrorMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\UserInterface.resx">
+    <EmbeddedResource Update="UserInterface.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UserInterface.Designer.cs</LastGenOutput>
     </EmbeddedResource>

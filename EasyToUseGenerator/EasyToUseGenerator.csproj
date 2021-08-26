@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>1.2.0</Version>
+    <Authors>Benjamin Ellett</Authors>
+    <Company />
+    <Product>Generator</Product>
+    <Copyright>Benjamin Ellett 2021</Copyright>
+    <RepositoryType>GIT</RepositoryType>
+    <Description>Easy to Use Generator creates secure random passwords.  It is easier to use because it has a graphical user interface (GUI).  It can create passwords which can have any character on a US English keyboard, any English alpha-numeric character or a PIN.  Generator uses a cryptographically secure random number generator to create passwords.</Description>
+    <PackageProjectUrl>https://github.com/BenjaminEllett/Generator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/BenjaminEllett/Generator.git</RepositoryUrl>
+    <ApplicationIcon>Generator.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\UserInterface.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserInterface.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\UserInterface.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserInterface.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonGeneratorCode\CommonGeneratorCode.csproj" />
+  </ItemGroup>
+
+</Project>

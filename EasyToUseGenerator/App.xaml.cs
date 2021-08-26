@@ -1,4 +1,4 @@
-//
+﻿//
 // MIT License
 //
 // Copyright(c) 2019-2021 Benjamin Ellett
@@ -22,21 +22,11 @@
 // SOFTWARE.
 //
 
-using GenericCommandLineArgumentParser;
-using System;
+using System.Windows;
 
-namespace Generator
+namespace EasyToUseGenerator
 {
-    class DisplayUsageCommand : CommandWithNoArguments
+    public partial class App : Application
     {
-        public DisplayUsageCommand() :
-            base(shortCommandParameterName: "?", longCommandParameterName: "Help")
-        {
-        }
-
-        public override void Run()
-        {
-            Console.Write(UserInterface.Usage);
-        }
     }
 }

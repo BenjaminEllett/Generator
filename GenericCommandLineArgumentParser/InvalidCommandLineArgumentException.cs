@@ -22,7 +22,6 @@
 // SOFTWARE.
 //
 
-using GenericCommandLineArgumentParser.Properties;
 using System;
 using System.Globalization;
 

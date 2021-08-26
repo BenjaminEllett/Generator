@@ -1,4 +1,4 @@
-//
+﻿//
 // MIT License
 //
 // Copyright(c) 2019-2021 Benjamin Ellett
@@ -22,21 +22,12 @@
 // SOFTWARE.
 //
 
-using GenericCommandLineArgumentParser;
-using System;
-
-namespace Generator
+namespace CommonGeneratorCode
 {
-    class DisplayUsageCommand : CommandWithNoArguments
+    public static class Constants
     {
-        public DisplayUsageCommand() :
-            base(shortCommandParameterName: "?", longCommandParameterName: "Help")
-        {
-        }
-
-        public override void Run()
-        {
-            Console.Write(UserInterface.Usage);
-        }
+        // These are the minimum and maximum support password lengths.
+        public const int MinimumPasswordLengthInChars = 1;
+        public const int MaximumPasswordLengthInChars = 256;
     }
 }

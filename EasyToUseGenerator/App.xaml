@@ -1,0 +1,297 @@
+﻿<!--
+    MIT License
+
+    Copyright(c) 2019-2021 Benjamin Ellett
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+-->
+
+<Application x:Class="EasyToUseGenerator.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:EasyToUseGenerator"             
+             
+             StartupUri="MainWindow.xaml">
+
+    <Application.Resources>
+
+        <Thickness x:Key="StandardVerticalSpaceBetweenItemsMargin"
+                   Left="0"
+                   Top="5"
+                   Right="0"
+                   Bottom="0">
+        </Thickness>
+
+
+        
+        <Thickness x:Key="StandardLargeVerticalSpaceBetweenItemsMargin"
+                   Left="0"
+                   Top="20"
+                   Right="0"
+                   Bottom="0">
+        </Thickness>
+
+
+
+        <Thickness x:Key="StandardHorizonalSpaceBetweenItemsMargin"
+                   Left="5"
+                   Top="0"
+                   Right="0"
+                   Bottom="0">
+        </Thickness>
+
+
+
+        <Style x:Key="StandardMainStackPanelStyle"
+               TargetType="StackPanel"> 
+
+            <Setter Property="Orientation" Value="Vertical"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+
+
+        <Style x:Key="StandardLabelStyle"
+               TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="0"/>
+
+            <!-- The format of a thinkness is left, top, right, bottom.  The margin property's value is a thickness. -->
+            <Setter Property="Margin" Value="0, 0, 0, 5"/>
+        </Style>
+
+
+
+        <!-- This style is based on the standard WPF Aero 2 Theme button style.  Here is a link to the style: 
+             https://github.com/dotnet/wpf/blob/1d2877a0dfcb45762cc080a24fd81ba970be8a4c/src/Microsoft.DotNet.Wpf/src/Themes/PresentationFramework.Aero2/Themes/Aero2.NormalColor.xaml#L7214 
+        
+             Also based the FocusVisual style one of the WPF Aero 2 Theme Focus Visual styles.  Here is a link to the style:
+             https://github.com/dotnet/wpf/blob/1d2877a0dfcb45762cc080a24fd81ba970be8a4c/src/Microsoft.DotNet.Wpf/src/Themes/PresentationFramework.Aero2/Themes/Aero2.NormalColor.xaml#L2240 
+        -->
+        <Style x:Key="StandardButtonStyle"
+               TargetType="Button">
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="IsTabStop" Value="True"/>
+
+            <Setter Property="Width" Value="180"/>
+            <Setter Property="Height" Value="30"/>
+
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Stroke="White"
+                                               StrokeDashArray="1 1"
+                                               StrokeThickness="1"
+                                               Margin="2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              RecognizesAccessKey="True"
+                                              Margin="{TemplateBinding Padding}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              Focusable="False">
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="true">
+                                <Setter TargetName="border"
+                                        Property="BorderBrush" 
+                                        Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border"
+                                        Property="Background" 
+                                        Value="White" />
+                            </Trigger>
+                            <Trigger Property="Button.IsEnabled" Value="False">
+                                <Setter TargetName="border"
+                                        Property="Background" 
+                                        Value="DarkGray" />
+                                <Setter TargetName="border"
+                                        Property="BorderBrush" 
+                                        Value="DarkGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <!-- 
+        If this value is updated, the width of Grid column 2 is the StandardWindowControlTemplate control template should also be updated. 
+            
+        Column 2 cannot reference this value because it expects a GridLength object and this object is a Double.  There is no easy way
+        to convert a double to a GridLength object in XAML.
+        -->
+        <system:Double x:Key="WindowTitleBarHeightInPixels">30</system:Double>
+       
+        
+        
+        <Style x:Key="WindowChromeButtonStyle"
+                     BasedOn="{StaticResource StandardButtonStyle}"
+                     TargetType="Button">
+            
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+            <Setter Property="IsTabStop" Value="False"/>
+
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+
+            <Setter Property="BorderThickness" Value="0"/>
+
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+            <Setter Property="Height" Value="{StaticResource WindowTitleBarHeightInPixels}"/>
+
+            <!-- The title bar height is used as the width because these buttons are square. -->            
+            <Setter Property="Width" Value="{StaticResource WindowTitleBarHeightInPixels}"/>
+        </Style>
+
+        
+
+        <ControlTemplate x:Key="StandardWindowControlTemplate"
+                         TargetType="{x:Type local:StandardWindow}">
+
+            <StackPanel Orientation="Vertical"
+                        Background="{TemplateBinding Background}">
+                
+                <Border Height="{StaticResource WindowTitleBarHeightInPixels}"
+                        Background="{TemplateBinding TitleBarBackground}"
+                        BorderThickness="0">
+                    <Grid>
+
+                        <Grid.Resources>
+                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                        </Grid.Resources>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <!-- Column 0 - Window Title column -->
+                            <ColumnDefinition Width="Auto"/>
+
+                            <!-- Column 1 - Minizine button column -->
+                            <ColumnDefinition/>
+
+                            <!-- 
+                            Column 2 - Close button column 
+                                 
+                            The title bar height is used as the width because the width of the button in this row is the title bar height (it's a square button). 
+                            -->
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{TemplateBinding Title}"   
+
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                                                    
+                                   Foreground="White"
+                                   FontWeight="Bold"
+                                   
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Left"
+                                   
+                                   Margin="10, 0, 0, 0"/>
+
+                        <Button Name="MinimizeButton"
+                                Content="&#xE921;"
+                                
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                
+                                Style="{StaticResource WindowChromeButtonStyle}"
+                                Background="{TemplateBinding TitleBarBackground}"
+                                Visibility="{Binding Path=HasMinimizeButton, Mode=OneTime, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                        <Button Name="CloseButton"
+                                Content="&#xE8BB;"
+
+                                Grid.Row="0"
+                                Grid.Column="2"
+
+                                Style="{StaticResource WindowChromeButtonStyle}"
+                                Background="{TemplateBinding TitleBarBackground}"/>
+                    </Grid>
+                </Border>
+
+                <!-- The Main Window's Client Area -->
+                <AdornerDecorator>
+                    <ContentPresenter Content="{TemplateBinding Content}" />
+                </AdornerDecorator>
+            </StackPanel>
+        </ControlTemplate>
+
+
+
+        <Style x:Key="StandardWindowStyle"
+               TargetType="{x:Type local:StandardWindow}"
+               BasedOn="{StaticResource {x:Type Window}}">
+
+            <Setter Property="Template" Value="{StaticResource StandardWindowControlTemplate}"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="ResizeMode" Value="NoResize"/>
+
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome CaptionHeight="{StaticResource WindowTitleBarHeightInPixels}"
+                                  ResizeBorderThickness="0"
+                                  CornerRadius="0"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </Application.Resources>
+</Application>

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdequateForProtectingAllOfYourData" xml:space="preserve">
-    <value>This password can be used to protect any data.</value>
-  </data>
   <data name="NewPassword" xml:space="preserve">
     <value>New password: {0}</value>
   </data>
@@ -194,8 +191,5 @@ PIN guesses.
 
 Generator /?
 - This message is displayed.</value>
-  </data>
-  <data name="WeakPassword" xml:space="preserve">
-    <value>This password should only be used for PINs and other passwords where the number of guesses can be limited.  If the number of guesses cannot be limited, it should not be used because it can easily be brute forced (i.e. a computer program may be able to try all of possible password values and find the right password).</value>
   </data>
 </root>
