@@ -25,6 +25,7 @@
 using CommonGeneratorCode;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -38,25 +39,36 @@ namespace CommonGeneratorCodeUnitTests
         // Test the lower boundary condition - Passwords with 1 character.
         [DataRow(PasswordType.Numeric, 1, PasswordStrength.Weak, 3.0)]
         [DataRow(PasswordType.AlphaNumeric, 1, PasswordStrength.Weak, 5.0)]
+        [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace, 1, PasswordStrength.Weak, 6.0)]
         [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboard, 1, PasswordStrength.Weak, 6.0)]
 
         // Test the common PIN lengths
         [DataRow(PasswordType.Numeric, 4, PasswordStrength.Weak, 13.0)]
         [DataRow(PasswordType.Numeric, 6, PasswordStrength.Weak, 19.0)]
+        [DataRow(PasswordType.Numeric, 8, PasswordStrength.Weak, 26.0)]
+
+        // Test minimum acceptable password lengths
+        [DataRow(PasswordType.AlphaNumeric, 8, PasswordStrength.Acceptable, 47.0)]
+        [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace, 8, PasswordStrength.Acceptable, 52.0)]
+        [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboard, 8, PasswordStrength.Acceptable, 52.0)]
 
         // Test common password lengths 
-        [DataRow(PasswordType.AlphaNumeric, 16, PasswordStrength.Weak, 95.0)]
-        [DataRow(PasswordType.AlphaNumeric, 20, PasswordStrength.Weak, 119.0)]
+        [DataRow(PasswordType.AlphaNumeric, 16, PasswordStrength.Acceptable, 95.0)]
+        [DataRow(PasswordType.AlphaNumeric, 20, PasswordStrength.Acceptable, 119.0)]
         [DataRow(PasswordType.AlphaNumeric, 24, PasswordStrength.Strong, 142.0)]
 
-        [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboard, 16, PasswordStrength.Weak, 105.0)] // Unfortunately, Office 365 limits passwords to 16 characters
+        [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace, 16, PasswordStrength.Acceptable, 104.0)]
+        [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace, 20, PasswordStrength.Strong, 131.0)]
+        [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace, 24, PasswordStrength.Strong, 157.0)]
+
+        [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboard, 16, PasswordStrength.Acceptable, 105.0)] 
         [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboard, 20, PasswordStrength.Strong, 131.0)]
         [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboard, 24, PasswordStrength.Strong, 157.0)]
 
         // Test the upper boundary condition - Passwords with the maximum number of characters (256).
-
         [DataRow(PasswordType.Numeric, 256, PasswordStrength.Strong, 850.0)] 
         [DataRow(PasswordType.AlphaNumeric, 256, PasswordStrength.Strong, 1524.0)]
+        [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace, 256, PasswordStrength.Strong, 1677.0)]
         [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboard, 256, PasswordStrength.Strong, 1681.0)]
 
         /// <summary>
@@ -79,17 +91,39 @@ namespace CommonGeneratorCodeUnitTests
         }
 
         [TestMethod]
-        public void PinPasswordsShouldOnlyContainNumericCharacters()
+        public void PinPasswordsShouldOnlyContainEnglishNumbers()
         {
-            const int requestedPinLength = Constants.MaximumPasswordLengthInChars;
+            PasswordShouldHaveCharacteristics(
+                PasswordType.Numeric, 
+                isCharacterValid: IsEngishNumber, 
+                allowedPasswordCharsDescription: "All PIN characters should be digits.");
+        }
 
-            Password pin = new Password(PasswordType.Numeric, passwordLengthInCharacters: requestedPinLength);
-            char[] passwordCharacters = pin.Value.ToCharArray();
+        [TestMethod]
+        public void AlphaNumericPasswordsShouldOnlyContainEnglishLettersAndNumbers()
+        {
+            PasswordShouldHaveCharacteristics(
+                PasswordType.AlphaNumeric,
+                isCharacterValid: IsEngishLetterOrNumber,
+                allowedPasswordCharsDescription: "All characters should be letters (a-z, A-Z) or numbers (0-9).");
+        }
 
-            Trace.WriteLine($"Here are the PIN's digits: {pin.Value}");
+        [TestMethod]
+        public void AnyUSEnglishKeyboardKeyExceptASpacePasswordsShouldOnlyContainEnglishLettersNumbersAndSymbols()
+        {
+            PasswordShouldHaveCharacteristics(
+                PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace,
+                isCharacterValid: character => CanCharacterByTypedOnUSEnglish101KeyKeyboard(character) && !IsSpace(character),
+                allowedPasswordCharsDescription: "All characters should be letters (a-z, A-Z), numbers (0-9) or symbols (`~, !, @, \", etc.)");
+        }
 
-            Assert.IsTrue(passwordCharacters.Length == requestedPinLength, "The length should match the requested PIN length.");
-            Assert.IsTrue(passwordCharacters.All(currentChar => char.IsDigit(currentChar)), "All PIN chartacters should be digits.");
+        [TestMethod]
+        public void AnyUSEnglishKeyboardKeyPaswordsShouldOnlyContainEnglishLettersNumbersSymbolsAndSpaces()
+        {
+            PasswordShouldHaveCharacteristics(
+                PasswordType.AnyKeyOnAnEnglishKeyboard,
+                isCharacterValid: CanCharacterByTypedOnUSEnglish101KeyKeyboard,
+                allowedPasswordCharsDescription: "All characters should be letters (a-z, A-Z), numbers (0-9), symbols (`~, !, @, \", etc.) or a space");
         }
 
         [TestMethod]
@@ -106,10 +140,63 @@ namespace CommonGeneratorCodeUnitTests
             TestPasswordObjectCreationWhichShouldThrowException(passwordLengthInCharacters: Constants.MaximumPasswordLengthInChars + 1);
         }
 
+        public static void PasswordShouldHaveCharacteristics(PasswordType passwordType, Func<char, bool> isCharacterValid, string allowedPasswordCharsDescription)
+        {
+            const int NumberOfPasswordsToTry = 10000;
+
+            for (int passwordIndex = 0; passwordIndex < NumberOfPasswordsToTry; passwordIndex++)
+            {
+                const int requestedPasswordLength = Constants.MaximumPasswordLengthInChars;
+
+                Password password = new Password(passwordType, passwordLengthInCharacters: requestedPasswordLength);
+                char[] passwordCharacters = password.Value.ToCharArray();
+
+                Trace.WriteLine($"Here are the password's value: {password.Value}");
+
+                Assert.IsTrue(passwordCharacters.Length == requestedPasswordLength, "The length should match the requested password length.");
+                Assert.IsTrue(passwordCharacters.All(isCharacterValid), allowedPasswordCharsDescription);
+            }
+        }
+
         private static void TestPasswordObjectCreationWhichShouldThrowException(int passwordLengthInCharacters)
         {
             Password password = new Password(PasswordType.AnyKeyOnAnEnglishKeyboard, passwordLengthInCharacters);
             Assert.Fail("This code should never execute because Password's constructors should throw an exception.");
+        }
+
+        private static bool IsEngishNumber(char character)
+        {
+            return character is (>= '0') and (<= '9');
+        }
+
+        private static bool IsEngishLetterOrNumber(char character)
+        {
+            bool isLetter = character is ((>= 'a') and (<= 'z')) or
+                                         ((>= 'A') and (<= 'Z'));
+            return IsEngishNumber(character) || isLetter;
+        }
+
+        private static bool CanCharacterByTypedOnUSEnglish101KeyKeyboard(char character)
+        {
+            IReadOnlySet<char> symbolsWhichCanBeTypedOnAUS101KeyKeyboard = new HashSet<char>()
+                {
+                    '`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+',
+
+                    '[', '{', ']', '}', '\\', '|',
+
+                    ';', ':', '\'', '\"',
+
+                    ',', '<', '.', '>', '/', '?',
+                };
+
+            return IsEngishLetterOrNumber(character) ||
+                   symbolsWhichCanBeTypedOnAUS101KeyKeyboard.Contains(character) ||
+                   IsSpace(character);
+        }
+
+        private static bool IsSpace(char character)
+        {
+            return (character == ' ');
         }
     }
 }
