@@ -50,7 +50,7 @@ namespace CommonGeneratorCode
         Weak,
 
         /// <summary>
-        /// This type of password is can be used for online accounts (web sites, Windows domain accounts, etc.).  These passwords are secure 
+        /// This type of password can be used for online accounts (web sites, Windows domain accounts, etc.).  These passwords are secure 
         /// against online guessing attempts if the remote computer slows down login attemps when an attacker submits too many invalid 
         /// passwords.  These passwords are not secure against offline attacks if an attacker is willing to spend a significant amount of time 
         /// and money trying to guess a password.  
@@ -89,6 +89,7 @@ namespace CommonGeneratorCode
                     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
                 };
 
+        // These characters can be typed on a standard 101 key US English keyboard.
         private static readonly IReadOnlyList<char> AnyCharacterWhichCanBeTypedOnAEnglishKeyboardExceptForASpace = new List<char>(AlphaNumericCharacters)
                 {
                     ')', '!', '@', '#', '$', '%', '^', '&', '*', '(',
