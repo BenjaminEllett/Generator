@@ -34,10 +34,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Generator.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Resources\UserInterface.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -68,10 +64,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommonGeneratorCode\CommonGeneratorCode.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Generator.ico" />
   </ItemGroup>
 
 </Project>
