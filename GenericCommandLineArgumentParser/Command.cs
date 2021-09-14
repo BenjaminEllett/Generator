@@ -48,9 +48,9 @@ namespace GenericCommandLineArgumentParser
             MaxNumberOfArguments = maxNumberOfArguments;
         }
 
-        public uint MinNumberOfArguments { get; private set; }
+        public uint MinNumberOfArguments { get; private init; }
 
-        public uint MaxNumberOfArguments { get; private set; }
+        public uint MaxNumberOfArguments { get; private init; }
 
         public bool IsName(string commandNameWithoutPrefex)
         {

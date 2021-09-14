@@ -73,7 +73,7 @@ namespace CommonGeneratorCode
         Strong,
     };
 
-    public class Password
+    public record Password
     {
         private static readonly IReadOnlyList<char> NumericCharacters = new List<char>()
                 {
@@ -148,6 +148,24 @@ namespace CommonGeneratorCode
         }
 
         public double StrengthInBits { get; private set; }
+
+        public static bool IsValidPasswordLength(int lengthInCharacters) => 
+            lengthInCharacters is >= Constants.MinimumPasswordLengthInChars and <= Constants.MaximumPasswordLengthInChars;
+
+        public static bool IsValidPasswordType(PasswordType passwordType)
+        {
+            switch (passwordType)
+            {
+                case PasswordType.AnyKeyOnAnEnglishKeyboard:
+                case PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace:
+                case PasswordType.AlphaNumeric:
+                case PasswordType.Numeric:
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
 
         private static IReadOnlyList<char> GetCharactersWhichCanBeInPasswordList(PasswordType passwordType)
         {
