@@ -28,7 +28,9 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:EasyToUseGenerator"             
              
-             StartupUri="MainWindow.xaml">
+             StartupUri="MainWindow.xaml"
+             
+             Exit="OnExit">
 
     <Application.Resources>
 

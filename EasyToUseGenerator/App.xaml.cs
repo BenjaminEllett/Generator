@@ -22,11 +22,31 @@
 // SOFTWARE.
 //
 
+using CommonGeneratorCode;
 using System.Windows;
 
 namespace EasyToUseGenerator
 {
     public partial class App : Application
     {
+        private ServiceFactory serviceFactory;
+
+        public App()
+        {
+            this.serviceFactory = new ServiceFactory();
+            this.serviceFactory.RegisterSingletonService<IAppSettingService, AppSettings>();
+            this.serviceFactory.RegisterSingletonService<ITextFileService, TextFileService>();
+
+            this.Settings = this.serviceFactory.GetService<IAppSettingService>();
+        }
+
+        public static new App Current => (App)Application.Current;
+        
+        public IAppSettingService Settings { get; init; }
+
+        private void OnExit(object sender, ExitEventArgs e)
+        {
+            this.Settings.Save();
+        }
     }
 }

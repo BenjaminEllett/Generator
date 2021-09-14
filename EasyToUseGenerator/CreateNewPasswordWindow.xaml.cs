@@ -23,53 +23,93 @@
 //
 
 using CommonGeneratorCode;
+using System;
 using System.Windows;
 
 namespace EasyToUseGenerator
 {
     public partial class CreateNewPasswordWindow : StandardWindow
     {
-        public int newPasswordLengthInChars;
+        private PasswordType newPasswordType;
+        private int newPasswordLengthInChars;
+        private bool shouldUpdateDefaultPasswordCharacteristics;
 
         public CreateNewPasswordWindow()
         {
-            this.NewPasswordType = PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace;
-
-            // 20 was chosen as the default password length because it is the smallest number of characters which produces an almost
-            // unguessable password.
-            this.NewPasswordLengthInChars = 20;
+            this.NewPasswordType = App.Current.Settings.DefaultPasswordType;
+            this.NewPasswordLengthInChars = App.Current.Settings.DefaultPasswordLengthInChars;
+            this.ShouldUpdateDefaultPasswordCharacteristics = false;
 
             this.DataContext = this;
             InitializeComponent();
         }
 
-        public PasswordType NewPasswordType { get; private set; }
+        public PasswordType NewPasswordType 
+        {
+            get => this.newPasswordType;
+
+            private set
+            {
+                // Spaces are not allowed in passwords for the following reasons:
+                //
+                // 1. It is hard for users to determine if a spaces is at the start or end of a password
+                // 2. It is hard for users to determine how many spaces are between two non-space password characters (i.e. how many spaces
+                //    are between l and d in the following password: "fdjkdjfsldkslkjfsl   dfslfdks")
+                // 3. Some password algorithms convert multuple spaces into one space. This means a user may think their password is
+                //    "sasajd  dsfdsfds" but there password really is "sasajd dsfdsfds".  This leads to problems.
+                // 4. Disallowing spaces does not significantly reduce the security of passwords.
+                //
+                if (!Password.IsValidPasswordType(value) || (PasswordType.AnyKeyOnAnEnglishKeyboard == value))
+                {
+                    throw new ArgumentException(CommonErrorMessages.ThisCaseShouldNeverOccur, paramName: nameof(value));
+                }
+
+                this.newPasswordType = value;
+                this.NotifyPropertyChanged(nameof(this.IsAnyKeyWhichCanBeTypedRadioButtonChecked));
+                this.NotifyPropertyChanged(nameof(this.IsLettersAndNumbersRadioButtonChecked));
+                this.NotifyPropertyChanged(nameof(this.IsNumbersRadioButtonChecked));
+            }
+        }
 
         public int NewPasswordLengthInChars 
         { 
-            get
-            {
-                return this.newPasswordLengthInChars;
-            }
+            get => this.newPasswordLengthInChars;
 
             set
             {
                 this.newPasswordLengthInChars = value;
-                NotifyPropertyChanged(nameof(this.NewPasswordLengthInChars));
+                this.NotifyPropertyChanged(nameof(this.NewPasswordLengthInChars));
             }
+        }
+
+        public bool ShouldUpdateDefaultPasswordCharacteristics 
+        {
+            get => this.shouldUpdateDefaultPasswordCharacteristics;
+
+            set
+            {
+                this.shouldUpdateDefaultPasswordCharacteristics = value;
+                this.NotifyPropertyChanged(nameof(this.ShouldUpdateDefaultPasswordCharacteristics));
+            }
+        }
+
+        public bool IsAnyKeyWhichCanBeTypedRadioButtonChecked
+        {
+            get => this.NewPasswordType == PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace;
+        }
+
+        public bool IsLettersAndNumbersRadioButtonChecked
+        {
+            get => this.NewPasswordType == PasswordType.AlphaNumeric;
+        }
+
+        public bool IsNumbersRadioButtonChecked
+        {
+            get => this.NewPasswordType == PasswordType.Numeric;
         }
 
         private void OnAnyKeyWhichCanBeTypedRadioButtonClicked(object sender, RoutedEventArgs e)
         {
-            // Spaces are not allowed in passwords for the following reasons:
-            //
-            // 1. It is hard for users to determine if a spaces is at the start or end of a password
-            // 2. It is hard for users to determine how many spaces are between two non-space password characters (i.e. how many spaces
-            //    are between l and d in the following password: "fdjkdjfsldkslkjfsl   dfslfdks")
-            // 3. Some password algorithms convert multuple spaces into one space. This means a user may think their password is
-            //    "sasajd  dsfdsfds" but there password really is "sasajd dsfdsfds".  This leads to problems.
-            // 4. Disallowing spaces does not significantly reduce the security of passwords.
-            //
             this.NewPasswordType = PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace;
         }
 
@@ -85,6 +125,12 @@ namespace EasyToUseGenerator
 
         private void OnCreatePasswordClicked(object sender, RoutedEventArgs e)
         {
+            if (this.ShouldUpdateDefaultPasswordCharacteristics)
+            {
+                App.Current.Settings.DefaultPasswordType = this.NewPasswordType;
+                App.Current.Settings.DefaultPasswordLengthInChars = this.NewPasswordLengthInChars;
+            }
+
             this.DialogResult = true;
         }
 
