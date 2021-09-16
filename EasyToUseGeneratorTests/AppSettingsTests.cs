@@ -50,18 +50,13 @@ namespace EasyToUseGenerator.Tests
         }
 
         [TestMethod]
-        public void AppSettingsShouldLoadSettingsWhichContainTheDefaultValues()
+        public void AppSettingsShouldLoadValidSettings()
         {
-            // The AppSetting class should use the values where were in the settings file's JSON
+            // The AppSetting class should use the values which were in the settings file's JSON
             TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
-                expectedDefaultPasswordType: Constants.InitialDefaultPasswordType, 
+                expectedDefaultPasswordType: Constants.InitialDefaultPasswordType,
                 expectedDefaultPasswordLength: Constants.InitialDefaultPasswordLengthInChars);
-        }
 
-        [TestMethod]
-        public void AppSettingsShouldLoadSettingsWhichContainNonDefaultValues()
-        {
-            // The AppSetting class should use the values where were in the settings file's JSON
             TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
                 expectedDefaultPasswordType: PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace,
                 expectedDefaultPasswordLength: 22);
@@ -104,7 +99,7 @@ namespace EasyToUseGenerator.Tests
             textFileServiceMock.Verify(
                 tfs => tfs.WriteTextFile(
                     It.IsAny<string>(), 
-                    It.Is<string>(str => IsSettingsFileContentValid(str, PasswordType.AlphaNumeric, 10))),
+                    It.Is<string>(json => IsSettingsFileContentValid(json, PasswordType.AlphaNumeric, 10))),
                 Times.Once,
                 "The AppSettings class must correctly write its current settings.");
         }

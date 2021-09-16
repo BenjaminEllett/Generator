@@ -84,7 +84,7 @@
         <!-- This style is based on the standard WPF Aero 2 Theme button style.  Here is a link to the style: 
              https://github.com/dotnet/wpf/blob/1d2877a0dfcb45762cc080a24fd81ba970be8a4c/src/Microsoft.DotNet.Wpf/src/Themes/PresentationFramework.Aero2/Themes/Aero2.NormalColor.xaml#L7214 
         
-             It is also based the WPF Aero 2 Theme FocusVisual.  Here is a link to the style:
+             It is also based on the WPF Aero 2 Theme FocusVisual style.  Here is a link to the style:
              https://github.com/dotnet/wpf/blob/1d2877a0dfcb45762cc080a24fd81ba970be8a4c/src/Microsoft.DotNet.Wpf/src/Themes/PresentationFramework.Aero2/Themes/Aero2.NormalColor.xaml#L2240 
         -->
         <Style x:Key="StandardButtonStyle"
@@ -170,7 +170,7 @@
         <!-- This style is based on the standard WPF Aero 2 Theme check box style.  Here is a link to the style: 
              https://github.com/dotnet/wpf/blob/33fe5e923be3ed119ff07b87e816afb5f80efe64/src/Microsoft.DotNet.Wpf/src/Themes/XAML/CheckBox.xaml#L338
         
-             It is also based the WPF Aero 2 Theme FocusVisual and OptionMarkFocusVisual styles.  Here is a link to the styles:
+             It is also based on the WPF Aero 2 Theme FocusVisual and OptionMarkFocusVisual styles.  Here is a link to the styles:
              https://github.com/dotnet/wpf/blob/8d0186b93161bf503e53235e6ea7afcfea610d2b/src/Microsoft.DotNet.Wpf/src/Themes/XAML/FocusVisual.xaml#L65
         
              Here are the changes made to the style:

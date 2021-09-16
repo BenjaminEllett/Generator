@@ -132,7 +132,7 @@ namespace EasyToUseGenerator
         }
 
         /// <summary>
-        /// This class is used to serialize and decerialize the settings into JSON.
+        /// This class is used to convert the app's settings to and from JSON.
         /// </summary>
         public class SerializedSettings
         {
