@@ -23,30 +23,14 @@
 //
 
 using CommonGeneratorCode;
-using System.Windows;
 
 namespace EasyToUseGenerator
 {
-    public partial class App : Application
+    public static class Constants
     {
-        private ServiceFactory serviceFactory;
+        // These values are used if there is no settings JSON file or if the file contains invalid data.
+        public const PasswordType InitialDefaultPasswordType = PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace;
 
-        public App()
-        {
-            this.serviceFactory = new ServiceFactory();
-            this.serviceFactory.RegisterSingletonService<IAppSettingService, AppSettings>();
-            this.serviceFactory.RegisterSingletonService<ITextFileService, TextFileService>();
-
-            this.Settings = this.serviceFactory.GetService<IAppSettingService>();
-        }
-
-        public static new App Current => (App)Application.Current;
-        
-        public IAppSettingService Settings { get; init; }
-
-        private void OnExit(object sender, ExitEventArgs e)
-        {
-            this.Settings.Save();
-        }
+        public const int InitialDefaultPasswordLengthInChars = 20;
     }
 }

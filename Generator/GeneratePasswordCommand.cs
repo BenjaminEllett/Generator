@@ -80,7 +80,7 @@ namespace Generator
                     e);
             }
 
-            if (passwordLengthInCharacters is < Constants.MinimumPasswordLengthInChars or > Constants.MaximumPasswordLengthInChars)
+            if (!Password.IsValidPasswordLength(passwordLengthInCharacters))
             {
                 throw new InvalidCommandLineArgumentException(
                     CommonErrorMessages.PasswordLengthOutOfRangeFormatString,

@@ -22,31 +22,44 @@
 // SOFTWARE.
 //
 
-using CommonGeneratorCode;
-using System.Windows;
+using System.IO;
 
 namespace EasyToUseGenerator
 {
-    public partial class App : Application
+    public interface ITextFileService
     {
-        private ServiceFactory serviceFactory;
+        bool TryReadTextFile(string filePath, out string stringTextFileContent);
+        void WriteTextFile(string filePath, string fileContent);
 
-        public App()
+        void CreateDirectoryIfItDoesNotExist(string directoryPath);
+    }
+
+    public class TextFileService : ITextFileService
+    {
+        public bool TryReadTextFile(string filePath, out string stringTextFileContent)
         {
-            this.serviceFactory = new ServiceFactory();
-            this.serviceFactory.RegisterSingletonService<IAppSettingService, AppSettings>();
-            this.serviceFactory.RegisterSingletonService<ITextFileService, TextFileService>();
+            stringTextFileContent = null;
 
-            this.Settings = this.serviceFactory.GetService<IAppSettingService>();
+            if (!File.Exists(filePath))
+            {
+                return false;
+            }
+
+            stringTextFileContent = File.ReadAllText(filePath);
+            return true;
         }
 
-        public static new App Current => (App)Application.Current;
-        
-        public IAppSettingService Settings { get; init; }
-
-        private void OnExit(object sender, ExitEventArgs e)
+        public void CreateDirectoryIfItDoesNotExist(string directoryPath)
         {
-            this.Settings.Save();
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+        }
+
+        public void WriteTextFile(string filePath, string fileContent)
+        {
+            File.WriteAllText(filePath, fileContent);
         }
     }
 }

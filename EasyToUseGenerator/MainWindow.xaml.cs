@@ -29,15 +29,13 @@ namespace EasyToUseGenerator
 {
     public partial class MainWindow : StandardWindow
     {
-        private const int DefaultPasswordLengthInChars = 20;
-
         private Password currentPassword;
 
         public MainWindow()
         {
             this.currentPassword = new Password(
-                PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace,
-                passwordLengthInCharacters: DefaultPasswordLengthInChars);
+                App.Current.Settings.DefaultPasswordType,
+                App.Current.Settings.DefaultPasswordLengthInChars);
             this.DataContext = this;
             InitializeComponent();
         }
