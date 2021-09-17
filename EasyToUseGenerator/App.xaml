@@ -167,16 +167,19 @@
 
         
         
-        <!-- This style is based on the standard WPF Aero 2 Theme check box style.  Here is a link to the style: 
-             https://github.com/dotnet/wpf/blob/33fe5e923be3ed119ff07b87e816afb5f80efe64/src/Microsoft.DotNet.Wpf/src/Themes/XAML/CheckBox.xaml#L338
+        <!-- 
         
-             It is also based on the WPF Aero 2 Theme FocusVisual and OptionMarkFocusVisual styles.  Here is a link to the styles:
-             https://github.com/dotnet/wpf/blob/8d0186b93161bf503e53235e6ea7afcfea610d2b/src/Microsoft.DotNet.Wpf/src/Themes/XAML/FocusVisual.xaml#L65
+        This style is based on the standard WPF Aero 2 Theme check box style.  Here is a link to the style: 
+        https://github.com/dotnet/wpf/blob/33fe5e923be3ed119ff07b87e816afb5f80efe64/src/Microsoft.DotNet.Wpf/src/Themes/XAML/CheckBox.xaml#L338
         
-             Here are the changes made to the style:
-             - Changed a lot of the colors so they fit into the app's black, white and gray color scheme.
-             - Removed the handling for the IsEnabled state from the control template.  The reason is the check box is always enabled.
-          -->
+        It is also based on the WPF Aero 2 Theme FocusVisual and OptionMarkFocusVisual styles.  Here is a link to the styles:
+        https://github.com/dotnet/wpf/blob/8d0186b93161bf503e53235e6ea7afcfea610d2b/src/Microsoft.DotNet.Wpf/src/Themes/XAML/FocusVisual.xaml#L65
+        
+        Here are the changes made to the style:
+        - A lot of the colors were changed so they fit into the app's black, white and gray color scheme.
+        - The IsEnabled state's trigger was removed from the control template.  The reason is the check box is always enabled.
+        
+        -->
         <Style x:Key="StandardCheckBoxStyle"
                TargetType="{x:Type CheckBox}">
             <Setter Property="Background" Value="White" />
@@ -279,7 +282,74 @@
             </Setter>
         </Style>
 
+        
+        
+        <!--
+        This style is based on the standard WPF Aero 2 Theme text box and text box base styles.  Here are links to the styles: 
+        
+        https://github.com/dotnet/wpf/blob/1cd0c349b204593be1f38dfab8ab8bb4d915e7a7/src/Microsoft.DotNet.Wpf/src/Themes/XAML/TextBox.xaml#L535
+        https://github.com/dotnet/wpf/blob/1cd0c349b204593be1f38dfab8ab8bb4d915e7a7/src/Microsoft.DotNet.Wpf/src/Themes/XAML/TextBox.xaml#L662
+        
+        Here is what is changed:
+        - The colors were changed to match the application's look and feel.
+        
+        -->
+        <Style x:Key="StandardTextBoxStyle" 
+               TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="SelectionBrush"
+                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+            <Setter Property="SelectionTextBrush"
+                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                          Focusable="false" 
+                                          HorizontalScrollBarVisibility="Hidden" 
+                                          VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Opacity" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Gray" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
+                        <Condition Property="IsSelectionActive" Value="false" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+                    <Setter Property="SelectionTextBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
 
+        
 
         <!-- 
         If this value is updated, the width of Grid column 2 in the StandardWindowControlTemplate control template should also be updated. 

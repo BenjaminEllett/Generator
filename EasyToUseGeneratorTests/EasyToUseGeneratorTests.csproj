@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CommonGeneratorCode\CommonGeneratorCode.csproj" />
     <ProjectReference Include="..\EasyToUseGenerator\EasyToUseGenerator.csproj" />
+    <ProjectReference Include="..\TestUtil\TestUtil.csproj" />
   </ItemGroup>
 
 </Project>
