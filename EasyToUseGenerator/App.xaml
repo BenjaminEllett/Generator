@@ -359,7 +359,7 @@
         -->
         <system:Double x:Key="WindowTitleBarHeightInPixels">30</system:Double>
        
-       
+        
         
         <Style x:Key="WindowChromeButtonStyle"
                      BasedOn="{StaticResource StandardButtonStyle}"
