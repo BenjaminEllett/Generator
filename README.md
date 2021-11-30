@@ -1,80 +1,65 @@
 # Generator
-Generator is a command line tool which uses a cryptographically secure random number generator to create truly random passwords.  Here are the program's features:
 
-- It can create passwords which have 1 to 256 characters.  The characters can come from one of the following sets:
+Generator is a family of programs which which use a cryptographically secure random number generator to create truly random passwords.  Here are its features:
+
+- It can create passwords which have 1 to at least 38 characters.  The characters can come from one of the following sets:
     - Any character which can be typed on a United States English 101 key keyboard
     - Alpha-numeric characters (a-z, A-Z and 0-9)
-    - Any numeric character (0-9)
+    - Numeric characters (0-9)
     
-- It displays a new password's strength in bits
+- It displays a new password's strength 
+
 - Anyone can easily read the code and verify it is secure.  They can do this because the program is short and the code is not complicated.
+
 - Generator uses one of the built in .NET secure random number generator classes.  It uses System.Security.Cryptography.RandomNumberGenerator (https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.randomnumbergenerator?view=net-5.0).
 
-# Generator Usage Documentation 
+Generator has two versions:
 
-```
-Generator [/AKB | /AN | /PIN] [new password length]
-Generator /GeneratePasswordUsingAnyCharacterOnAKeyboard] [new password length]
-Generator /GenerateAlphaNumericPassword [new password length]
-Generator /GeneratePersonalIdentificationNumber [new password length]
-Generator /?
-Generator /Help
+- Command line 
+- Windows App
 
-/AKB
-/GeneratePasswordUsingAnyCharacterOnAKeyboard
-     If this command is specified, the new password can have any character
-     which can be typed on a keyboard.  Each character in the password can be 
-     a letter, number, punctuation character (“ . , ‘), mathematical operator
-     (+ - / *), bracket ([ ] { }), parenthesis ( ( ) ), etc.
+The two applications are very similar.  Here are the differences:
 
-/AN
-/GenerateAlphaNumericPassword
-     If this command is specified, a new password is generated using only
-     letters and numbers.  
+- The Windows App version is easier to use.  It has a graphical user interface (GUI) and is targeted at users who do not use command line applications.
 
-/PIN
-/GeneratePersonalIdentificationNumber
-     If this command is specified, a new password is generated using only
-     numbers.  This type of passwords is typically called a PIN.  PINs should
-     only be used on devices which limit the number of attempts.  iPhones,
-     Smart cards and USB security keys are examples are devices which limit
-     the number of PIN guesses.  PINs should never be used for web sites,
-     computers or any password for a remote device.  Note that Windows has
-     PINs and passwords.  On Windows, passwords should be complex (have
-     the possibility of having letters, numbers and symbols) because they can
-     be used for remote authentication while PINs can be short because they
-     are only used for local authentication (which allows Windows to limit
-     the number of PIN guesses).
+- The command line version supports spaces in passwords.  The GUI version prohibits spaces in passwords in order to improve usability. 
 
-/?
-/Help
-     This message is displayed.
+- The command line version supports passwords from 1 to 256 characters.  The GUI version supports passwords which have 1 to 38 characters.
 
-- All commands are case insensitive.  /AKB, /? and
-  /GenerateAlphaNumericPassword are examples of commands.
+# App Documentation
 
-- All password lengths are in characters.
+Here are links to each program's documentation:
 
-- Only one command can be specified.  
+[Windows App Documentation](Documentation/WindowsAppGeneratorUsage)
 
-- Generator only supports US English Keyboards
+[Command Line App Documentation](Documentation/WindowsAppGeneratorUsage)
 
-Examples:
+# Links
 
-Generator /AKB 20
-- Creates a password using any character a user can type.  The password is 20
-characters long.
+[Password Security Advice](Documentation/PasswordSecurityAdvice)
 
-Generator /AN 32
-- Creates a password using only letters and numbers.  The password is 32
-characters long.
+This page explains how to use passwords correctly.  Using passwords correctly minimizes the chance that your accounts get broken into.
 
-Generator /PIN 6
-- Creates a 6 digit password using only numbers.  PINs should only be used on
-devices which limit the number of attempts to guess a PIN.  iPhones, smart
-cards and USB security keys are examples are devices which limit the number of
-PIN guesses.
+https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf
 
-Generator /?
-- This message is displayed.
- ```
+The National Institutes of Standards and Technology ([NIST](https://www.nist.gov/)) is a United States Government Agency which creates standards.  Section 5.1.1.1 of this document recommends that passwords have at least 8 characters.   
+
+https://github.com/BenjaminEllett/Generator
+
+This is a link to Generator’s web site.  The site contains the program’s code, automated tests, issues (bugs and work items) and project status.
+
+https://github.com/BenjaminEllett/Generator/releases
+     
+This is a link to Generator's releases.  You can go her to find the latest version of Generator and you download it from here.
+
+https://github.com/BenjaminEllett/Generator/issues
+
+This is a link to Generator’s work items and bugs. You can use this page to request new features or file bug reports.
+
+https://github.com/BenjaminEllett/Generator/projects/1 
+
+This page has the status of the current release.  You can see what is done and what is left to do.
+
+https://github.com/BenjaminEllett/Generator/blob/main/CommonGeneratorCode/Password.cs
+
+This is a link to the C# class which creates the random passwords.  It does all of the important work.
