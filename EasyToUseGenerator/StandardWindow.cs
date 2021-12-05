@@ -53,7 +53,7 @@ namespace EasyToUseGenerator
             this.Loaded += OnWindowLoaded;            
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public Brush TitleBarBackground
         {

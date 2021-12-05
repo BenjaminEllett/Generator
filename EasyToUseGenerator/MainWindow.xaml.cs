@@ -50,9 +50,9 @@ namespace EasyToUseGenerator
 
         private void OnCreateNewPasswordClicked(object sender, RoutedEventArgs e)
         {
-            CreateNewPasswordWindow createNewPasswordWindow = new CreateNewPasswordWindow();
-            createNewPasswordWindow.Owner = this;
-            bool? userCreatedNewPassword = createNewPasswordWindow.ShowDialog();
+            bool? userCreatedNewPassword;
+            CreateNewPasswordWindow createNewPasswordWindow;
+            (userCreatedNewPassword, createNewPasswordWindow) = this.CreateWindowAndShowDialogBox<CreateNewPasswordWindow>();
             if (userCreatedNewPassword == true)
             {
                 this.currentPassword = new Password(
@@ -65,8 +65,16 @@ namespace EasyToUseGenerator
 
         private void OnHelpClicked(object sender, RoutedEventArgs e)
         {
-            // TODO - Implement this method
-            throw new System.NotImplementedException();
+            this.CreateWindowAndShowDialogBox<HelpWindow>();
+        }
+
+        private (bool?, TWindow) CreateWindowAndShowDialogBox<TWindow>() 
+            where TWindow : Window, new()
+        {
+            TWindow newWindow = new TWindow();
+            newWindow.Owner = this;
+            bool? showDialogResult = newWindow.ShowDialog();
+            return (showDialogResult, newWindow);
         }
     }
 }

@@ -34,8 +34,8 @@
                       
         Style="{StaticResource StandardWindowStyle}"
                       
-        Width="560"
-        Height="245">
+        Width="570"
+        Height="255">
 
     <StackPanel x:Name="mainWindowContentStackPanel"
                 Style="{StaticResource StandardMainStackPanelStyle}">
@@ -92,12 +92,9 @@
                     
                     Margin="5,0,0,0"/>
 
-            <!-- TODO - Implement Help -->
             <Button x:Name="helpButton"
                     Content="Help"                    
                     Click="OnHelpClicked"
-                    
-                    IsEnabled="False"
                     
                     TabIndex="2"
                     

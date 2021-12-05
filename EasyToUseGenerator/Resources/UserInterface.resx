@@ -117,7 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DocumentationButtonText" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="DownloadReleaseButtonText" xml:space="preserve">
+    <value>Download Release</value>
+  </data>
+  <data name="GeneratorNameAndVersionFormatString" xml:space="preserve">
+    <value>Generator {0}.{1}.{2}</value>
+    <comment>{0} = Major Version Number, {1} = Minor Version Number, {2} = Revision Number</comment>
+  </data>
+  <data name="HelpWindowTitle" xml:space="preserve">
+    <value>Generator Help</value>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Generator</value>
+  </data>
+  <data name="OKButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PasswordAdviceButtonText" xml:space="preserve">
+    <value>Password Advice</value>
+  </data>
+  <data name="ProjectWebSiteButtonText" xml:space="preserve">
+    <value>Project Website</value>
+  </data>
+  <data name="ReportProblemsButtonText" xml:space="preserve">
+    <value>Report Problems or Give Feedback</value>
   </data>
 </root>

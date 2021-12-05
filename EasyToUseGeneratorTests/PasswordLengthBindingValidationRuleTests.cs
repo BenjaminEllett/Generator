@@ -92,6 +92,7 @@ namespace EasyToUseGenerator.Tests
         }
 
         private static ValidationResult ValidatePasswordLength<T>(T potentialPasswordLength)
+            where T : notnull
         {
             var passwordLengthBindingValidationRule = new PasswordLengthBindingValidationRule();
             return passwordLengthBindingValidationRule.Validate(potentialPasswordLength, CultureInfo.InvariantCulture);

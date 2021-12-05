@@ -1,0 +1,106 @@
+﻿<local:StandardWindow x:Class="EasyToUseGenerator.HelpWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:local="clr-namespace:EasyToUseGenerator"
+                      xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
+
+                      Title="{Binding Source={x:Static resources:UserInterface.HelpWindowTitle}, Mode=OneTime}" 
+        
+                      Style="{StaticResource StandardWindowStyle}"
+                      
+                      WindowStartupLocation="CenterOwner"
+                      TitleBarBackground="DarkSlateGray"
+                                            
+                      Height="290" 
+                      Width="398">
+    
+    <local:StandardWindow.Resources>
+        <Style x:Key="HyperLinkButtonStyle" 
+               TargetType="{x:Type ButtonBase}">
+            
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <TextBox x:Name="uriTextBox"
+                                 Text="{TemplateBinding Content}"
+                                 Focusable="False"
+                                 
+                                 FontSize="{TemplateBinding FontSize}"
+                                 Foreground="{TemplateBinding Foreground}"
+                                 Background="{TemplateBinding Background}"
+                                 
+                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+
+                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                 BorderThickness="0"
+                                 Margin="{TemplateBinding Padding}">
+                        </TextBox>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="TextDecorations" Value="Underline" TargetName="uriTextBox"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="true">
+                                <Setter Property="TextDecorations" Value="Underline" TargetName="uriTextBox"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </local:StandardWindow.Resources>
+    
+    <StackPanel Style="{StaticResource StandardMainStackPanelStyle}">
+        <TextBox Text="{Binding Path=GeneratorNameAndVersion, Mode=OneTime}"
+                 IsReadOnly="True"
+                 
+                 Foreground="Black"
+                 FontSize="24"
+                 
+                 TextAlignment="Center"
+                 
+                 BorderThickness="0"/>
+
+        <Button Content="{Binding Source={x:Static resources:UserInterface.DocumentationButtonText}, Mode=OneTime}"
+                Click="OnDocumentationClicked"
+                
+                Style="{StaticResource HyperLinkButtonStyle}"
+                Margin="{StaticResource StandardLargeVerticalSpaceBetweenItemsMargin}"/>
+
+        <Button Content="{Binding Source={x:Static resources:UserInterface.PasswordAdviceButtonText}, Mode=OneTime}"
+                Click="OnPasswordAdviceClicked"
+                
+                Style="{StaticResource HyperLinkButtonStyle}"
+                Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
+
+        <Button Content="{Binding Source={x:Static resources:UserInterface.ReportProblemsButtonText}, Mode=OneTime}"
+                Click="OnReportProblemClicked"
+
+                Style="{StaticResource HyperLinkButtonStyle}"                
+                Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
+
+        <Button Content="{Binding Source={x:Static resources:UserInterface.DownloadReleaseButtonText}, Mode=OneTime}"
+                Click="OnDownloadReleaseClicked"
+
+                Style="{StaticResource HyperLinkButtonStyle}"
+                Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
+
+        <Button Content="{Binding Source={x:Static resources:UserInterface.ProjectWebSiteButtonText}, Mode=OneTime}"
+                Click="OnProjectWebSiteClicked"
+
+                Style="{StaticResource HyperLinkButtonStyle}"                
+                Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
+
+        <Button Content="{Binding Source={x:Static resources:UserInterface.OKButtonText}, Mode=OneTime}"
+                Click="OnOKClicked"
+                HorizontalAlignment="Right"
+                Style="{StaticResource StandardButtonStyle}"
+                Margin="{StaticResource StandardLargeVerticalSpaceBetweenItemsMargin}"/>
+    </StackPanel>
+</local:StandardWindow>

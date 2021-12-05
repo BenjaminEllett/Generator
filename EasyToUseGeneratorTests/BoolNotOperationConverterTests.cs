@@ -36,7 +36,7 @@ namespace EasyToUseGenerator.Tests
         {
             Assert.IsFalse(
                 Convert(true), 
-                "The converter just nots a bool value.  This means true should be false.");
+                "The converter just nots a bool value.  This means true should be converted to false.");
 
             Assert.IsTrue(
                 Convert(false),

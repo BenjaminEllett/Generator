@@ -19,7 +19,7 @@ namespace EasyToUseGenerator.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UserInterface {
@@ -61,11 +61,83 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Documentation.
+        /// </summary>
+        public static string DocumentationButtonText {
+            get {
+                return ResourceManager.GetString("DocumentationButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Release.
+        /// </summary>
+        public static string DownloadReleaseButtonText {
+            get {
+                return ResourceManager.GetString("DownloadReleaseButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generator {0}.{1}.{2}.
+        /// </summary>
+        public static string GeneratorNameAndVersionFormatString {
+            get {
+                return ResourceManager.GetString("GeneratorNameAndVersionFormatString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generator Help.
+        /// </summary>
+        public static string HelpWindowTitle {
+            get {
+                return ResourceManager.GetString("HelpWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generator.
         /// </summary>
         public static string MainWindowTitle {
             get {
                 return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OKButtonText {
+            get {
+                return ResourceManager.GetString("OKButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password Advice.
+        /// </summary>
+        public static string PasswordAdviceButtonText {
+            get {
+                return ResourceManager.GetString("PasswordAdviceButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project Website.
+        /// </summary>
+        public static string ProjectWebSiteButtonText {
+            get {
+                return ResourceManager.GetString("ProjectWebSiteButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report Problems or Give Feedback.
+        /// </summary>
+        public static string ReportProblemsButtonText {
+            get {
+                return ResourceManager.GetString("ReportProblemsButtonText", resourceCulture);
             }
         }
     }

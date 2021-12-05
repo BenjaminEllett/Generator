@@ -43,7 +43,7 @@ namespace CommonGeneratorCodeUnitTests.TestServiceFactories
             this.TestServiceWithNoDepenedencies = testServiceWithNoDepenedencies;
         }
 
-        ITestServiceWithNoDepenedencies TestServiceWithNoDepenedencies { get; init; }
+        ITestServiceWithNoDepenedencies? TestServiceWithNoDepenedencies { get; init; }
 
         public void Foo2()
         {

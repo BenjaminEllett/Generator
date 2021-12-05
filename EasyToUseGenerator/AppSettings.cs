@@ -109,25 +109,32 @@ namespace EasyToUseGenerator
             this.DefaultPasswordType = Constants.InitialDefaultPasswordType;
             this.DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
 
-            string jsonSerializedSettings;
+            string? jsonSerializedSettings;
 
-            if (this.textFileService.TryReadTextFile(this.SettingsFileNamePath, out jsonSerializedSettings))
+            if (!this.textFileService.TryReadTextFile(this.SettingsFileNamePath, out jsonSerializedSettings))
             {
-                SerializedSettings serializedSettings = JsonSerializer.Deserialize<SerializedSettings>(jsonSerializedSettings, jsonSerializerOptions);
-                
-                // Ignore invalid settings stored in the configuration file.
-                
-                // The GUI version of this application does not support passwords with spaces.
-                if (Password.IsValidPasswordType(serializedSettings.DefaultPasswordType) &&
-                    (serializedSettings.DefaultPasswordType != PasswordType.AnyKeyOnAnEnglishKeyboard))
-                {
-                    this.DefaultPasswordType = serializedSettings.DefaultPasswordType;
-                }
+                return;
+            }
 
-                if (Password.IsValidPasswordLength(serializedSettings.DefaultPasswordLengthInChars))
-                {
-                    this.DefaultPasswordLengthInChars = serializedSettings.DefaultPasswordLengthInChars;
-                }
+            SerializedSettings? serializedSettings = JsonSerializer.Deserialize<SerializedSettings>(jsonSerializedSettings, jsonSerializerOptions);
+
+            // Ignore invalid settings stored in the configuration file.
+
+            if (serializedSettings == null)
+            {
+                return;
+            }
+
+            // The GUI version of this application does not support passwords with spaces.
+            if (Password.IsValidPasswordType(serializedSettings.DefaultPasswordType) &&
+                (serializedSettings.DefaultPasswordType != PasswordType.AnyKeyOnAnEnglishKeyboard))
+            {
+                this.DefaultPasswordType = serializedSettings.DefaultPasswordType;
+            }
+
+            if (Password.IsValidPasswordLength(serializedSettings.DefaultPasswordLengthInChars))
+            {
+                this.DefaultPasswordLengthInChars = serializedSettings.DefaultPasswordLengthInChars;
             }
         }
 

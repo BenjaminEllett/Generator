@@ -163,7 +163,11 @@ namespace GenericCommandLineArgumentParserUnitTests
                 IEnumerable<string> expectedCommandArguments = commandLineArgs.Skip(1);
 
                 Assert.IsTrue(
-                    testCommand.CommandsArguments.SequenceEqual(expectedCommandArguments),
+                    (testCommand.CommandsArguments != null),
+                    "ParseCommandLineArguments() should be called and this value should contain a list of parameters passed to ParseCommandLineArguments().");
+
+                Assert.IsTrue(
+                    testCommand.CommandsArguments!.SequenceEqual(expectedCommandArguments),
                     "The actual command arguments passed to ParseCommandLineArguments() should match the expected command arguments.");
             }
             else

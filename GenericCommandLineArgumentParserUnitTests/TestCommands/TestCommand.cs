@@ -45,7 +45,7 @@ namespace GenericCommandLineArgumentParserUnitTests.TestCommands
 
         public bool RunCalled { get; private set; } = false;
         public bool ParseCommandArgumentsCalled { get; private set; } = false;
-        public IReadOnlyList<string> CommandsArguments { get; private set; } = null;
+        public IReadOnlyList<string>? CommandsArguments { get; private set; } = null;
 
         public override void Run()
         {

@@ -77,12 +77,7 @@ namespace GeneratorUnitTest
         {
             // This test cannot create an instance of GeneratePasswordCommand because GeneratePasswordCommand is an abstract type.  It 
             // does create an instance of a type derived from GeneratePasswordCommand.  The type of derived class doesn't matter.   
-            var generatePasswordCommand = new GeneratePasswordUsingAnyCharacterOnAKeyboardCommand();
-
-            Type generatePasswordCommandType = generatePasswordCommand.GetType();
-            Assert.IsTrue(
-                generatePasswordCommandType.BaseType == typeof(GeneratePasswordCommand), 
-                "The test is not valid if the type is not derived from GeneratePasswordCommand");
+            GeneratePasswordCommand generatePasswordCommand = GeneratePasswordCommand.CreateUsingAnyCharacterOnAKeyboardCommand();
 
             string expectedExceptionText;
 
@@ -120,7 +115,7 @@ namespace GeneratorUnitTest
 
         public void TestGeneratePinCommandClass(int validPasswordLength)
         {
-            var generatePinCommand = new GeneratePinCommand();
+            GeneratePasswordCommand generatePinCommand = GeneratePasswordCommand.CreatePinCommand();
             string[] commandArguments = { validPasswordLength.ToString(CultureInfo.InvariantCulture) };
             generatePinCommand.ParseCommandArguments(commandArguments);
 
