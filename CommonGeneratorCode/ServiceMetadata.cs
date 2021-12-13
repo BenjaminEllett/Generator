@@ -28,7 +28,7 @@ namespace CommonGeneratorCode
 {
     public class ServiceMetadata
     {
-        private object singletonServiceInstance;
+        private object? singletonServiceInstance;
 
         public ServiceMetadata(Type serviceType, bool isSingleton)
         {
@@ -46,7 +46,7 @@ namespace CommonGeneratorCode
 
         public bool IsSingletonService { get; init; }
 
-        public object SingletonServiceInstance
+        public object? SingletonServiceInstance
         {
             get
             {

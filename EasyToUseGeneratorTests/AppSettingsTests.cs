@@ -126,14 +126,14 @@ namespace EasyToUseGenerator.Tests
             }
         }
 
-        private static (AppSettings, Mock<ITextFileService>) CreateAppSettingsClass(string expectedSettingsFileContent)
+        private static (AppSettings, Mock<ITextFileService>) CreateAppSettingsClass(string? expectedSettingsFileContent)
         {
             Mock<ITextFileService> textFileServiceMock = CreateTextServiceMock(expectedSettingsFileContent);
             AppSettings newAppSettings = new AppSettings(textFileServiceMock.Object);
             return (newAppSettings, textFileServiceMock);
         }
 
-        private static Mock<ITextFileService> CreateTextServiceMock(string expectedTextFileContent)
+        private static Mock<ITextFileService> CreateTextServiceMock(string? expectedTextFileContent)
         {
             Mock<ITextFileService> textFileServiceMock = new Mock<ITextFileService>(MockBehavior.Strict);
 

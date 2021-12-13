@@ -30,15 +30,35 @@ using System.Globalization;
 
 namespace Generator
 {
-    public abstract class GeneratePasswordCommand : Command
+    public class GeneratePasswordCommand : Command
     {
-        public GeneratePasswordCommand(string shortCommandParameterName, string longCommandParameterName) :
+        private PasswordType passwordType;
+        private int? passwordLengthInCharacters;
+
+        public static GeneratePasswordCommand CreatePinCommand()
+        {
+            return new GeneratePasswordCommand(
+                shortCommandParameterName: "PIN",
+                longCommandParameterName: "GeneratePersonalIdentificationNumber",
+                PasswordType.Numeric);
+        }
+
+        public static GeneratePasswordCommand CreateUsingAnyCharacterOnAKeyboardCommand()
+        {
+            return new GeneratePasswordCommand(
+                shortCommandParameterName: "AKB",
+                longCommandParameterName: "GeneratePasswordUsingAnyCharacterOnAKeyboard",
+                PasswordType.AnyKeyOnAnEnglishKeyboard);
+        }
+
+        public GeneratePasswordCommand(string shortCommandParameterName, string longCommandParameterName, PasswordType passwordType) :
             base(shortCommandParameterName,
                  longCommandParameterName,
                  minNumberOfArguments: 1,
                  maxNumberOfArguments: 1)
         {
-            this.passwordLengthInCharacters = int.MaxValue;
+            this.passwordLengthInCharacters = null;
+            this.passwordType = passwordType;
         }
 
         public override void ParseCommandArguments(string[] commandsArguments)
@@ -94,7 +114,13 @@ namespace Generator
 
         public override void Run()
         {
-            Password newPassword = GeneratePassword(this.passwordLengthInCharacters);
+            // ParseCommandArguments() should always be called before Run().
+            if (!passwordLengthInCharacters.HasValue)
+            {
+                throw new Exception(CommonErrorMessages.ThisCaseShouldNeverOccur);
+            }
+
+            Password newPassword = new Password(this.passwordType, this.passwordLengthInCharacters.Value);
 
             Console.WriteLine(UserInterface.NewPassword, newPassword.Value);
             Console.WriteLine();
@@ -102,9 +128,5 @@ namespace Generator
             Console.WriteLine();
             Console.WriteLine(UserInterface.NewPasswordStrength, newPassword.StrengthDescription);
         }
-
-        protected abstract Password GeneratePassword(int passwordLengthInCharacters);
-
-        private int passwordLengthInCharacters;
     }
 }

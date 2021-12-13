@@ -22,6 +22,7 @@
 // SOFTWARE.
 //
 
+using CommonGeneratorCode;
 using GenericCommandLineArgumentParser;
 using System.Collections.Generic;
 
@@ -31,17 +32,18 @@ namespace Generator
     {
         public GeneratorCommandLineArgumentParser()
         {
-            this.commandList = new List<Command>()
+            this.CommandList = new List<Command>()
                 {
-                    new GeneratePinCommand(),
-                    new GenerateAlphaNumericPasswordCommand(),
-                    new GeneratePasswordUsingAnyCharacterOnAKeyboardCommand(),
+                    GeneratePasswordCommand.CreatePinCommand(),
+                    new GeneratePasswordCommand(
+                        shortCommandParameterName: "AN", 
+                        longCommandParameterName: "GenerateAlphaNumericPassword",
+                        PasswordType.AlphaNumeric),
+                    GeneratePasswordCommand.CreateUsingAnyCharacterOnAKeyboardCommand(),
                     new DisplayUsageCommand(),
                 };
         }
 
-        protected override IReadOnlyList<Command> CommandList => this.commandList;
-
-        private readonly List<Command> commandList;
+        protected override IReadOnlyList<Command> CommandList { get; }
     }
 }

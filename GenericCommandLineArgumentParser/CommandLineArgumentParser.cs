@@ -50,7 +50,7 @@ namespace GenericCommandLineArgumentParser
 
             string commandNameWithoutPrefex = commandArgumentFromCommandLine.Substring(FirstCharacterAfterCommandPrefix);
             commandNameWithoutPrefex = commandNameWithoutPrefex.ToLower(CultureInfo.CurrentCulture);
-            Command command = CommandList.FirstOrDefault(currentCommand => currentCommand.IsName(commandNameWithoutPrefex));
+            Command? command = CommandList.FirstOrDefault(currentCommand => currentCommand.IsName(commandNameWithoutPrefex));
             if (null == command)
             {
                 throw new InvalidCommandLineArgumentException(ErrorMessages.InvalidCommandParameterSpecified, commandArgumentFromCommandLine);

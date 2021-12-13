@@ -33,7 +33,7 @@ namespace CommonGeneratorCodeUnitTests
     [TestClass]
     public class ServiceFactoryUnitTests
     {
-        private ServiceFactory serviceFactory;
+        private ServiceFactory? serviceFactory;
 
         // This method runs before each test
         [TestInitialize]
@@ -64,7 +64,7 @@ namespace CommonGeneratorCodeUnitTests
         public void ServiceFactoryShouldBeAbleToCreateAServiceWith_1_Dependency()
         {
             this.ServiceFactoryShouldBeAbleToCreateAService<ITestServiceWith_1_Dependency, TestServiceWith_1_Dependency>();
-            AssertTestServiceWith_1_DependencyIsCorrectlyConfigured(serviceFactory.GetService<ITestServiceWith_1_Dependency>());
+            AssertTestServiceWith_1_DependencyIsCorrectlyConfigured(serviceFactory!.GetService<ITestServiceWith_1_Dependency>());
         }
 
         [TestMethod]
@@ -83,7 +83,7 @@ namespace CommonGeneratorCodeUnitTests
         [TestMethod]
         public void ServiceFactoryShouldAlwaysReturnTheSameInstanceForSingletonServices()
         {
-            ITestServiceWith_2_Dependencies singletonService = this.serviceFactory.GetService<ITestServiceWith_2_Dependencies>();
+            ITestServiceWith_2_Dependencies singletonService = this.serviceFactory!.GetService<ITestServiceWith_2_Dependencies>();
             Assert.IsNotNull(singletonService, "The service should exist");
 
             // The choice of 10 is an arbitrary number.
@@ -101,7 +101,7 @@ namespace CommonGeneratorCodeUnitTests
         {
             // No registered service implements the ITestDataSource interface.
             TestHelper.TestActionWhichShouldThrowAnException<ArgumentException>(
-                () => this.serviceFactory.GetService<ITestDataSource>(),
+                () => this.serviceFactory!.GetService<ITestDataSource>(),
                 $"Cannot get the service because a service of type {typeof(ITestDataSource).FullName} has not been registered.");
         }
 
@@ -110,7 +110,7 @@ namespace CommonGeneratorCodeUnitTests
         {
             // Note that the first type parameter is a class, not an interface like it should be.
             TestHelper.TestActionWhichShouldThrowAnException<ArgumentException>(
-                () => this.serviceFactory.RegisterSingletonService<TestServiceWithNoDepenedencies, TestServiceWithNoDepenedencies>(),
+                () => this.serviceFactory!.RegisterSingletonService<TestServiceWithNoDepenedencies, TestServiceWithNoDepenedencies>(),
                 
                 $"TServiceInterfaceType must contain an interface type.  Here is the type it contained: " +
                 $"{typeof(TestServiceWithNoDepenedencies).FullName}" );
@@ -121,7 +121,7 @@ namespace CommonGeneratorCodeUnitTests
         {
             // Note that the second type parameter is an interface, not a class like it should be.
             TestHelper.TestActionWhichShouldThrowAnException<ArgumentException>(
-                () => this.serviceFactory.RegisterSingletonService<ITestServiceWithNoDepenedencies, ITestServiceWithNoDepenedencies>(),
+                () => this.serviceFactory!.RegisterSingletonService<ITestServiceWithNoDepenedencies, ITestServiceWithNoDepenedencies>(),
                 
                 $"TServiceType must contain a class.  Here is the type it contained: " +
                 $"{typeof(ITestServiceWithNoDepenedencies).FullName}");
@@ -131,7 +131,7 @@ namespace CommonGeneratorCodeUnitTests
         public void RegisterSingletonServiceShouldThrowAnExceptionIfIts_TServiceType_HasMultipleConstructors()
         {
             TestHelper.TestActionWhichShouldThrowAnException<ArgumentException>(
-                () => this.serviceFactory.RegisterSingletonService<IInvalidServiceWithMultipleConstructors, InvalidServiceWithMultipleConstructors>(),
+                () => this.serviceFactory!.RegisterSingletonService<IInvalidServiceWithMultipleConstructors, InvalidServiceWithMultipleConstructors>(),
                 "Services can only have one public constructor.");
         }
 
@@ -139,7 +139,7 @@ namespace CommonGeneratorCodeUnitTests
         public void RegisterSingletonServiceShouldThrowAnExceptionIfAServiceHasAlreadyBeenRegistered()
         {
             TestHelper.TestActionWhichShouldThrowAnException<ArgumentException>(
-                () => this.serviceFactory.RegisterSingletonService<ITestServiceWithNoDepenedencies, TestServiceWithNoDepenedencies>(),
+                () => this.serviceFactory!.RegisterSingletonService<ITestServiceWithNoDepenedencies, TestServiceWithNoDepenedencies>(),
                 $"Cannot register a service because a service of type {typeof(ITestServiceWithNoDepenedencies).FullName} has already been registered.");
         }
 
@@ -149,7 +149,7 @@ namespace CommonGeneratorCodeUnitTests
             where TServiceInterfaceType : class
             where TServiceType : class
         {
-            TServiceInterfaceType requestedService = this.serviceFactory.GetService<TServiceInterfaceType>();
+            TServiceInterfaceType requestedService = this.serviceFactory!.GetService<TServiceInterfaceType>();
             Type requestedServiceType = ((object)requestedService).GetType();
             Assert.IsTrue(
                 requestedServiceType == typeof(TServiceType),
@@ -160,8 +160,8 @@ namespace CommonGeneratorCodeUnitTests
             where TServiceInterfaceType : class
             where TServiceType : class
         {
-            TServiceInterfaceType requestedService = this.serviceFactory.GetService<TServiceInterfaceType>();
-            TServiceType serviceImplementation = requestedService as TServiceType;
+            TServiceInterfaceType requestedService = this.serviceFactory!.GetService<TServiceInterfaceType>();
+            TServiceType? serviceImplementation = requestedService as TServiceType;
             Assert.IsNotNull(serviceImplementation, "The service does not have the expected implementation.");
             return serviceImplementation;
         }

@@ -30,7 +30,7 @@ namespace EasyToUseGenerator
 {
     public class BoolNotOperationConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo _)
+        public object Convert(object value, Type targetType, object? parameter, CultureInfo _)
         {
             if ((value.GetType() != typeof(bool)) || (targetType != typeof(bool)))
             {

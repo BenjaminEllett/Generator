@@ -22,13 +22,14 @@
 // SOFTWARE.
 //
 
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace EasyToUseGenerator
 {
     public interface ITextFileService
     {
-        bool TryReadTextFile(string filePath, out string stringTextFileContent);
+        bool TryReadTextFile(string filePath, [NotNullWhen(true)] out string? stringTextFileContent);
         void WriteTextFile(string filePath, string fileContent);
 
         void CreateDirectoryIfItDoesNotExist(string directoryPath);
@@ -36,7 +37,7 @@ namespace EasyToUseGenerator
 
     public class TextFileService : ITextFileService
     {
-        public bool TryReadTextFile(string filePath, out string stringTextFileContent)
+        public bool TryReadTextFile(string filePath, [NotNullWhen(true)] out string? stringTextFileContent)
         {
             stringTextFileContent = null;
 

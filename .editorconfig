@@ -5,3 +5,7 @@ dotnet_diagnostic.CA3076.severity = error
 
 # CA3077: Insecure Processing in API Design, XmlDocument and XmlTextReader
 dotnet_diagnostic.CA3077.severity = error
+dotnet_diagnostic.RS0030.severity=error
+
+[*.{cs,vb}]
+dotnet_diagnostic.CA2251.severity=warning

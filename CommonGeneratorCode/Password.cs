@@ -118,8 +118,10 @@ namespace CommonGeneratorCode
             }
             
             IReadOnlyList<char> charactersWhichCanBeInPassword = GetCharactersWhichCanBeInPasswordList(passwordType);
-            GeneratePassword(charactersWhichCanBeInPassword, passwordLengthInCharacters);
-            DeterminePasswordStrength(charactersWhichCanBeInPassword.Count, passwordLengthInCharacters);
+            this.Value = GeneratePassword(charactersWhichCanBeInPassword, passwordLengthInCharacters);
+            (this.Strength, this.StrengthInBits) = DeterminePasswordStrength(
+                charactersWhichCanBeInPassword.Count, 
+                passwordLengthInCharacters);
         }
 
         public string Value { get; private set; }
@@ -191,7 +193,7 @@ namespace CommonGeneratorCode
             }
         }
 
-        private void GeneratePassword(IReadOnlyList<char> validPasswordCharactersList, int passwordLengthInCharacters)
+        private static string GeneratePassword(IReadOnlyList<char> validPasswordCharactersList, int passwordLengthInCharacters)
         { 
 #if DEBUG
             {
@@ -203,31 +205,27 @@ namespace CommonGeneratorCode
 #endif
 
             // Create a cryptographically secure random number generator.
-            RandomNumberGenerator randomNumberGenerator = RandomNumberGenerator.Create();
-            using (randomNumberGenerator)
+            using RandomNumberGenerator randomNumberGenerator = RandomNumberGenerator.Create();
+            const uint OneCharacter = 1;
+
+            byte passwordCharacterIndex;
+            byte[] passwordCharacterIndexArray = new byte[OneCharacter];
+
+            StringBuilder newPassword = new StringBuilder(passwordLengthInCharacters);
+
+            while (newPassword.Length < passwordLengthInCharacters)
             {
-                const uint OneCharacter = 1;
+                randomNumberGenerator.GetBytes(passwordCharacterIndexArray);
+                passwordCharacterIndex = passwordCharacterIndexArray[0];
 
-                byte passwordCharacterIndex;
-                byte[] passwordCharacterIndexArray = new byte[OneCharacter];
-
-                StringBuilder newPassword = new StringBuilder(passwordLengthInCharacters);
-
-                while (newPassword.Length < passwordLengthInCharacters)
+                if (IsThereAnEqualChanceEachCharacterCouldBeSelected(passwordCharacterIndex))
                 {
-                    randomNumberGenerator.GetBytes(passwordCharacterIndexArray);
-                    passwordCharacterIndex = passwordCharacterIndexArray[0];
-
-                    if (IsThereAnEqualChanceEachCharacterCouldBeSelected(passwordCharacterIndex))
-                    {
-                        passwordCharacterIndex = checked((byte)(passwordCharacterIndex % ((byte)validPasswordCharactersList.Count)));
-                        newPassword = newPassword.Append(validPasswordCharactersList[passwordCharacterIndex]);
-                    }
+                    passwordCharacterIndex = checked((byte)(passwordCharacterIndex % ((byte)validPasswordCharactersList.Count)));
+                    newPassword = newPassword.Append(validPasswordCharactersList[passwordCharacterIndex]);
                 }
-
-                this.Value = newPassword.ToString();
-                return;
             }
+
+            return newPassword.ToString();
 
 
 
@@ -242,7 +240,7 @@ namespace CommonGeneratorCode
             }
         }
 
-        private void DeterminePasswordStrength(int numberOfPossibleCharactersPerPasswordCharacter, int passwordLengthInCharacters)
+        private static (PasswordStrength, double) DeterminePasswordStrength(int numberOfPossibleCharactersPerPasswordCharacter, int passwordLengthInCharacters)
         {
             // SECURITY: The minimum length of a secure password is 8 characters.  8 characters was chosen as the minimum length based on
             // recommendations from Microsoft and the Nation Institute of Standards and Technology (NIST).  Here is NIST's
@@ -297,8 +295,7 @@ namespace CommonGeneratorCode
                 passwordStrength = PasswordStrength.Weak;
             }
 
-            this.Strength = passwordStrength;
-            this.StrengthInBits = passwordStrengthInBits;
+            return (passwordStrength, passwordStrengthInBits);
         }
     }
 }
