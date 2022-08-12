@@ -30,13 +30,13 @@ The two applications are very similar.  Here are the differences:
 
 Here are links to each program's documentation:
 
-[Windows App Documentation](Documentation/WindowsAppGeneratorUsage)
+[Windows App Documentation](Documentation/WindowsAppGeneratorUsage.md)
 
-[Command Line App Documentation](Documentation/WindowsAppGeneratorUsage)
+[Command Line App Documentation](Documentation/WindowsAppGeneratorUsage.md)
 
 # Links
 
-[Password Security Advice](Documentation/PasswordSecurityAdvice)
+[Password Security Advice](Documentation/PasswordSecurityAdvice.md)
 
 This page explains how to use passwords correctly.  Using passwords correctly minimizes the chance that your accounts get broken into.
 
