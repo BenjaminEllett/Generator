@@ -61,6 +61,24 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy to Clipboard.
+        /// </summary>
+        public static string CopyToClipboardButtonText {
+            get {
+                return ResourceManager.GetString("CopyToClipboardButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New Password.
+        /// </summary>
+        public static string CreateNewPasswordButtonText {
+            get {
+                return ResourceManager.GetString("CreateNewPasswordButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documentation.
         /// </summary>
         public static string DocumentationButtonText {
@@ -84,6 +102,15 @@ namespace EasyToUseGenerator.Resources {
         public static string GeneratorNameAndVersionFormatString {
             get {
                 return ResourceManager.GetString("GeneratorNameAndVersionFormatString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string HelpButtonText {
+            get {
+                return ResourceManager.GetString("HelpButtonText", resourceCulture);
             }
         }
         
