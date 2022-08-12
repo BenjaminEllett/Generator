@@ -211,8 +211,7 @@ namespace CommonGeneratorCodeUnitTests
             return (character == ' ');
         }
 
-        [TestMethod]
-        public void VerifyEachPasswordTypeReturnsADifferentPropertyValue(Func<Password, string> getProperty)
+        private static  void VerifyEachPasswordTypeReturnsADifferentPropertyValue(Func<Password, string> getProperty)
         {
             Password[] differentStrengthPasswords = new[]
             {
