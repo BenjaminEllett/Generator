@@ -44,8 +44,8 @@ namespace CommonGeneratorCodeUnitTests
 
         // Test the common PIN lengths
         [DataRow(PasswordType.Numeric, 4, PasswordStrength.Weak, 13.0)]
-        [DataRow(PasswordType.Numeric, 6, PasswordStrength.Weak, 19.0)]
-        [DataRow(PasswordType.Numeric, 8, PasswordStrength.Weak, 26.0)]
+        [DataRow(PasswordType.Numeric, 6, PasswordStrength.AcceptableOnlyForPins, 19.0)]
+        [DataRow(PasswordType.Numeric, 8, PasswordStrength.AcceptableOnlyForPins, 26.0)]
 
         // Test minimum acceptable password lengths
         [DataRow(PasswordType.AlphaNumeric, 8, PasswordStrength.Acceptable, 47.0)]
@@ -127,6 +127,18 @@ namespace CommonGeneratorCodeUnitTests
         }
 
         [TestMethod]
+        public void VerifyEachPasswordStrengthHasADifferentDescription()
+        {
+            VerifyEachPasswordTypeReturnsADifferentPropertyValue(password => password.StrengthDescription);
+        }
+
+        [TestMethod]
+        public void VerifyEachPasswordDisplayTextIsDifferent()
+        {
+            VerifyEachPasswordTypeReturnsADifferentPropertyValue(password => password.StrengthDisplayText);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void PasswordTooShortTest()
         {
@@ -140,7 +152,7 @@ namespace CommonGeneratorCodeUnitTests
             TestPasswordObjectCreationWhichShouldThrowException(passwordLengthInCharacters: Constants.MaximumPasswordLengthInChars + 1);
         }
 
-        public static void PasswordShouldHaveCharacteristics(PasswordType passwordType, Func<char, bool> isCharacterValid, string allowedPasswordCharsDescription)
+        private static void PasswordShouldHaveCharacteristics(PasswordType passwordType, Func<char, bool> isCharacterValid, string allowedPasswordCharsDescription)
         {
             const int NumberOfPasswordsToTry = 10000;
 
@@ -197,6 +209,37 @@ namespace CommonGeneratorCodeUnitTests
         private static bool IsSpace(char character)
         {
             return (character == ' ');
+        }
+
+        [TestMethod]
+        public void VerifyEachPasswordTypeReturnsADifferentPropertyValue(Func<Password, string> getProperty)
+        {
+            Password[] differentStrengthPasswords = new[]
+            {
+                // Strong password 
+                new Password(PasswordType.AnyKeyOnAnEnglishKeyboard, passwordLengthInCharacters: 22),
+
+                // Adequate Password
+                new Password(PasswordType.AlphaNumeric, passwordLengthInCharacters: 8),
+
+                // Adequate PIN password 
+                new Password(PasswordType.Numeric, passwordLengthInCharacters: 6),
+                
+                // Weak password
+                new Password(PasswordType.Numeric, 1),
+            };
+
+            HashSet<string> previouslySeenPropertyValues = new(StringComparer.InvariantCulture);
+
+            foreach (Password currentPassword in differentStrengthPasswords)
+            {
+                string propertyValue = getProperty(currentPassword);
+
+                Assert.IsFalse(
+                    previouslySeenPropertyValues.Contains(propertyValue),
+                    "Each different password type should have a unique property value.");
+                previouslySeenPropertyValues.Add(propertyValue);
+            }
         }
     }
 }

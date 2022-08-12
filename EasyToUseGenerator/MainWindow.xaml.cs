@@ -41,7 +41,8 @@ namespace EasyToUseGenerator
         }
 
         public string NewlyCreatedPassword => this.currentPassword.Value;
-        public string PasswordStrengthTextDescription => this.currentPassword.StrengthDescription;
+        public string PasswordStrength => this.currentPassword.StrengthDisplayText;
+        public string PasswordStrengthDescription => this.currentPassword.StrengthDescription;
 
         private void OnCopyToClipBoardPressed(object sender, RoutedEventArgs e)
         {
@@ -59,7 +60,8 @@ namespace EasyToUseGenerator
                     createNewPasswordWindow.NewPasswordType,
                     createNewPasswordWindow.NewPasswordLengthInChars);
                 this.NotifyPropertyChanged(nameof(this.NewlyCreatedPassword));
-                this.NotifyPropertyChanged(nameof(this.PasswordStrengthTextDescription));
+                this.NotifyPropertyChanged(nameof(this.PasswordStrength));
+                this.NotifyPropertyChanged(nameof(this.PasswordStrengthDescription));
             }
         }
 

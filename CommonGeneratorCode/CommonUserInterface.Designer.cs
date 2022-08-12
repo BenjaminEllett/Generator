@@ -19,7 +19,7 @@ namespace CommonGeneratorCode {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CommonUserInterface {
@@ -61,6 +61,33 @@ namespace CommonGeneratorCode {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Acceptable for PINs.
+        /// </summary>
+        public static string AcceptableOnlyForPins {
+            get {
+                return ResourceManager.GetString("AcceptableOnlyForPins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This password should only be used for PINs and other passwords where the number of guesses can be severely limited.  In general, if more than 10 guesses can be made, this type of password should not be used.  Examples of devices which severely limit the number of guesses include cell phone lock screens, ATM cards, USB security keys (ex. YubiKey) and smart cards.  If you are not sure if you should use this type of password, do not use it..
+        /// </summary>
+        public static string AcceptableOnlyForPinsDescription {
+            get {
+                return ResourceManager.GetString("AcceptableOnlyForPinsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acceptable.
+        /// </summary>
+        public static string AcceptablePassword {
+            get {
+                return ResourceManager.GetString("AcceptablePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This password provides adequate security.  It cannot be guessed unless a computer or website does not limit the number of password attempts and the attacker spends a lot of time and money trying to guess it.  It may also be guessable if an attacker compromises a computer or website and steals the password database..
         /// </summary>
         public static string AcceptablePasswordDescription {
@@ -70,7 +97,16 @@ namespace CommonGeneratorCode {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This password can be used to protect any data becausse it cannot be guessed..
+        ///   Looks up a localized string similar to Strong.
+        /// </summary>
+        public static string StrongPassword {
+            get {
+                return ResourceManager.GetString("StrongPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This password can be used to protect any data because it cannot be guessed..
         /// </summary>
         public static string StrongPasswordDescription {
             get {
@@ -79,7 +115,16 @@ namespace CommonGeneratorCode {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This password should only be used for PINs and other passwords where the number of guesses can be severely limited.  In general, if more than 10 guesses can be made, this type of password should not be used.  Examples of devices which severely limit the number of guesses include cell phones, ATM cards, USB Security Keys (ex. YubiKey) and smart cards.  If you are not sure if you should use this type of password, do not use it..
+        ///   Looks up a localized string similar to Weak.
+        /// </summary>
+        public static string Weak {
+            get {
+                return ResourceManager.GetString("Weak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This password should not be used because it is insecure.  It&apos;s insecure because it is too short and an attacker can easily guess it by trying every possible password value..
         /// </summary>
         public static string WeakPasswordDescription {
             get {

@@ -124,6 +124,24 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password Strength Description.
+        /// </summary>
+        public static string PasswordStrengthDescriptionLabel {
+            get {
+                return ResourceManager.GetString("PasswordStrengthDescriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password Strength.
+        /// </summary>
+        public static string PasswordStrengthLabel {
+            get {
+                return ResourceManager.GetString("PasswordStrengthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Website.
         /// </summary>
         public static string ProjectWebSiteButtonText {

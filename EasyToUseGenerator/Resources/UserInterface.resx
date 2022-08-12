@@ -119,30 +119,45 @@
   </resheader>
   <data name="DocumentationButtonText" xml:space="preserve">
     <value>Documentation</value>
+    <comment>Used on the Help Window</comment>
   </data>
   <data name="DownloadReleaseButtonText" xml:space="preserve">
     <value>Download Release</value>
+    <comment>Used on the Help Window</comment>
   </data>
   <data name="GeneratorNameAndVersionFormatString" xml:space="preserve">
     <value>Generator {0}.{1}.{2}</value>
-    <comment>{0} = Major Version Number, {1} = Minor Version Number, {2} = Revision Number</comment>
+    <comment>Used on the Help Window - {0} = Major Version Number, {1} = Minor Version Number, {2} = Revision Number</comment>
   </data>
   <data name="HelpWindowTitle" xml:space="preserve">
     <value>Generator Help</value>
+    <comment>Used on the Help Window</comment>
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Generator</value>
+    <comment>Used on the Main Window</comment>
   </data>
   <data name="OKButtonText" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="PasswordAdviceButtonText" xml:space="preserve">
     <value>Password Advice</value>
+    <comment>Used on the Help Window</comment>
+  </data>
+  <data name="PasswordStrengthDescriptionLabel" xml:space="preserve">
+    <value>Password Strength Description</value>
+    <comment>Used on the Main Window</comment>
+  </data>
+  <data name="PasswordStrengthLabel" xml:space="preserve">
+    <value>Password Strength</value>
+    <comment>Used on the Main Window</comment>
   </data>
   <data name="ProjectWebSiteButtonText" xml:space="preserve">
     <value>Project Website</value>
+    <comment>Used on the Help Window</comment>
   </data>
   <data name="ReportProblemsButtonText" xml:space="preserve">
     <value>Report Problems or Give Feedback</value>
+    <comment>Used on the Help Window</comment>
   </data>
 </root>
