@@ -61,6 +61,33 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Any character which can be typed.
+        /// </summary>
+        public static string AnyCharacterWhichCanBeTypedRadioButtonText {
+            get {
+                return ResourceManager.GetString("AnyCharacterWhichCanBeTypedRadioButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any upper-case letter, lower-case letter, number or symbol character can appear in the password.  Spaces cannot appear in the password..
+        /// </summary>
+        public static string AnyCharacterWhichCanBeTypedRadioButtonToolTipText {
+            get {
+                return ResourceManager.GetString("AnyCharacterWhichCanBeTypedRadioButtonToolTipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string CancelButtonText {
+            get {
+                return ResourceManager.GetString("CancelButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy to Clipboard.
         /// </summary>
         public static string CopyToClipboardButtonText {
@@ -75,6 +102,24 @@ namespace EasyToUseGenerator.Resources {
         public static string CreateNewPasswordButtonText {
             get {
                 return ResourceManager.GetString("CreateNewPasswordButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New Password.
+        /// </summary>
+        public static string CreateNewPasswordWindowTitle {
+            get {
+                return ResourceManager.GetString("CreateNewPasswordWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Password.
+        /// </summary>
+        public static string CreatePasswordButtonText {
+            get {
+                return ResourceManager.GetString("CreatePasswordButtonText", resourceCulture);
             }
         }
         
@@ -124,11 +169,65 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Letters and numbers.
+        /// </summary>
+        public static string LettersAndNumbersRadioButtonText {
+            get {
+                return ResourceManager.GetString("LettersAndNumbersRadioButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any upper-case letter, lower-case letter or number can appear in the password.
+        /// </summary>
+        public static string LettersAndNumbersRadioButtonToolTipText {
+            get {
+                return ResourceManager.GetString("LettersAndNumbersRadioButtonToolTipText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generator.
         /// </summary>
         public static string MainWindowTitle {
             get {
                 return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Characters which may be included in the new password.
+        /// </summary>
+        public static string NewPasswordCharacterSetLabel {
+            get {
+                return ResourceManager.GetString("NewPasswordCharacterSetLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Password Length.
+        /// </summary>
+        public static string NewPasswordLengthLabel {
+            get {
+                return ResourceManager.GetString("NewPasswordLengthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numbers.
+        /// </summary>
+        public static string NumbersRadioButtonText {
+            get {
+                return ResourceManager.GetString("NumbersRadioButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any number can appear in the password.  These passwords are usually used for 4 to 6 number passwords called Personal Identification Numbers (PINs)..
+        /// </summary>
+        public static string NumbersRadioButtonToolTipText {
+            get {
+                return ResourceManager.GetString("NumbersRadioButtonToolTipText", resourceCulture);
             }
         }
         
@@ -183,6 +282,15 @@ namespace EasyToUseGenerator.Resources {
         public static string ReportProblemsButtonText {
             get {
                 return ResourceManager.GetString("ReportProblemsButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update default password length and type.
+        /// </summary>
+        public static string UpdateDefaultPasswordLengthAndTypeCheckBoxText {
+            get {
+                return ResourceManager.GetString("UpdateDefaultPasswordLengthAndTypeCheckBoxText", resourceCulture);
             }
         }
     }
