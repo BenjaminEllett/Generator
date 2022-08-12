@@ -35,11 +35,10 @@
         Style="{StaticResource StandardWindowStyle}"
                       
         Width="570"
-        Height="255">
+        Height="301">
 
     <StackPanel x:Name="mainWindowContentStackPanel"
                 Style="{StaticResource StandardMainStackPanelStyle}">
-        <!-- TODO - Make Localizable -->
         <Label Content="Newly Created Password"
                Target="{Binding ElementName=newlyCreatedPasswordTextBox}"   
                
@@ -55,15 +54,27 @@
                  FontSize="24"
                  BorderThickness="0"/>
 
-        <!-- TODO - Make Localizable -->
-        <Label Content="Password Strength"
+        <Label Content="{x:Static resources:UserInterface.PasswordStrengthLabel}"
                Target="{Binding ElementName=passwordStrengthTextBlock}"   
                
                Style="{StaticResource StandardLabelStyle}"
                Margin="0,10,0,0"/>
         
         <TextBlock x:Name="passwordStrengthTextBlock"
-                   Text="{Binding Path=PasswordStrengthTextDescription, Mode=OneWay}"
+                   Text="{Binding Path=PasswordStrength, Mode=OneWay}"
+                               
+                   TextWrapping="Wrap"
+                   
+                   Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
+
+        <Label Content="{x:Static resources:UserInterface.PasswordStrengthDescriptionLabel}"
+               Target="{Binding ElementName=passwordStrengthDescriptionTextBlock}"   
+               
+               Style="{StaticResource StandardLabelStyle}"
+               Margin="0,10,0,0"/>
+
+        <TextBlock x:Name="passwordStrengthDescriptionTextBlock"
+                   Text="{Binding Path=PasswordStrengthDescription, Mode=OneWay}"
                                
                    TextWrapping="Wrap"
                    
@@ -74,7 +85,7 @@
                     Margin="0,10,0,0">
             
             <Button x:Name="copyToClipBoardButton"
-                    Content="Copy to Clipboard"
+                    Content="{x:Static resources:UserInterface.CopyToClipboardButtonText}"
                     Click="OnCopyToClipBoardPressed"
                     
                     IsDefault="True"
@@ -83,7 +94,7 @@
                     Style="{StaticResource StandardButtonStyle}"/>
 
             <Button x:Name="createNewPasswordButton"
-                    Content="Create New Password"
+                    Content="{x:Static resources:UserInterface.CreateNewPasswordButtonText}"
                     Click="OnCreateNewPasswordClicked"
                     
                     TabIndex="1"
@@ -93,7 +104,7 @@
                     Margin="5,0,0,0"/>
 
             <Button x:Name="helpButton"
-                    Content="Help"                    
+                    Content="{x:Static resources:UserInterface.HelpButtonText}"                    
                     Click="OnHelpClicked"
                     
                     TabIndex="2"

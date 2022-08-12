@@ -9,7 +9,7 @@
                       Style="{StaticResource StandardWindowStyle}"
                       
                       WindowStartupLocation="CenterOwner"
-                      TitleBarBackground="DarkSlateGray"
+                      TitleBarBackground="Black"
                                             
                       Height="290" 
                       Width="398">

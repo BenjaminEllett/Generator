@@ -43,11 +43,18 @@ namespace CommonGeneratorCode
     public enum PasswordStrength
     {
         /// <summary>
-        /// This type of password can be easily guessed if an attacker is allowed an unlimited number of chances to guess it.  Passwords with 
-        /// this designation can be used as PINs for phones, computers, ATM cards, etc.  The cannot be used for remote authentication because 
-        /// an attacker will quickly guess the password.
+        /// This password is insecure because it is too short.  It should not be used unless it is the only option.  For example, you might use
+        /// a 4 digit PIN if your bank does not allow longer PINs on ATM cards.  These types of passwords cannot be used for remote authentication 
+        /// because an attacker will quickly guess the password.
         /// </summary>
         Weak,
+
+        /// <summary>
+        /// This type of password can be easily guessed if an attacker is allowed an unlimited number of chances to guess it.  Passwords with 
+        /// this designation can be used as PINs for phones, computers, ATM cards, etc.  They cannot be used for remote authentication because 
+        /// an attacker will quickly guess the password.
+        /// </summary>
+        AcceptableOnlyForPins,
 
         /// <summary>
         /// This type of password can be used for online accounts (web sites, Windows domain accounts, etc.).  These passwords are secure 
@@ -128,24 +135,33 @@ namespace CommonGeneratorCode
 
         public PasswordStrength Strength { get; private set; }
 
+        public string StrengthDisplayText
+        {
+            get
+            {
+                return this.Strength switch
+                {
+                    PasswordStrength.Strong => CommonUserInterface.StrongPassword,
+                    PasswordStrength.Acceptable => CommonUserInterface.AcceptablePassword,
+                    PasswordStrength.AcceptableOnlyForPins => CommonUserInterface.AcceptableOnlyForPins,
+                    PasswordStrength.Weak => CommonUserInterface.Weak,
+                    _ => throw new Exception(CommonErrorMessages.ThisCaseShouldNeverOccur),
+                };
+            }
+        }
+
         public string StrengthDescription
         {
             get
             {
-                switch (this.Strength)
+                return this.Strength switch
                 {
-                    case PasswordStrength.Strong:
-                        return CommonUserInterface.StrongPasswordDescription;
-
-                    case PasswordStrength.Acceptable:
-                        return CommonUserInterface.AcceptablePasswordDescription;
-
-                    case PasswordStrength.Weak:
-                        return CommonUserInterface.WeakPasswordDescription;
-
-                    default:
-                        throw new Exception(CommonErrorMessages.ThisCaseShouldNeverOccur);
-                }
+                    PasswordStrength.Strong => CommonUserInterface.StrongPasswordDescription,
+                    PasswordStrength.Acceptable => CommonUserInterface.AcceptablePasswordDescription,
+                    PasswordStrength.AcceptableOnlyForPins => CommonUserInterface.AcceptableOnlyForPinsDescription,
+                    PasswordStrength.Weak => CommonUserInterface.WeakPasswordDescription,
+                    _ => throw new Exception(CommonErrorMessages.ThisCaseShouldNeverOccur),
+                };
             }
         }
 
@@ -269,7 +285,8 @@ namespace CommonGeneratorCode
             // (accessed on 7/5/2021,
             // https://docs.microsoft.com/en-us/microsoft-365/admin/misc/password-policy-recommendations?view=o365-worldwide)
             // 
-            const double MinimumPasswordLengthInChars = 8;
+            const double MinimumAcceptable_Pin_LengthInChars = 6;
+            const double MinimumAcceptable_Password_LengthInChars = 8;
 
             double bitsPerPasswordCharacter = Math.Log(numberOfPossibleCharactersPerPasswordCharacter, newBase: 2);
             double passwordStrengthInBits = bitsPerPasswordCharacter * passwordLengthInCharacters;
@@ -285,13 +302,17 @@ namespace CommonGeneratorCode
             {
                 passwordStrength = PasswordStrength.Strong;
             }
-            else if ((MinimumPasswordLengthInChars <= passwordLengthInCharacters) &&
+            else if ((MinimumAcceptable_Password_LengthInChars <= passwordLengthInCharacters) &&
                      (numberOfPossibleCharactersPerPasswordCharacter >= AlphaNumericCharacters.Count))
             {
                 passwordStrength = PasswordStrength.Acceptable;
             }
-            else
+            else if (MinimumAcceptable_Pin_LengthInChars <= passwordLengthInCharacters)
             {
+                passwordStrength = PasswordStrength.AcceptableOnlyForPins;
+            }
+            else 
+            { 
                 passwordStrength = PasswordStrength.Weak;
             }
 
