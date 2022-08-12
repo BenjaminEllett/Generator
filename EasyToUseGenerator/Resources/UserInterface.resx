@@ -117,6 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnyCharacterWhichCanBeTypedRadioButtonText" xml:space="preserve">
+    <value>Any character which can be typed</value>
+    <comment>Used on the Create New Password Window</comment>
+  </data>
+  <data name="AnyCharacterWhichCanBeTypedRadioButtonToolTipText" xml:space="preserve">
+    <value>Any upper-case letter, lower-case letter, number or symbol character can appear in the password.  Spaces cannot appear in the password.</value>
+    <comment>Used on the Create New Password Window</comment>
+  </data>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="CopyToClipboardButtonText" xml:space="preserve">
     <value>Copy to Clipboard</value>
     <comment>Used on the Main Window</comment>
@@ -124,6 +135,14 @@
   <data name="CreateNewPasswordButtonText" xml:space="preserve">
     <value>Create New Password</value>
     <comment>Used on the Main Window</comment>
+  </data>
+  <data name="CreateNewPasswordWindowTitle" xml:space="preserve">
+    <value>Create New Password</value>
+    <comment>Used on the Create New Password Window</comment>
+  </data>
+  <data name="CreatePasswordButtonText" xml:space="preserve">
+    <value>Create Password</value>
+    <comment>Used on the Create New Password Window</comment>
   </data>
   <data name="DocumentationButtonText" xml:space="preserve">
     <value>Documentation</value>
@@ -145,9 +164,33 @@
     <value>Generator Help</value>
     <comment>Used on the Help Window</comment>
   </data>
+  <data name="LettersAndNumbersRadioButtonText" xml:space="preserve">
+    <value>Letters and numbers</value>
+    <comment>Used on the Create New Password Window</comment>
+  </data>
+  <data name="LettersAndNumbersRadioButtonToolTipText" xml:space="preserve">
+    <value>Any upper-case letter, lower-case letter or number can appear in the password</value>
+    <comment>Used on the Create New Password Window</comment>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Generator</value>
     <comment>Used on the Main Window</comment>
+  </data>
+  <data name="NewPasswordCharacterSetLabel" xml:space="preserve">
+    <value>Characters which may be included in the new password</value>
+    <comment>Used on the Create New Password Window</comment>
+  </data>
+  <data name="NewPasswordLengthLabel" xml:space="preserve">
+    <value>New Password Length</value>
+    <comment>Used on the Create New Password Window</comment>
+  </data>
+  <data name="NumbersRadioButtonText" xml:space="preserve">
+    <value>Numbers</value>
+    <comment>Used on the Create New Password Window</comment>
+  </data>
+  <data name="NumbersRadioButtonToolTipText" xml:space="preserve">
+    <value>Any number can appear in the password.  These passwords are usually used for 4 to 6 number passwords called Personal Identification Numbers (PINs).</value>
+    <comment>Used on the Create New Password Window</comment>
   </data>
   <data name="OKButtonText" xml:space="preserve">
     <value>OK</value>
@@ -171,5 +214,9 @@
   <data name="ReportProblemsButtonText" xml:space="preserve">
     <value>Report Problems or Give Feedback</value>
     <comment>Used on the Help Window</comment>
+  </data>
+  <data name="UpdateDefaultPasswordLengthAndTypeCheckBoxText" xml:space="preserve">
+    <value>Update default password length and type</value>
+    <comment>Used on the Create New Password Window</comment>
   </data>
 </root>

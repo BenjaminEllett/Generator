@@ -4,13 +4,15 @@
                       xmlns:local="clr-namespace:EasyToUseGenerator"
                       xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
 
-                      Title="{Binding Source={x:Static resources:UserInterface.HelpWindowTitle}, Mode=OneTime}" 
-        
+                      Title="{x:Static resources:UserInterface.HelpWindowTitle}" 
+
+                      ResizeMode="NoResize"
+                      WindowStartupLocation="CenterOwner"
+                      
                       Style="{StaticResource StandardWindowStyle}"
                       
-                      WindowStartupLocation="CenterOwner"
-                      TitleBarBackground="Black"
-                                            
+                      TitleBarBackground="DarkSlateGray"
+                      
                       Height="290" 
                       Width="398">
     
@@ -67,37 +69,37 @@
                  
                  BorderThickness="0"/>
 
-        <Button Content="{Binding Source={x:Static resources:UserInterface.DocumentationButtonText}, Mode=OneTime}"
+        <Button Content="{x:Static resources:UserInterface.DocumentationButtonText}"
                 Click="OnDocumentationClicked"
                 
                 Style="{StaticResource HyperLinkButtonStyle}"
                 Margin="{StaticResource StandardLargeVerticalSpaceBetweenItemsMargin}"/>
 
-        <Button Content="{Binding Source={x:Static resources:UserInterface.PasswordAdviceButtonText}, Mode=OneTime}"
+        <Button Content="{x:Static resources:UserInterface.PasswordAdviceButtonText}"
                 Click="OnPasswordAdviceClicked"
                 
                 Style="{StaticResource HyperLinkButtonStyle}"
                 Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
 
-        <Button Content="{Binding Source={x:Static resources:UserInterface.ReportProblemsButtonText}, Mode=OneTime}"
+        <Button Content="{x:Static resources:UserInterface.ReportProblemsButtonText}"
                 Click="OnReportProblemClicked"
 
                 Style="{StaticResource HyperLinkButtonStyle}"                
                 Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
 
-        <Button Content="{Binding Source={x:Static resources:UserInterface.DownloadReleaseButtonText}, Mode=OneTime}"
+        <Button Content="{x:Static resources:UserInterface.DownloadReleaseButtonText}"
                 Click="OnDownloadReleaseClicked"
 
                 Style="{StaticResource HyperLinkButtonStyle}"
                 Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
 
-        <Button Content="{Binding Source={x:Static resources:UserInterface.ProjectWebSiteButtonText}, Mode=OneTime}"
+        <Button Content="{x:Static resources:UserInterface.ProjectWebSiteButtonText}"
                 Click="OnProjectWebSiteClicked"
 
                 Style="{StaticResource HyperLinkButtonStyle}"                
                 Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
 
-        <Button Content="{Binding Source={x:Static resources:UserInterface.OKButtonText}, Mode=OneTime}"
+        <Button Content="{x:Static resources:UserInterface.OKButtonText}"
                 Click="OnOKClicked"
                 HorizontalAlignment="Right"
                 Style="{StaticResource StandardButtonStyle}"
