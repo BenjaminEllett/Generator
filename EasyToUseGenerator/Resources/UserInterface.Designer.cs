@@ -223,7 +223,7 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The newly created password may contain lower-case and upper-case characters.  Your screen reader may not distinguish between character case by default.  Please configure it to do so if you want to copy down the password.  Also, your password contains symbols (characters which are not letters or numbers) and your screen reader may not read the symbols by default.  Please configure it to read the symbols if you want to hear the entire password.  Note that character case is important because it makes passwords [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to The newly created password may contain lower-case letters, upper-case letters and symbols.  By default, some screen readers do not distinguish between character case and do not read every symbol.  If you want to hear the entire password, you may need to use a feature which reads all characters and each letter’s case.  Note that character case is important because it improves the password’s security.  All of the characters and symbols in a generated password should be used because it makes the password more  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string NewlyCreatedAllCharacterPasswordHelpText {
             get {
@@ -232,7 +232,7 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The newly created password may contain lower-case and upper-case characters.  Your screen reader may not distinguish between character case by default.  Please configure it to do so if you want to copy down the password.  Note using lower-case and upper-case characters in a password makes the password much more secure.  .
+        ///   Looks up a localized string similar to The newly created password may contain lower-case and upper-case characters.  Your screen reader may not distinguish between character case by default.  Please configure it to do so if you want to copy down the password.  Note using lower-case and upper-case characters in a password makes the password much more secure..
         /// </summary>
         public static string NewlyCreatedAlphaNumericPasswordHelpText {
             get {
