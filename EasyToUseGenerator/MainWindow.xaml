@@ -37,44 +37,35 @@
         Width="570"
         Height="301">
 
-    <StackPanel x:Name="mainWindowContentStackPanel"
-                Style="{StaticResource StandardMainStackPanelStyle}">
-        <Label Content="Newly Created Password"
-               Target="{Binding ElementName=newlyCreatedPasswordTextBox}"   
-               
+    <StackPanel Style="{StaticResource StandardMainStackPanelStyle}">
+        <Label Content="{x:Static resources:UserInterface.NewlyCreatedPasswordLabel}"
+
                Style="{StaticResource StandardLabelStyle}"/>
         
-        <TextBox x:Name="newlyCreatedPasswordTextBox"
-                 Text="{Binding Path=NewlyCreatedPassword, Mode=OneWay}"
-                    
-                 Focusable="False"
-                 IsReadOnly="True"
-                         
-                 FontFamily="Courier New"
-                 FontSize="24"
-                 BorderThickness="0"/>
+        <TextBlock Text="{Binding Path=NewlyCreatedPassword, Mode=OneWay}"
+               
+                   AutomationProperties.HelpText="{Binding Path=NewlyCreatedPasswordUIAutomationHelpText, Mode=OneWay}"
+                   
+                   FontFamily="Courier New"
+                   FontSize="24"/>
 
         <Label Content="{x:Static resources:UserInterface.PasswordStrengthLabel}"
-               Target="{Binding ElementName=passwordStrengthTextBlock}"   
-               
+              
                Style="{StaticResource StandardLabelStyle}"
                Margin="0,10,0,0"/>
         
-        <TextBlock x:Name="passwordStrengthTextBlock"
-                   Text="{Binding Path=PasswordStrength, Mode=OneWay}"
+        <TextBlock Text="{Binding Path=PasswordStrength, Mode=OneWay}"
                                
                    TextWrapping="Wrap"
                    
                    Margin="{StaticResource StandardVerticalSpaceBetweenItemsMargin}"/>
 
         <Label Content="{x:Static resources:UserInterface.PasswordStrengthDescriptionLabel}"
-               Target="{Binding ElementName=passwordStrengthDescriptionTextBlock}"   
                
                Style="{StaticResource StandardLabelStyle}"
                Margin="0,10,0,0"/>
 
-        <TextBlock x:Name="passwordStrengthDescriptionTextBlock"
-                   Text="{Binding Path=PasswordStrengthDescription, Mode=OneWay}"
+        <TextBlock Text="{Binding Path=PasswordStrengthDescription, Mode=OneWay}"
                                
                    TextWrapping="Wrap"
                    
@@ -84,8 +75,7 @@
         <StackPanel Orientation="Horizontal"
                     Margin="0,10,0,0">
             
-            <Button x:Name="copyToClipBoardButton"
-                    Content="{x:Static resources:UserInterface.CopyToClipboardButtonText}"
+            <Button Content="{x:Static resources:UserInterface.CopyToClipboardButtonText}"
                     Click="OnCopyToClipBoardPressed"
                     
                     IsDefault="True"
@@ -93,8 +83,7 @@
                     
                     Style="{StaticResource StandardButtonStyle}"/>
 
-            <Button x:Name="createNewPasswordButton"
-                    Content="{x:Static resources:UserInterface.CreateNewPasswordButtonText}"
+            <Button Content="{x:Static resources:UserInterface.CreateNewPasswordButtonText}"
                     Click="OnCreateNewPasswordClicked"
                     
                     TabIndex="1"
@@ -103,8 +92,7 @@
                     
                     Margin="5,0,0,0"/>
 
-            <Button x:Name="helpButton"
-                    Content="{x:Static resources:UserInterface.HelpButtonText}"
+            <Button Content="{x:Static resources:UserInterface.HelpButtonText}"
                     Click="OnHelpClicked"
                     
                     TabIndex="2"

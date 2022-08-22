@@ -123,13 +123,17 @@ namespace CommonGeneratorCode
             {
                 throw new ArgumentException(CommonErrorMessages.PasswordLengthTooLong);
             }
-            
-            IReadOnlyList<char> charactersWhichCanBeInPassword = GetCharactersWhichCanBeInPasswordList(passwordType);
+
+            this.PasswordType = passwordType;
+
+            IReadOnlyList<char> charactersWhichCanBeInPassword = GetCharactersWhichCanBeInPasswordList(this.PasswordType);
             this.Value = GeneratePassword(charactersWhichCanBeInPassword, passwordLengthInCharacters);
             (this.Strength, this.StrengthInBits) = DeterminePasswordStrength(
-                charactersWhichCanBeInPassword.Count, 
+                charactersWhichCanBeInPassword.Count,
                 passwordLengthInCharacters);
         }
+
+        public PasswordType PasswordType { get; }
 
         public string Value { get; private set; }
 
