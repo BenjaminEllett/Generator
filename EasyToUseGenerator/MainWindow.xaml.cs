@@ -23,6 +23,8 @@
 //
 
 using CommonGeneratorCode;
+using EasyToUseGenerator.Resources;
+using System;
 using System.Windows;
 
 namespace EasyToUseGenerator
@@ -41,6 +43,23 @@ namespace EasyToUseGenerator
         }
 
         public string NewlyCreatedPassword => this.currentPassword.Value;
+
+        public string NewlyCreatedPasswordUIAutomationHelpText
+        {
+            get
+            {
+                return this.currentPassword.PasswordType switch
+                {
+                    PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace => UserInterface.NewlyCreatedAllCharacterPasswordHelpText,
+                    PasswordType.AlphaNumeric => UserInterface.NewlyCreatedAlphaNumericPasswordHelpText,
+                    PasswordType.Numeric => string.Empty,
+
+                    // Passwords with spaces are not supported by this application.
+                    PasswordType.AnyKeyOnAnEnglishKeyboard => throw new Exception(CommonErrorMessages.ThisCaseShouldNeverOccur),
+                    _ => throw new Exception(CommonErrorMessages.ThisCaseShouldNeverOccur),
+                };
+            }
+        }
         public string PasswordStrength => this.currentPassword.StrengthDisplayText;
         public string PasswordStrengthDescription => this.currentPassword.StrengthDescription;
 
@@ -60,6 +79,7 @@ namespace EasyToUseGenerator
                     createNewPasswordWindow.NewPasswordType,
                     createNewPasswordWindow.NewPasswordLengthInChars);
                 this.NotifyPropertyChanged(nameof(this.NewlyCreatedPassword));
+                this.NotifyPropertyChanged(nameof(this.NewlyCreatedPasswordUIAutomationHelpText));
                 this.NotifyPropertyChanged(nameof(this.PasswordStrength));
                 this.NotifyPropertyChanged(nameof(this.PasswordStrengthDescription));
             }

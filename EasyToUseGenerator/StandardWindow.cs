@@ -73,6 +73,8 @@ namespace EasyToUseGenerator
         {
             SetClickedEventHandlerOnButton("MinimizeButton", OnMinimizeButtonClicked);
             SetClickedEventHandlerOnButton("CloseButton", OnClosedButtonClicked);
+
+            this.ShowInTaskbar = (this.Owner == null);
             return;
 
 

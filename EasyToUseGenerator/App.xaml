@@ -27,6 +27,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:EasyToUseGenerator"             
+             xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
              
              StartupUri="MainWindow.xaml"
              
@@ -372,6 +373,7 @@
             
             <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
             <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Focusable" Value="False"/>
 
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
 
@@ -414,7 +416,7 @@
                             <!-- Column 0 - Window Title column -->
                             <ColumnDefinition Width="Auto"/>
 
-                            <!-- Column 1 - Minizine button column -->
+                            <!-- Column 1 - Minimize button column -->
                             <ColumnDefinition/>
 
                             <!-- 
@@ -441,6 +443,8 @@
                         <Button Name="MinimizeButton"
                                 Content="&#xE921;"
                                 
+                                AutomationProperties.Name="{x:Static resources:UserInterface.MinimizeWindowButtonUIAutomationName}"
+                                
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 
@@ -450,6 +454,9 @@
 
                         <Button Name="CloseButton"
                                 Content="&#xE8BB;"
+    
+                                AutomationProperties.AcceleratorKey="{x:Static resources:UserInterface.CloseWindowButtonUIAutomationAcceleratorKey}"
+                                AutomationProperties.Name="{x:Static resources:UserInterface.CloseWindowButtonUIAutomationName}"
 
                                 Grid.Row="0"
                                 Grid.Column="2"
@@ -475,6 +482,7 @@
             <Setter Property="Template" Value="{StaticResource StandardWindowControlTemplate}"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="ResizeMode" Value="NoResize"/>
+            <Setter Property="Focusable" Value="False"/>
 
             <Setter Property="WindowChrome.WindowChrome">
                 <Setter.Value>

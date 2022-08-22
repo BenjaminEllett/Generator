@@ -83,6 +83,8 @@ namespace CommonGeneratorCodeUnitTests
         {
             Password password = new Password(passwordType, passwordLengthInChars);
 
+            Assert.IsTrue(password.PasswordType == passwordType, "The password's type should match the value passed to Password's constructor.");
+
             Assert.IsTrue(password.Value.Length == passwordLengthInChars, "The password's length should match the length the user requested.");
             Assert.AreEqual(expectedStrength, actual: password.Strength);
 

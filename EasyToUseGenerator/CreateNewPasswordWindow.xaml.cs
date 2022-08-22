@@ -108,17 +108,17 @@ namespace EasyToUseGenerator
             get => this.NewPasswordType == PasswordType.Numeric;
         }
 
-        private void OnAnyKeyWhichCanBeTypedRadioButtonClicked(object sender, RoutedEventArgs e)
+        private void OnAnyKeyWhichCanBeTypedRadioButtonChecked(object sender, RoutedEventArgs e)
         {
             this.NewPasswordType = PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace;
         }
 
-        private void OnLettersAndNumbersRadioButtonClicked(object sender, RoutedEventArgs e)
+        private void OnLettersAndNumbersRadioButtonChecked(object sender, RoutedEventArgs e)
         {
             this.NewPasswordType = PasswordType.AlphaNumeric;
         }
 
-        private void OnNumbersRadioButtonClicked(object sender, RoutedEventArgs e)
+        private void OnNumbersRadioButtonChecked(object sender, RoutedEventArgs e)
         {
             this.NewPasswordType = PasswordType.Numeric;
         }

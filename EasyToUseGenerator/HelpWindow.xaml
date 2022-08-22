@@ -59,15 +59,11 @@
     </local:StandardWindow.Resources>
     
     <StackPanel Style="{StaticResource StandardMainStackPanelStyle}">
-        <TextBox Text="{Binding Path=GeneratorNameAndVersion, Mode=OneTime}"
-                 IsReadOnly="True"
+        <TextBlock Text="{Binding Path=GeneratorNameAndVersion, Mode=OneTime}"
+                   Foreground="Black"
+                   FontSize="24"
                  
-                 Foreground="Black"
-                 FontSize="24"
-                 
-                 TextAlignment="Center"
-                 
-                 BorderThickness="0"/>
+                   TextAlignment="Center"/>
 
         <Button Content="{x:Static resources:UserInterface.DocumentationButtonText}"
                 Click="OnDocumentationClicked"

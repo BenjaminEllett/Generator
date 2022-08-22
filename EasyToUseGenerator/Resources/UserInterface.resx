@@ -128,12 +128,18 @@
   <data name="CancelButtonText" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="CloseWindowButtonUIAutomationAcceleratorKey" xml:space="preserve">
+    <value>ALT+F4</value>
+  </data>
+  <data name="CloseWindowButtonUIAutomationName" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="CopyToClipboardButtonText" xml:space="preserve">
-    <value>Copy to Clipboard</value>
+    <value>_Copy to Clipboard</value>
     <comment>Used on the Main Window</comment>
   </data>
   <data name="CreateNewPasswordButtonText" xml:space="preserve">
-    <value>Create New Password</value>
+    <value>C_reate New Password</value>
     <comment>Used on the Main Window</comment>
   </data>
   <data name="CreateNewPasswordWindowTitle" xml:space="preserve">
@@ -141,7 +147,7 @@
     <comment>Used on the Create New Password Window</comment>
   </data>
   <data name="CreatePasswordButtonText" xml:space="preserve">
-    <value>Create Password</value>
+    <value>_Create Password</value>
     <comment>Used on the Create New Password Window</comment>
   </data>
   <data name="DocumentationButtonText" xml:space="preserve">
@@ -157,7 +163,7 @@
     <comment>Used on the Help Window - {0} = Major Version Number, {1} = Minor Version Number, {2} = Revision Number</comment>
   </data>
   <data name="HelpButtonText" xml:space="preserve">
-    <value>Help</value>
+    <value>_Help</value>
     <comment>Used on the Main Window</comment>
   </data>
   <data name="HelpWindowTitle" xml:space="preserve">
@@ -174,6 +180,21 @@
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Generator</value>
+    <comment>Used on the Main Window</comment>
+  </data>
+  <data name="MinimizeWindowButtonUIAutomationName" xml:space="preserve">
+    <value>Minimize</value>
+  </data>
+  <data name="NewlyCreatedAllCharacterPasswordHelpText" xml:space="preserve">
+    <value>The newly created password may contain lower-case letters, upper-case letters and symbols.  By default, some screen readers do not distinguish between character case and do not read every symbol.  If you want to hear the entire password, you may need to use a feature which reads all characters and each letter’s case.  Note that character case is important because it improves the password’s security.  All of the characters and symbols in a generated password should be used because it makes the password more secure.</value>
+    <comment>Used on the Main Window</comment>
+  </data>
+  <data name="NewlyCreatedAlphaNumericPasswordHelpText" xml:space="preserve">
+    <value>The newly created password may contain lower-case and upper-case characters.  Your screen reader may not distinguish between character case by default.  Please configure it to do so if you want to copy down the password.  Note using lower-case and upper-case characters in a password makes the password much more secure.</value>
+    <comment>Used on the Main Window</comment>
+  </data>
+  <data name="NewlyCreatedPasswordLabel" xml:space="preserve">
+    <value>Newly Created Password</value>
     <comment>Used on the Main Window</comment>
   </data>
   <data name="NewPasswordCharacterSetLabel" xml:space="preserve">

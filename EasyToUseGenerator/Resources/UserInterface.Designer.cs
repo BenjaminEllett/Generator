@@ -88,7 +88,25 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy to Clipboard.
+        ///   Looks up a localized string similar to ALT+F4.
+        /// </summary>
+        public static string CloseWindowButtonUIAutomationAcceleratorKey {
+            get {
+                return ResourceManager.GetString("CloseWindowButtonUIAutomationAcceleratorKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string CloseWindowButtonUIAutomationName {
+            get {
+                return ResourceManager.GetString("CloseWindowButtonUIAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Copy to Clipboard.
         /// </summary>
         public static string CopyToClipboardButtonText {
             get {
@@ -97,7 +115,7 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create New Password.
+        ///   Looks up a localized string similar to C_reate New Password.
         /// </summary>
         public static string CreateNewPasswordButtonText {
             get {
@@ -115,7 +133,7 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Password.
+        ///   Looks up a localized string similar to _Create Password.
         /// </summary>
         public static string CreatePasswordButtonText {
             get {
@@ -151,7 +169,7 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Help.
+        ///   Looks up a localized string similar to _Help.
         /// </summary>
         public static string HelpButtonText {
             get {
@@ -192,6 +210,42 @@ namespace EasyToUseGenerator.Resources {
         public static string MainWindowTitle {
             get {
                 return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize.
+        /// </summary>
+        public static string MinimizeWindowButtonUIAutomationName {
+            get {
+                return ResourceManager.GetString("MinimizeWindowButtonUIAutomationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The newly created password may contain lower-case letters, upper-case letters and symbols.  By default, some screen readers do not distinguish between character case and do not read every symbol.  If you want to hear the entire password, you may need to use a feature which reads all characters and each letter’s case.  Note that character case is important because it improves the password’s security.  All of the characters and symbols in a generated password should be used because it makes the password more  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string NewlyCreatedAllCharacterPasswordHelpText {
+            get {
+                return ResourceManager.GetString("NewlyCreatedAllCharacterPasswordHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The newly created password may contain lower-case and upper-case characters.  Your screen reader may not distinguish between character case by default.  Please configure it to do so if you want to copy down the password.  Note using lower-case and upper-case characters in a password makes the password much more secure..
+        /// </summary>
+        public static string NewlyCreatedAlphaNumericPasswordHelpText {
+            get {
+                return ResourceManager.GetString("NewlyCreatedAlphaNumericPasswordHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Newly Created Password.
+        /// </summary>
+        public static string NewlyCreatedPasswordLabel {
+            get {
+                return ResourceManager.GetString("NewlyCreatedPasswordLabel", resourceCulture);
             }
         }
         
