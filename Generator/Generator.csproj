@@ -7,10 +7,12 @@
     <Win32Resource />
     <StartupObject>Generator.Program</StartupObject>
     <LangVersion>latest</LangVersion>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
+    <Version>1.2.1</Version>
     <Authors>Benjamin Ellett</Authors>
     <Company></Company>
     <Copyright>Benjamin Ellett 2019-2021</Copyright>
-    <Version>1.2.0</Version>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <Platforms>AnyCPU</Platforms>
