@@ -3,26 +3,31 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
-    <StartupObject />
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <Platforms>AnyCPU</Platforms>
+    <OutputType>Library</OutputType>
+
+    <StartupObject />
+    <Nullable>enable</Nullable>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+
+    <ApplicationIcon />
+
     <AssemblyVersion>1.2.1.0</AssemblyVersion>
     <FileVersion>1.2.1.0</FileVersion>
     <Version>1.2.1</Version>
+
     <Authors>Benjamin Ellett</Authors>
     <Company />
     <Product>Generic Command Line Argument Parser</Product>
-    <Copyright>Benjamin Ellett 2019-2021</Copyright>
+    <Copyright>Benjamin Ellett 2019-2022</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/BenjaminEllett/Generator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/BenjaminEllett/Generator.git</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    <NeutralLanguage>en-US</NeutralLanguage>
     <PackageId>Generic Command Line Argument Parser</PackageId>
-    <Nullable>enable</Nullable>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
