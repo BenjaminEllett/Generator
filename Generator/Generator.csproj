@@ -1,27 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <ApplicationIcon />
-    <Win32Resource />
-    <StartupObject>Generator.Program</StartupObject>
+    <Platforms>AnyCPU</Platforms>
     <LangVersion>latest</LangVersion>
-    <Authors>Benjamin Ellett</Authors>
-    <Company></Company>
-    <Copyright>Benjamin Ellett 2019-2021</Copyright>
-    <Version>1.2.0</Version>
+    <OutputType>Exe</OutputType>
+
+    <StartupObject>Generator.Program</StartupObject>
+    <Nullable>enable</Nullable>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
-    <Platforms>AnyCPU</Platforms>
-    <NeutralLanguage>en-US</NeutralLanguage>
+
+    <ApplicationIcon />
+    <Win32Resource />
+
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
+    <Version>1.2.1</Version>
+
+    <Authors>Benjamin Ellett</Authors>
+    <Company></Company>
+    <Copyright>Benjamin Ellett 2019-2022</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/BenjaminEllett/Generator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/BenjaminEllett/Generator.git</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
     <Description>Generator creates secure random passwords.  It's a command line program.  It can create passwords which can have any character on a US English keyboard, any English alpha-numeric character or a PIN.  Generator uses a cryptographically secure random number generator to create passwords.</Description>
-    <Nullable>enable</Nullable>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

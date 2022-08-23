@@ -1,26 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <OutputType>WinExe</OutputType>
+
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+
+    <ApplicationIcon>Generator.ico</ApplicationIcon>
+
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
+    <Version>1.2.1</Version>
+
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.2.0</Version>
     <Authors>Benjamin Ellett</Authors>
     <Company />
     <Product>Generator</Product>
-    <Copyright>Benjamin Ellett 2021</Copyright>
+    <Copyright>Benjamin Ellett 2019-2022</Copyright>
     <RepositoryType>GIT</RepositoryType>
     <Description>Easy to Use Generator creates secure random passwords.  It is easier to use because it has a graphical user interface (GUI).  It can create passwords which can have any character on a US English keyboard, any English alpha-numeric character or a PIN.  Generator uses a cryptographically secure random number generator to create passwords.</Description>
     <PackageProjectUrl>https://github.com/BenjaminEllett/Generator</PackageProjectUrl>
     <RepositoryUrl>https://github.com/BenjaminEllett/Generator.git</RepositoryUrl>
-    <ApplicationIcon>Generator.ico</ApplicationIcon>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
