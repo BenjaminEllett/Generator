@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Generate 128 bit Hex password (short command)": {
+      "commandName": "Project",
+      "commandLineArgs": "/Hex 32"
+    },
+    "Generate 512 bit Hex password (long command name)": {
+      "commandName": "Project",
+      "commandLineArgs": "/GenerateHexString 128"
+    },
+    "Show help text (short command name)": {
+      "commandName": "Project",
+      "commandLineArgs": "/?"
+    }
+  }
+}

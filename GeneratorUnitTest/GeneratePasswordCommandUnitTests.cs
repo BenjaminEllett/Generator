@@ -115,12 +115,40 @@ namespace GeneratorUnitTest
 
         public void TestGeneratePinCommandClass(int validPasswordLength)
         {
-            GeneratePasswordCommand generatePinCommand = GeneratePasswordCommand.CreatePinCommand();
+            TestPasswordCommand(
+                () => GeneratePasswordCommand.CreatePinCommand(),
+                validPasswordLength);
+        }
+
+        [DataTestMethod]
+
+        // The shortest possible hex string (not recommended)  
+        [DataRow(1)]
+
+        // Common hex string lengths (in characters)
+        [DataRow(32)] // 128 bits
+        [DataRow(64)] // 256 bits
+        [DataRow(92)] // 384 bits
+        [DataRow(128)] // 512 bits
+
+        // The longest possible hex string
+        [DataRow(256)]
+
+        public void TestGenerateHextStringCommandClass(int validPasswordLength)
+        {
+            TestPasswordCommand(
+                () => GeneratePasswordCommand.CreateHexCommand(),
+                validPasswordLength);
+        }
+
+        public void TestPasswordCommand(Func<GeneratePasswordCommand> createPasswordCommand, int validPasswordLength)
+        {
+            GeneratePasswordCommand generatePasswordCommand = createPasswordCommand();
             string[] commandArguments = { validPasswordLength.ToString(CultureInfo.InvariantCulture) };
-            generatePinCommand.ParseCommandArguments(commandArguments);
+            generatePasswordCommand.ParseCommandArguments(commandArguments);
 
             // The test passes if there are no exceptions.
-            generatePinCommand.Run();
+            generatePasswordCommand.Run();
         }
     }
 }
