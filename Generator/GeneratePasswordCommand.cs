@@ -43,6 +43,14 @@ namespace Generator
                 PasswordType.Numeric);
         }
 
+        public static GeneratePasswordCommand CreateHexCommand()
+        {
+            return new GeneratePasswordCommand(
+                shortCommandParameterName: "HEX",
+                longCommandParameterName: "GenerateHexString",
+                PasswordType.Hex);
+        }
+
         public static GeneratePasswordCommand CreateUsingAnyCharacterOnAKeyboardCommand()
         {
             return new GeneratePasswordCommand(

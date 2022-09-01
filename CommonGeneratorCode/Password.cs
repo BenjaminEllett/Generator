@@ -34,7 +34,10 @@ namespace CommonGeneratorCode
     {
         // Usually only used for Personal Identification numbers (PINs) on phones and smart cards.  These are very weak unless an attacker is only
         // given a limited number times (usually 10 or less) to guess the PIN.
-        Numeric, 
+        Numeric,
+
+        // Useful for random symmetric cryptographic keys and for random numbers used by computers 
+        Hex, 
         AlphaNumeric,
         AnyKeyOnAnEnglishKeyboardExceptASpace,
         AnyKeyOnAnEnglishKeyboard,
@@ -87,6 +90,16 @@ namespace CommonGeneratorCode
                     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
                 };
 
+        private static readonly IReadOnlyList<char> HexCharacters = new List<char>(NumericCharacters)
+                {
+                    'A', // 10
+                    'B', // 11
+                    'C', // 12
+                    'D', // 13
+                    'E', // 14
+                    'F', // 15
+                };
+
         private static readonly IReadOnlyList<char> AlphaNumericCharacters = new List<char>(NumericCharacters)
                 {
                     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -128,9 +141,10 @@ namespace CommonGeneratorCode
 
             IReadOnlyList<char> charactersWhichCanBeInPassword = GetCharactersWhichCanBeInPasswordList(this.PasswordType);
             this.Value = GeneratePassword(charactersWhichCanBeInPassword, passwordLengthInCharacters);
-            (this.Strength, this.StrengthInBits) = DeterminePasswordStrength(
-                charactersWhichCanBeInPassword.Count,
-                passwordLengthInCharacters);
+            (this.Strength, this.StrengthInBits) = 
+                DeterminePasswordStrength(
+                    charactersWhichCanBeInPassword.Count,
+                    passwordLengthInCharacters);
         }
 
         public PasswordType PasswordType { get; }
@@ -181,6 +195,7 @@ namespace CommonGeneratorCode
                 case PasswordType.AnyKeyOnAnEnglishKeyboard:
                 case PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace:
                 case PasswordType.AlphaNumeric:
+                case PasswordType.Hex:
                 case PasswordType.Numeric:
                     return true;
 
@@ -194,23 +209,15 @@ namespace CommonGeneratorCode
             // LOCALIZATION: This code will have to be modified if this program is modified to work with other languages.
             // Right now, it only supports generating passwords which can be typed on US English keyboards.
 
-            switch (passwordType)
+            return passwordType switch
             {
-                case PasswordType.Numeric:
-                    return NumericCharacters;
-
-                case PasswordType.AlphaNumeric:
-                    return AlphaNumericCharacters;
-
-                case PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace:
-                    return AnyCharacterWhichCanBeTypedOnAEnglishKeyboardExceptForASpace;
-
-                case PasswordType.AnyKeyOnAnEnglishKeyboard:
-                    return AnyCharacterWhichCanBeTypedOnAEnglishKeyboard;
-
-                default:
-                    throw new Exception(CommonErrorMessages.ThisCaseShouldNeverOccur);
-            }
+                PasswordType.Numeric => NumericCharacters,
+                PasswordType.Hex => HexCharacters,
+                PasswordType.AlphaNumeric => AlphaNumericCharacters,
+                PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace => AnyCharacterWhichCanBeTypedOnAEnglishKeyboardExceptForASpace,
+                PasswordType.AnyKeyOnAnEnglishKeyboard => AnyCharacterWhichCanBeTypedOnAEnglishKeyboard,
+                _ => throw new Exception(CommonErrorMessages.ThisCaseShouldNeverOccur),
+            };
         }
 
         private static string GeneratePassword(IReadOnlyList<char> validPasswordCharactersList, int passwordLengthInCharacters)

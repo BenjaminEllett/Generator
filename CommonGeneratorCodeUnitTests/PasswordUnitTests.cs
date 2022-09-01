@@ -47,6 +47,13 @@ namespace CommonGeneratorCodeUnitTests
         [DataRow(PasswordType.Numeric, 6, PasswordStrength.AcceptableOnlyForPins, 19.0)]
         [DataRow(PasswordType.Numeric, 8, PasswordStrength.AcceptableOnlyForPins, 26.0)]
 
+        // Test the common Hex lengths
+        [DataRow(PasswordType.Hex, (128 / 4), PasswordStrength.Strong, 128.0)] // 128 bit strength / 4 bits per hex character
+        [DataRow(PasswordType.Hex, (192 / 4), PasswordStrength.Strong, 192.0)] // 192 bit strength / 4 bits per hex character
+        [DataRow(PasswordType.Hex, (256 / 4), PasswordStrength.Strong, 256.0)] // 256 bit strength / 4 bits per hex character
+        [DataRow(PasswordType.Hex, (384 / 4), PasswordStrength.Strong, 384.0)] // 384 bit strength / 4 bits per hex character
+        [DataRow(PasswordType.Hex, (512 / 4), PasswordStrength.Strong, 512.0)] // 512 bit strength / 4 bits per hex character
+
         // Test minimum acceptable password lengths
         [DataRow(PasswordType.AlphaNumeric, 8, PasswordStrength.Acceptable, 47.0)]
         [DataRow(PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace, 8, PasswordStrength.Acceptable, 52.0)]
@@ -99,6 +106,21 @@ namespace CommonGeneratorCodeUnitTests
                 PasswordType.Numeric, 
                 isCharacterValid: IsEngishNumber, 
                 allowedPasswordCharsDescription: "All PIN characters should be digits.");
+        }
+
+        [TestMethod]
+        public void AnyHexPaswordsShouldOnlyContainHexDigits()
+        {
+            PasswordShouldHaveCharacteristics(
+                PasswordType.Hex,
+                isCharacterValid: IsHexDigit,
+                allowedPasswordCharsDescription: "Random hex strings can only have hex digits (0-9, A-F)");
+
+            static bool IsHexDigit(char character)
+            {
+                return (character >= '0' && character <= '9') ||
+                       (character >= 'A' && character <= 'F');
+            }
         }
 
         [TestMethod]
