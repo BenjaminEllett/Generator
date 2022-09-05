@@ -145,13 +145,15 @@ namespace CommonGeneratorCode
                 DeterminePasswordStrength(
                     charactersWhichCanBeInPassword.Count,
                     passwordLengthInCharacters);
+
+            this.UtcInstantCreated = DateTime.UtcNow;
         }
 
         public PasswordType PasswordType { get; }
 
-        public string Value { get; private set; }
+        public string Value { get; init; }
 
-        public PasswordStrength Strength { get; private set; }
+        public PasswordStrength Strength { get; init; }
 
         public string StrengthDisplayText
         {
@@ -183,7 +185,11 @@ namespace CommonGeneratorCode
             }
         }
 
-        public double StrengthInBits { get; private set; }
+        public double StrengthInBits { get; init; }
+
+        public DateTime UtcInstantCreated { get; init; }
+        
+        public DateTime LocalTimeInstantCreated { get => this.UtcInstantCreated.ToLocalTime(); }
 
         public static bool IsValidPasswordLength(int lengthInCharacters) => 
             lengthInCharacters is >= Constants.MinimumPasswordLengthInChars and <= Constants.MaximumPasswordLengthInChars;

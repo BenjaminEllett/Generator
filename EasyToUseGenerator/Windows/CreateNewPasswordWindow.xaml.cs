@@ -26,7 +26,7 @@ using CommonGeneratorCode;
 using System;
 using System.Windows;
 
-namespace EasyToUseGenerator
+namespace EasyToUseGenerator.Windows
 {
     public partial class CreateNewPasswordWindow : StandardWindow
     {

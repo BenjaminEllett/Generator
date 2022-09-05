@@ -23,6 +23,7 @@
 //
 
 using CommonGeneratorCode;
+using EasyToUseGenerator.Services;
 using System.Windows;
 
 namespace EasyToUseGenerator
@@ -34,8 +35,9 @@ namespace EasyToUseGenerator
         public App()
         {
             this.serviceFactory = new ServiceFactory();
-            this.serviceFactory.RegisterSingletonService<IAppSettingService, AppSettings>();
+            this.serviceFactory.RegisterSingletonService<IAppSettingService, AppSettingsService>();
             this.serviceFactory.RegisterSingletonService<ITextFileService, TextFileService>();
+            this.serviceFactory.RegisterSingletonService<ISimpleDocumentService, SimpleDocumentService>();
 
             this.Settings = this.serviceFactory.GetService<IAppSettingService>();
         }
@@ -43,6 +45,11 @@ namespace EasyToUseGenerator
         public static new App Current => (App)Application.Current;
         
         public IAppSettingService Settings { get; init; }
+
+        public TInterface GetService<TInterface>() where TInterface : class
+        {
+            return this.serviceFactory.GetService<TInterface>();
+        }
 
         private void OnExit(object sender, ExitEventArgs e)
         {

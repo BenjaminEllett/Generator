@@ -1,22 +1,23 @@
-﻿<local:StandardWindow x:Class="EasyToUseGenerator.HelpWindow"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:local="clr-namespace:EasyToUseGenerator"
-                      xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
+﻿<windows:StandardWindow x:Class="EasyToUseGenerator.Windows.HelpWindow"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="clr-namespace:EasyToUseGenerator"
+                        xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
+                        xmlns:windows="clr-namespace:EasyToUseGenerator.Windows"
 
-                      Title="{x:Static resources:UserInterface.HelpWindowTitle}" 
+                        Title="{x:Static resources:UserInterface.HelpWindowTitle}" 
 
-                      ResizeMode="NoResize"
-                      WindowStartupLocation="CenterOwner"
+                        ResizeMode="NoResize"
+                        WindowStartupLocation="CenterOwner"
                       
-                      Style="{StaticResource StandardWindowStyle}"
+                        Style="{StaticResource StandardWindowStyle}"
                       
-                      TitleBarBackground="DarkSlateGray"
+                        TitleBarBackground="DarkSlateGray"
                       
-                      Height="290" 
-                      Width="398">
+                        Height="290" 
+                        Width="398">
     
-    <local:StandardWindow.Resources>
+    <windows:StandardWindow.Resources>
         <Style x:Key="HyperLinkButtonStyle" 
                TargetType="{x:Type ButtonBase}">
             
@@ -56,7 +57,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </local:StandardWindow.Resources>
+    </windows:StandardWindow.Resources>
     
     <StackPanel Style="{StaticResource StandardMainStackPanelStyle}">
         <TextBlock Text="{Binding Path=GeneratorNameAndVersion, Mode=OneTime}"
@@ -69,7 +70,7 @@
                 Click="OnDocumentationClicked"
                 
                 Style="{StaticResource HyperLinkButtonStyle}"
-                Margin="{StaticResource StandardLargeVerticalSpaceBetweenItemsMargin}"/>
+                Margin="{StaticResource Standard_Large_VerticalSpaceBetweenItemsMargin}"/>
 
         <Button Content="{x:Static resources:UserInterface.PasswordAdviceButtonText}"
                 Click="OnPasswordAdviceClicked"
@@ -99,6 +100,6 @@
                 Click="OnOKClicked"
                 HorizontalAlignment="Right"
                 Style="{StaticResource StandardButtonStyle}"
-                Margin="{StaticResource StandardLargeVerticalSpaceBetweenItemsMargin}"/>
+                Margin="{StaticResource Standard_Large_VerticalSpaceBetweenItemsMargin}"/>
     </StackPanel>
-</local:StandardWindow>
+</windows:StandardWindow>

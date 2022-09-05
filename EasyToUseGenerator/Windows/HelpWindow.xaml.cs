@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace EasyToUseGenerator
+namespace EasyToUseGenerator.Windows
 {
     public partial class HelpWindow : StandardWindow
     {
@@ -35,7 +35,7 @@ namespace EasyToUseGenerator
                     UserInterface.GeneratorNameAndVersionFormatString, 
                     currentExecutable.Version.Major, 
                     currentExecutable.Version.Minor, 
-                    currentExecutable.Version.Revision);
+                    currentExecutable.Version.Build);
             }
         }
         

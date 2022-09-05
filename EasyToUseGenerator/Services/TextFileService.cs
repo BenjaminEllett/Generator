@@ -25,7 +25,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
-namespace EasyToUseGenerator
+namespace EasyToUseGenerator.Services
 {
     public interface ITextFileService
     {

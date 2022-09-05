@@ -228,6 +228,14 @@
     <value>Password Strength</value>
     <comment>Used on the Main Window</comment>
   </data>
+  <data name="PrintPasswordButtonText" xml:space="preserve">
+    <value>Print Password</value>
+    <comment>Used on the Main Window</comment>
+  </data>
+  <data name="PrintPasswordWindowTitle" xml:space="preserve">
+    <value>Print Password</value>
+    <comment>Used on the Print Password window</comment>
+  </data>
   <data name="ProjectWebSiteButtonText" xml:space="preserve">
     <value>Project Website</value>
     <comment>Used on the Help Window</comment>

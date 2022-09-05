@@ -27,7 +27,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace EasyToUseGenerator
+namespace EasyToUseGenerator.Services
 {
     public interface IAppSettingService
     {
@@ -38,7 +38,7 @@ namespace EasyToUseGenerator
         public void Save();
     }
 
-    public class AppSettings : IAppSettingService
+    public class AppSettingsService : IAppSettingService
     {
         private readonly ITextFileService textFileService;
 
@@ -65,10 +65,10 @@ namespace EasyToUseGenerator
             WriteIndented = true,
         };
 
-        public AppSettings(ITextFileService textFileService)
+        public AppSettingsService(ITextFileService textFileService)
         {
             this.textFileService = textFileService;
-            this.InitializeSettings();
+            InitializeSettings();
         }
 
         public int DefaultPasswordLengthInChars { get; set; }
@@ -78,9 +78,9 @@ namespace EasyToUseGenerator
         public void Save()
         {
             SerializedSettings serializedSettings = new SerializedSettings(this);
-            string jsonSerializedSettings = JsonSerializer.Serialize<SerializedSettings>(serializedSettings, jsonSerializerOptions);
-            this.textFileService.CreateDirectoryIfItDoesNotExist(this.SettingsFileDirectoryPath);
-            this.textFileService.WriteTextFile(this.SettingsFileNamePath, jsonSerializedSettings);
+            string jsonSerializedSettings = JsonSerializer.Serialize(serializedSettings, jsonSerializerOptions);
+            textFileService.CreateDirectoryIfItDoesNotExist(SettingsFileDirectoryPath);
+            textFileService.WriteTextFile(SettingsFileNamePath, jsonSerializedSettings);
         }
 
         private string SettingsFileDirectoryPath
@@ -100,18 +100,18 @@ namespace EasyToUseGenerator
             {
                 const string SettingsFileName = "GeneratorSettings.json";
 
-                return Path.Combine(this.SettingsFileDirectoryPath, SettingsFileName);
+                return Path.Combine(SettingsFileDirectoryPath, SettingsFileName);
             }
         }
 
         private void InitializeSettings()
         {
-            this.DefaultPasswordType = Constants.InitialDefaultPasswordType;
-            this.DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
+            DefaultPasswordType = Constants.InitialDefaultPasswordType;
+            DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
 
             string? jsonSerializedSettings;
 
-            if (!this.textFileService.TryReadTextFile(this.SettingsFileNamePath, out jsonSerializedSettings))
+            if (!textFileService.TryReadTextFile(SettingsFileNamePath, out jsonSerializedSettings))
             {
                 return;
             }
@@ -125,16 +125,33 @@ namespace EasyToUseGenerator
                 return;
             }
 
-            // The GUI version of this application does not support passwords with spaces.
             if (Password.IsValidPasswordType(serializedSettings.DefaultPasswordType) &&
-                (serializedSettings.DefaultPasswordType != PasswordType.AnyKeyOnAnEnglishKeyboard))
+                IsSupportedPasswordType(serializedSettings.DefaultPasswordType))
             {
-                this.DefaultPasswordType = serializedSettings.DefaultPasswordType;
+                DefaultPasswordType = serializedSettings.DefaultPasswordType;
             }
 
             if (Password.IsValidPasswordLength(serializedSettings.DefaultPasswordLengthInChars))
             {
-                this.DefaultPasswordLengthInChars = serializedSettings.DefaultPasswordLengthInChars;
+                DefaultPasswordLengthInChars = serializedSettings.DefaultPasswordLengthInChars;
+            }
+
+            return;
+
+
+
+            static bool IsSupportedPasswordType(PasswordType passwordType)
+            {
+                switch (passwordType)
+                {
+                    case PasswordType.Numeric:
+                    case PasswordType.AlphaNumeric:
+                    case PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace:
+                        return true;
+
+                    default:
+                        return false;
+                }
             }
         }
 
@@ -148,17 +165,17 @@ namespace EasyToUseGenerator
                 // Set the initial values in case they are not in the configuration file.  JsonSerializer.Deserialize<SerializedSettings>()
                 // does not throw an error if a JSON file does not contain an expected property.  Instead, it leaves the property's value as
                 // the default value.
-                this.DefaultPasswordType = Constants.InitialDefaultPasswordType;
-                this.DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
+                DefaultPasswordType = Constants.InitialDefaultPasswordType;
+                DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
             }
 
-            public SerializedSettings(AppSettings appSettings)
+            public SerializedSettings(AppSettingsService appSettings)
             {
-                this.DefaultPasswordType = appSettings.DefaultPasswordType;
-                this.DefaultPasswordLengthInChars = appSettings.DefaultPasswordLengthInChars;
+                DefaultPasswordType = appSettings.DefaultPasswordType;
+                DefaultPasswordLengthInChars = appSettings.DefaultPasswordLengthInChars;
             }
 
-            public PasswordType DefaultPasswordType { get; set; } 
+            public PasswordType DefaultPasswordType { get; set; }
 
             public int DefaultPasswordLengthInChars { get; set; }
         }

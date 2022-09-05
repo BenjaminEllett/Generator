@@ -322,6 +322,24 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Print Password.
+        /// </summary>
+        public static string PrintPasswordButtonText {
+            get {
+                return ResourceManager.GetString("PrintPasswordButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print Password.
+        /// </summary>
+        public static string PrintPasswordWindowTitle {
+            get {
+                return ResourceManager.GetString("PrintPasswordWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Website.
         /// </summary>
         public static string ProjectWebSiteButtonText {

@@ -28,7 +28,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace EasyToUseGenerator
+namespace EasyToUseGenerator.Windows
 {
     /// <summary>
     /// This class is responsible for the standard look and feel of this application's windows.  Each window should do the following:
@@ -50,19 +50,19 @@ namespace EasyToUseGenerator
 
         public StandardWindow()
         {
-            this.Loaded += OnWindowLoaded;            
+            Loaded += OnWindowLoaded;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public Brush TitleBarBackground
         {
-            get => (Brush)this.GetValue(TitleBarBackgroundProperty);
-            set => this.SetValue(TitleBarBackgroundProperty, value);
+            get => (Brush)GetValue(TitleBarBackgroundProperty);
+            set => SetValue(TitleBarBackgroundProperty, value);
         }
 
         // The main window should have a minimize button but none of the dialog box (child) windows should.
-        public bool HasMinimizeButton => this.Owner == null;
+        public bool HasMinimizeButton => Owner == null;
 
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
@@ -74,14 +74,14 @@ namespace EasyToUseGenerator
             SetClickedEventHandlerOnButton("MinimizeButton", OnMinimizeButtonClicked);
             SetClickedEventHandlerOnButton("CloseButton", OnClosedButtonClicked);
 
-            this.ShowInTaskbar = (this.Owner == null);
+            ShowInTaskbar = Owner == null;
             return;
 
 
 
             void SetClickedEventHandlerOnButton(string buttonName, RoutedEventHandler clickedEventHandler)
             {
-                Button button = (Button)this.Template.FindName(buttonName, this);
+                Button button = (Button)Template.FindName(buttonName, this);
 
                 // If this line crashes with a NullReferenceException, the exception probably occurs because the window does not have the
                 // StandardWindowStyle.
@@ -91,12 +91,12 @@ namespace EasyToUseGenerator
 
         private void OnMinimizeButtonClicked(object sender, RoutedEventArgs e)
         {
-            this.WindowState = WindowState.Minimized;
+            WindowState = WindowState.Minimized;
         }
 
         private void OnClosedButtonClicked(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
