@@ -50,7 +50,7 @@ namespace EasyToUseGenerator.Services
             {
                 throw new ArgumentException(
                     "A document must have at least one section.",
-                    paramName: nameof(documentSections);
+                    paramName: nameof(documentSections));
             }
 
             // Calibri is a default Windows font.  For more information, please see
@@ -77,7 +77,7 @@ namespace EasyToUseGenerator.Services
                     // Add lines after the previous section
                     const int numLinesBetweenSections = 3;
 
-                    for (int lineBrakIndex = 0; lineBrakIndex < numLinesBetweenSections; lineBrakIndex++)
+                    for (int lineBreakIndex = 0; lineBreakIndex < numLinesBetweenSections; lineBreakIndex++)
                     {
                         AddLineBreak(sections);
                     }
@@ -89,7 +89,7 @@ namespace EasyToUseGenerator.Services
                     FontWeight = FontWeights.Bold,
                 };
 
-                sectionHeader.TextDecorations.Add(TextDecorations.Underline);
+                sectionHeader.TextDecorations = TextDecorations.Underline;
 
                 // Create section body
                 var sectionBody = new Run(currentDocumentSection.Body);

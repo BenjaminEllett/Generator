@@ -1,15 +1,11 @@
 ﻿using EasyToUseGenerator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using TestUtil;
 
-namespace EasyToUseGenerator.Tests
+namespace EasyToUseGeneratorTests
 {
     [TestClass()]
     public class PasswordLengthBindingValidationRuleTests

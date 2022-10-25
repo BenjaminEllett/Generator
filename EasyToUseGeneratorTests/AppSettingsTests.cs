@@ -27,11 +27,9 @@ using EasyToUseGenerator.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Language.Flow;
-using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace EasyToUseGenerator.Tests
+namespace EasyToUseGeneratorTests
 {
     [TestClass]
     public class AppSettingsTests
@@ -45,8 +43,8 @@ namespace EasyToUseGenerator.Tests
             // The AppSetting class should use the following values if the settings file does not exist.
             AssertAppSettingsMatchExpectedValues(
                 appSettings,
-                expectedDefaultPasswordType: Constants.InitialDefaultPasswordType,
-                expectedDefaultPasswordLength: Constants.InitialDefaultPasswordLengthInChars);
+                expectedDefaultPasswordType: EasyToUseGenerator.Constants.InitialDefaultPasswordType,
+                expectedDefaultPasswordLength: EasyToUseGenerator.Constants.InitialDefaultPasswordLengthInChars);
         }
 
         [TestMethod]
@@ -54,8 +52,8 @@ namespace EasyToUseGenerator.Tests
         {
             // The AppSetting class should use the values which were in the settings file's JSON
             TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
-                expectedDefaultPasswordType: Constants.InitialDefaultPasswordType,
-                expectedDefaultPasswordLength: Constants.InitialDefaultPasswordLengthInChars);
+                expectedDefaultPasswordType: EasyToUseGenerator.Constants.InitialDefaultPasswordType,
+                expectedDefaultPasswordLength: EasyToUseGenerator.Constants.InitialDefaultPasswordLengthInChars);
 
             TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
                 expectedDefaultPasswordType: PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace,
