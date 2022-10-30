@@ -23,7 +23,7 @@
 //
 
 using CommonGeneratorCode;
-using EasyToUseGenerator.Services;
+using EasyToUseGenerator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Language.Flow;
@@ -38,13 +38,13 @@ namespace EasyToUseGeneratorTests
         public void AppSettingsShouldUseTheDefaultSettingsValuesIfNoSettingsFileExists()
         {
             // This test tests the case where the settings file does not exist.
-            (AppSettingsService appSettings, _) = CreateAppSettingsClass(expectedSettingsFileContent: null);
+            (AppSettings appSettings, _) = CreateAppSettingsClass(expectedSettingsFileContent: null);
 
             // The AppSetting class should use the following values if the settings file does not exist.
             AssertAppSettingsMatchExpectedValues(
                 appSettings,
-                expectedDefaultPasswordType: EasyToUseGenerator.Constants.InitialDefaultPasswordType,
-                expectedDefaultPasswordLength: EasyToUseGenerator.Constants.InitialDefaultPasswordLengthInChars);
+                expectedDefaultPasswordType: Constants.InitialDefaultPasswordType,
+                expectedDefaultPasswordLength: Constants.InitialDefaultPasswordLengthInChars);
         }
 
         [TestMethod]
@@ -52,8 +52,8 @@ namespace EasyToUseGeneratorTests
         {
             // The AppSetting class should use the values which were in the settings file's JSON
             TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
-                expectedDefaultPasswordType: EasyToUseGenerator.Constants.InitialDefaultPasswordType,
-                expectedDefaultPasswordLength: EasyToUseGenerator.Constants.InitialDefaultPasswordLengthInChars);
+                expectedDefaultPasswordType: Constants.InitialDefaultPasswordType,
+                expectedDefaultPasswordLength: Constants.InitialDefaultPasswordLengthInChars);
 
             TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
                 expectedDefaultPasswordType: PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace,
@@ -82,7 +82,7 @@ namespace EasyToUseGeneratorTests
         [TestMethod]
         public void SaveShouldPersistTheSpecifiedSettings()
         {
-            (AppSettingsService appSettings, Mock <ITextFileService> textFileServiceMock) = 
+            (AppSettings appSettings, Mock <ITextFileService> textFileServiceMock) = 
                 TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
                     expectedDefaultPasswordType: PasswordType.AlphaNumeric,
                     expectedDefaultPasswordLength: 10);
@@ -124,10 +124,10 @@ namespace EasyToUseGeneratorTests
             }
         }
 
-        private static (AppSettingsService, Mock<ITextFileService>) CreateAppSettingsClass(string? expectedSettingsFileContent)
+        private static (AppSettings, Mock<ITextFileService>) CreateAppSettingsClass(string? expectedSettingsFileContent)
         {
             Mock<ITextFileService> textFileServiceMock = CreateTextServiceMock(expectedSettingsFileContent);
-            AppSettingsService newAppSettings = new AppSettingsService(textFileServiceMock.Object);
+            AppSettings newAppSettings = new AppSettings(textFileServiceMock.Object);
             return (newAppSettings, textFileServiceMock);
         }
 
@@ -155,7 +155,7 @@ namespace EasyToUseGeneratorTests
             return textFileServiceMock;
         }
 
-        private static (AppSettingsService, Mock<ITextFileService>) TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
+        private static (AppSettings, Mock<ITextFileService>) TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
             PasswordType expectedDefaultPasswordType, 
             int expectedDefaultPasswordLength, 
             PasswordType? defaultPasswordTypeInConfigurationFile = null)
@@ -171,7 +171,7 @@ namespace EasyToUseGeneratorTests
                 $"    \"DefaultPasswordLengthInChars\": {expectedDefaultPasswordLength}                    \n" +
                  "}                                                                                        \n";
 
-            (AppSettingsService appSettings, Mock<ITextFileService> textFileServiceMock) = CreateAppSettingsClass(settingsFileContent);
+            (AppSettings appSettings, Mock<ITextFileService> textFileServiceMock) = CreateAppSettingsClass(settingsFileContent);
 
             AssertAppSettingsMatchExpectedValues(
                 appSettings,
@@ -181,7 +181,7 @@ namespace EasyToUseGeneratorTests
             return (appSettings, textFileServiceMock);
         }
 
-        private static void AssertAppSettingsMatchExpectedValues(AppSettingsService appSettings, PasswordType expectedDefaultPasswordType, int expectedDefaultPasswordLength)
+        private static void AssertAppSettingsMatchExpectedValues(AppSettings appSettings, PasswordType expectedDefaultPasswordType, int expectedDefaultPasswordLength)
         {
             Assert.IsTrue(appSettings.DefaultPasswordType == expectedDefaultPasswordType);
             Assert.IsTrue(appSettings.DefaultPasswordLengthInChars == expectedDefaultPasswordLength);

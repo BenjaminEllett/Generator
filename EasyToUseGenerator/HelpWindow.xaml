@@ -1,9 +1,8 @@
-﻿<windows:StandardWindow x:Class="EasyToUseGenerator.Windows.HelpWindow"
+﻿<local:StandardWindow x:Class="EasyToUseGenerator.HelpWindow"
                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                         xmlns:local="clr-namespace:EasyToUseGenerator"
                         xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
-                        xmlns:windows="clr-namespace:EasyToUseGenerator.Windows"
 
                         Title="{x:Static resources:UserInterface.HelpWindowTitle}" 
 
@@ -17,7 +16,7 @@
                         Height="290" 
                         Width="398">
     
-    <windows:StandardWindow.Resources>
+    <local:StandardWindow.Resources>
         <Style x:Key="HyperLinkButtonStyle" 
                TargetType="{x:Type ButtonBase}">
             
@@ -57,7 +56,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </windows:StandardWindow.Resources>
+    </local:StandardWindow.Resources>
     
     <StackPanel Style="{StaticResource StandardMainStackPanelStyle}">
         <TextBlock Text="{Binding Path=GeneratorNameAndVersion, Mode=OneTime}"
@@ -102,4 +101,4 @@
                 Style="{StaticResource StandardButtonStyle}"
                 Margin="{StaticResource Standard_Large_VerticalSpaceBetweenItemsMargin}"/>
     </StackPanel>
-</windows:StandardWindow>
+</local:StandardWindow>

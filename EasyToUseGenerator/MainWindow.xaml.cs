@@ -27,7 +27,7 @@ using EasyToUseGenerator.Resources;
 using System;
 using System.Windows;
 
-namespace EasyToUseGenerator.Windows
+namespace EasyToUseGenerator
 {
     public partial class MainWindow : StandardWindow
     {
@@ -35,20 +35,20 @@ namespace EasyToUseGenerator.Windows
 
         public MainWindow()
         {
-            currentPassword = new Password(
+            this.currentPassword = new Password(
                 App.Current.Settings.DefaultPasswordType,
                 App.Current.Settings.DefaultPasswordLengthInChars);
-            DataContext = this;
+            this.DataContext = this;
             InitializeComponent();
         }
 
-        public string NewlyCreatedPassword => currentPassword.Value;
+        public string NewlyCreatedPassword => this.currentPassword.Value;
 
         public string NewlyCreatedPasswordUIAutomationHelpText
         {
             get
             {
-                return currentPassword.PasswordType switch
+                return this.currentPassword.PasswordType switch
                 {
                     PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace => UserInterface.NewlyCreatedAllCharacterPasswordHelpText,
                     PasswordType.AlphaNumeric => UserInterface.NewlyCreatedAlphaNumericPasswordHelpText,
@@ -60,33 +60,34 @@ namespace EasyToUseGenerator.Windows
                 };
             }
         }
-        public string PasswordStrength => currentPassword.StrengthDisplayText;
-        public string PasswordStrengthDescription => currentPassword.StrengthDescription;
+        public string PasswordStrength => this.currentPassword.StrengthDisplayText;
+        public string PasswordStrengthDescription => this.currentPassword.StrengthDescription;
 
         private void OnCopyToClipBoardPressed(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(currentPassword.Value, TextDataFormat.UnicodeText);
+            Clipboard.SetText(this.currentPassword.Value, TextDataFormat.UnicodeText);
         }
+
         private void OnPrintPasswordPressed(object sender, RoutedEventArgs e)
         {
             CreateWindowAndShowDialogBox(
-                () => new PrintPasswordWindow(currentPassword));
+                () => new PrintPasswordWindow(this.currentPassword));
         }
 
         private void OnCreateNewPasswordClicked(object sender, RoutedEventArgs e)
         {
             bool? userCreatedNewPassword;
             CreateNewPasswordWindow createNewPasswordWindow;
-            (userCreatedNewPassword, createNewPasswordWindow) = CreateWindowAndShowDialogBox<CreateNewPasswordWindow>();
+            (userCreatedNewPassword, createNewPasswordWindow) = this.CreateWindowAndShowDialogBox<CreateNewPasswordWindow>();
             if (userCreatedNewPassword == true)
             {
-                currentPassword = new Password(
+                this.currentPassword = new Password(
                     createNewPasswordWindow.NewPasswordType,
                     createNewPasswordWindow.NewPasswordLengthInChars);
-                NotifyPropertyChanged(nameof(NewlyCreatedPassword));
-                NotifyPropertyChanged(nameof(NewlyCreatedPasswordUIAutomationHelpText));
-                NotifyPropertyChanged(nameof(PasswordStrength));
-                NotifyPropertyChanged(nameof(PasswordStrengthDescription));
+                this.NotifyPropertyChanged(nameof(this.NewlyCreatedPassword));
+                this.NotifyPropertyChanged(nameof(this.NewlyCreatedPasswordUIAutomationHelpText));
+                this.NotifyPropertyChanged(nameof(this.PasswordStrength));
+                this.NotifyPropertyChanged(nameof(this.PasswordStrengthDescription));
             }
         }
 

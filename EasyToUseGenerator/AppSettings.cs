@@ -38,7 +38,7 @@ namespace EasyToUseGenerator.Services
         public void Save();
     }
 
-    public class AppSettingsService : IAppSettingService
+    public class AppSettings : IAppSettingService
     {
         private readonly ITextFileService textFileService;
 
@@ -65,7 +65,7 @@ namespace EasyToUseGenerator.Services
             WriteIndented = true,
         };
 
-        public AppSettingsService(ITextFileService textFileService)
+        public AppSettings(ITextFileService textFileService)
         {
             this.textFileService = textFileService;
             InitializeSettings();
@@ -169,7 +169,7 @@ namespace EasyToUseGenerator.Services
                 DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
             }
 
-            public SerializedSettings(AppSettingsService appSettings)
+            public SerializedSettings(AppSettings appSettings)
             {
                 DefaultPasswordType = appSettings.DefaultPasswordType;
                 DefaultPasswordLengthInChars = appSettings.DefaultPasswordLengthInChars;

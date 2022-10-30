@@ -26,7 +26,7 @@ using CommonGeneratorCode;
 using System;
 using System.Windows;
 
-namespace EasyToUseGenerator.Windows
+namespace EasyToUseGenerator
 {
     public partial class CreateNewPasswordWindow : StandardWindow
     {
@@ -36,17 +36,17 @@ namespace EasyToUseGenerator.Windows
 
         public CreateNewPasswordWindow()
         {
-            NewPasswordType = App.Current.Settings.DefaultPasswordType;
-            NewPasswordLengthInChars = App.Current.Settings.DefaultPasswordLengthInChars;
-            ShouldUpdateDefaultPasswordCharacteristics = false;
+            this.NewPasswordType = App.Current.Settings.DefaultPasswordType;
+            this.NewPasswordLengthInChars = App.Current.Settings.DefaultPasswordLengthInChars;
+            this.ShouldUpdateDefaultPasswordCharacteristics = false;
 
-            DataContext = this;
+            this.DataContext = this;
             InitializeComponent();
         }
 
-        public PasswordType NewPasswordType
+        public PasswordType NewPasswordType 
         {
-            get => newPasswordType;
+            get => this.newPasswordType;
 
             private set
             {
@@ -59,85 +59,85 @@ namespace EasyToUseGenerator.Windows
                 //    "sasajd  dsfdsfds" but there password really is "sasajd dsfdsfds".  This leads to problems.
                 // 4. Disallowing spaces does not significantly reduce the security of passwords.
                 //
-                if (!Password.IsValidPasswordType(value) || PasswordType.AnyKeyOnAnEnglishKeyboard == value)
+                if (!Password.IsValidPasswordType(value) || (PasswordType.AnyKeyOnAnEnglishKeyboard == value))
                 {
                     throw new ArgumentException(CommonErrorMessages.ThisCaseShouldNeverOccur, paramName: nameof(value));
                 }
 
-                newPasswordType = value;
-                NotifyPropertyChanged(nameof(IsAnyKeyWhichCanBeTypedRadioButtonChecked));
-                NotifyPropertyChanged(nameof(IsLettersAndNumbersRadioButtonChecked));
-                NotifyPropertyChanged(nameof(IsNumbersRadioButtonChecked));
+                this.newPasswordType = value;
+                this.NotifyPropertyChanged(nameof(this.IsAnyKeyWhichCanBeTypedRadioButtonChecked));
+                this.NotifyPropertyChanged(nameof(this.IsLettersAndNumbersRadioButtonChecked));
+                this.NotifyPropertyChanged(nameof(this.IsNumbersRadioButtonChecked));
             }
         }
 
-        public int NewPasswordLengthInChars
-        {
-            get => newPasswordLengthInChars;
+        public int NewPasswordLengthInChars 
+        { 
+            get => this.newPasswordLengthInChars;
 
             set
             {
-                newPasswordLengthInChars = value;
-                NotifyPropertyChanged(nameof(NewPasswordLengthInChars));
+                this.newPasswordLengthInChars = value;
+                this.NotifyPropertyChanged(nameof(this.NewPasswordLengthInChars));
             }
         }
 
-        public bool ShouldUpdateDefaultPasswordCharacteristics
+        public bool ShouldUpdateDefaultPasswordCharacteristics 
         {
-            get => shouldUpdateDefaultPasswordCharacteristics;
+            get => this.shouldUpdateDefaultPasswordCharacteristics;
 
             set
             {
-                shouldUpdateDefaultPasswordCharacteristics = value;
-                NotifyPropertyChanged(nameof(ShouldUpdateDefaultPasswordCharacteristics));
+                this.shouldUpdateDefaultPasswordCharacteristics = value;
+                this.NotifyPropertyChanged(nameof(this.ShouldUpdateDefaultPasswordCharacteristics));
             }
         }
 
         public bool IsAnyKeyWhichCanBeTypedRadioButtonChecked
         {
-            get => NewPasswordType == PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace;
+            get => this.NewPasswordType == PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace;
         }
 
         public bool IsLettersAndNumbersRadioButtonChecked
         {
-            get => NewPasswordType == PasswordType.AlphaNumeric;
+            get => this.NewPasswordType == PasswordType.AlphaNumeric;
         }
 
         public bool IsNumbersRadioButtonChecked
         {
-            get => NewPasswordType == PasswordType.Numeric;
+            get => this.NewPasswordType == PasswordType.Numeric;
         }
 
         private void OnAnyKeyWhichCanBeTypedRadioButtonChecked(object sender, RoutedEventArgs e)
         {
-            NewPasswordType = PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace;
+            this.NewPasswordType = PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace;
         }
 
         private void OnLettersAndNumbersRadioButtonChecked(object sender, RoutedEventArgs e)
         {
-            NewPasswordType = PasswordType.AlphaNumeric;
+            this.NewPasswordType = PasswordType.AlphaNumeric;
         }
 
         private void OnNumbersRadioButtonChecked(object sender, RoutedEventArgs e)
         {
-            NewPasswordType = PasswordType.Numeric;
+            this.NewPasswordType = PasswordType.Numeric;
         }
 
         private void OnCreatePasswordClicked(object sender, RoutedEventArgs e)
         {
-            if (ShouldUpdateDefaultPasswordCharacteristics)
+            if (this.ShouldUpdateDefaultPasswordCharacteristics)
             {
-                App.Current.Settings.DefaultPasswordType = NewPasswordType;
-                App.Current.Settings.DefaultPasswordLengthInChars = NewPasswordLengthInChars;
+                App.Current.Settings.DefaultPasswordType = this.NewPasswordType;
+                App.Current.Settings.DefaultPasswordLengthInChars = this.NewPasswordLengthInChars;
             }
 
-            DialogResult = true;
+            this.DialogResult = true;
         }
 
         private void OnCancelClicked(object sender, RoutedEventArgs e)
         {
-            DialogResult = false;
-            Close();
+            this.DialogResult = false;
+            this.Close();
         }
     }
 }

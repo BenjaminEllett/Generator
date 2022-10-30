@@ -24,7 +24,6 @@
 
 using CommonGeneratorCode;
 using EasyToUseGenerator.Resources;
-using EasyToUseGenerator.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +32,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace EasyToUseGenerator.Windows
+namespace EasyToUseGenerator
 {
     public partial class PrintPasswordWindow : StandardWindow
     {

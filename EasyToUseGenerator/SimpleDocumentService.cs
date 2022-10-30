@@ -29,7 +29,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace EasyToUseGenerator.Services
+namespace EasyToUseGenerator
 {
     public record class DocumentSection(string Header, string Body, string? BodyFontFamily = null, double? BodyFontSize = null)
     {
