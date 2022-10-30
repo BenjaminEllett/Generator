@@ -26,7 +26,7 @@ Generator /Help
      If this command is specified, a new password is generated using only
      numbers.  This type of passwords is typically called a PIN.  PINs should
      only be used on devices which limit the number of attempts.  iPhone lock 
-     screens, smart cards and USB security keys are examples are things which 
+     screens, smart cards and USB security keys are examples of things which 
      limit the number of PIN guesses.  PINs should never be used for web 
      sites, computers or any password for a remote device.  Note that Windows 
      has PINs and passwords.  On Windows, passwords should be complex (have

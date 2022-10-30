@@ -35,20 +35,20 @@ namespace EasyToUseGenerator.Windows
 
         public MainWindow()
         {
-            this.currentPassword = new Password(
+            currentPassword = new Password(
                 App.Current.Settings.DefaultPasswordType,
                 App.Current.Settings.DefaultPasswordLengthInChars);
-            this.DataContext = this;
+            DataContext = this;
             InitializeComponent();
         }
 
-        public string NewlyCreatedPassword => this.currentPassword.Value;
+        public string NewlyCreatedPassword => currentPassword.Value;
 
         public string NewlyCreatedPasswordUIAutomationHelpText
         {
             get
             {
-                return this.currentPassword.PasswordType switch
+                return currentPassword.PasswordType switch
                 {
                     PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace => UserInterface.NewlyCreatedAllCharacterPasswordHelpText,
                     PasswordType.AlphaNumeric => UserInterface.NewlyCreatedAlphaNumericPasswordHelpText,
@@ -60,39 +60,39 @@ namespace EasyToUseGenerator.Windows
                 };
             }
         }
-        public string PasswordStrength => this.currentPassword.StrengthDisplayText;
-        public string PasswordStrengthDescription => this.currentPassword.StrengthDescription;
+        public string PasswordStrength => currentPassword.StrengthDisplayText;
+        public string PasswordStrengthDescription => currentPassword.StrengthDescription;
 
         private void OnCopyToClipBoardPressed(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(this.currentPassword.Value, TextDataFormat.UnicodeText); 
+            Clipboard.SetText(currentPassword.Value, TextDataFormat.UnicodeText);
         }
         private void OnPrintPasswordPressed(object sender, RoutedEventArgs e)
         {
-            this.CreateWindowAndShowDialogBox<PrintPasswordWindow>(
-                () => new PrintPasswordWindow(this.currentPassword));
+            CreateWindowAndShowDialogBox(
+                () => new PrintPasswordWindow(currentPassword));
         }
 
         private void OnCreateNewPasswordClicked(object sender, RoutedEventArgs e)
         {
             bool? userCreatedNewPassword;
             CreateNewPasswordWindow createNewPasswordWindow;
-            (userCreatedNewPassword, createNewPasswordWindow) = this.CreateWindowAndShowDialogBox<CreateNewPasswordWindow>();
+            (userCreatedNewPassword, createNewPasswordWindow) = CreateWindowAndShowDialogBox<CreateNewPasswordWindow>();
             if (userCreatedNewPassword == true)
             {
-                this.currentPassword = new Password(
+                currentPassword = new Password(
                     createNewPasswordWindow.NewPasswordType,
                     createNewPasswordWindow.NewPasswordLengthInChars);
-                this.NotifyPropertyChanged(nameof(this.NewlyCreatedPassword));
-                this.NotifyPropertyChanged(nameof(this.NewlyCreatedPasswordUIAutomationHelpText));
-                this.NotifyPropertyChanged(nameof(this.PasswordStrength));
-                this.NotifyPropertyChanged(nameof(this.PasswordStrengthDescription));
+                NotifyPropertyChanged(nameof(NewlyCreatedPassword));
+                NotifyPropertyChanged(nameof(NewlyCreatedPasswordUIAutomationHelpText));
+                NotifyPropertyChanged(nameof(PasswordStrength));
+                NotifyPropertyChanged(nameof(PasswordStrengthDescription));
             }
         }
 
         private void OnHelpClicked(object sender, RoutedEventArgs e)
         {
-            this.CreateWindowAndShowDialogBox<HelpWindow>();
+            CreateWindowAndShowDialogBox<HelpWindow>();
         }
 
         private (bool?, TWindow) CreateWindowAndShowDialogBox<TWindow>()
@@ -101,7 +101,7 @@ namespace EasyToUseGenerator.Windows
             return CreateWindowAndShowDialogBox(() => new TWindow());
         }
 
-        private (bool?, TWindow) CreateWindowAndShowDialogBox<TWindow>(Func<TWindow> createWindow) 
+        private (bool?, TWindow) CreateWindowAndShowDialogBox<TWindow>(Func<TWindow> createWindow)
             where TWindow : Window
         {
             TWindow newWindow = createWindow();

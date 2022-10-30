@@ -42,10 +42,10 @@ namespace EasyToUseGenerator.Windows
         public PrintPasswordWindow(Password password)
         {
             this.password = password;
-            this.OptionalWhereIsThisPasswordUsed = string.Empty;
-            this.OptionalAccountUserName = string.Empty;
+            OptionalWhereIsThisPasswordUsed = string.Empty;
+            OptionalAccountUserName = string.Empty;
 
-            this.DataContext = this;
+            DataContext = this;
             InitializeComponent();
         }
 
@@ -68,10 +68,10 @@ namespace EasyToUseGenerator.Windows
                     PrintedPasswordPage.PrintedPasswordPrintQueueDescriptionFormatString,
                     password.LocalTimeInstantCreated.ToString());
 
-            IDocumentPaginatorSource documentPaginatorSource = (IDocumentPaginatorSource)printedPasswordDocument;
+            IDocumentPaginatorSource documentPaginatorSource = printedPasswordDocument;
             printDialog.PrintDocument(documentPaginatorSource.DocumentPaginator, printedPasswordPrintQueueDescription);
 
-            this.Close();
+            Close();
         }
 
         private FlowDocument CreatePrintedPasswordDocument()
@@ -82,15 +82,15 @@ namespace EasyToUseGenerator.Windows
 
             List<DocumentSection> documentSections = new();
 
-            AddSectionIfIsUsed(PrintedPasswordPage.WhereIsThisPasswordUsedHeader, this.OptionalWhereIsThisPasswordUsed);
-            AddSectionIfIsUsed(PrintedPasswordPage.AccountUserNameHeader, this.OptionalAccountUserName);
+            AddSectionIfIsUsed(PrintedPasswordPage.WhereIsThisPasswordUsedHeader, OptionalWhereIsThisPasswordUsed);
+            AddSectionIfIsUsed(PrintedPasswordPage.AccountUserNameHeader, OptionalAccountUserName);
             AddSectionIfIsUsed(
                 PrintedPasswordPage.PrintedPasswordHeader,
-                this.password.Value,
+                password.Value,
                 textFontFamily: DocumentPasswordFontFamily,
                 textFontSize: 30); // A large font size is used because a password should be easy to read.
 
-            DateTime instantPasswordCreatedLocalTime = this.password.UtcInstantCreated.ToLocalTime();
+            DateTime instantPasswordCreatedLocalTime = password.UtcInstantCreated.ToLocalTime();
             AddSectionIfIsUsed(PrintedPasswordPage.DatePasswordCreatedHeader, instantPasswordCreatedLocalTime.ToString());
 
             ISimpleDocumentService simpleDocumentService = App.Current.GetService<ISimpleDocumentService>();
@@ -116,7 +116,7 @@ namespace EasyToUseGenerator.Windows
 
         private void OnCancelClicked(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace EasyToUseGenerator.Windows
     {
         public HelpWindow()
         {
-            this.DataContext = this;
+            DataContext = this;
             InitializeComponent();
         }
 
@@ -32,13 +32,13 @@ namespace EasyToUseGenerator.Windows
                 }
 
                 return string.Format(
-                    UserInterface.GeneratorNameAndVersionFormatString, 
-                    currentExecutable.Version.Major, 
-                    currentExecutable.Version.Minor, 
+                    UserInterface.GeneratorNameAndVersionFormatString,
+                    currentExecutable.Version.Major,
+                    currentExecutable.Version.Minor,
                     currentExecutable.Version.Build);
             }
         }
-        
+
         private void OnDocumentationClicked(object sender, RoutedEventArgs e)
         {
             LaunchWebBrowser("https://github.com/BenjaminEllett/Generator/blob/main/Documentation/WindowsAppGeneratorUsage.md#generator-windows-app-documentation");
@@ -66,7 +66,7 @@ namespace EasyToUseGenerator.Windows
 
         private void OnOKClicked(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void LaunchWebBrowser(string webSiteUri)
