@@ -88,8 +88,7 @@ namespace Generator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ```
-        ///Generator [/AKB | /AN | /PIN | /HEX] [new password length]
+        ///   Looks up a localized string similar to Generator [/AKB | /AN | /PIN | /HEX] [new password length]
         ///Generator /GeneratePasswordUsingAnyCharacterOnAKeyboard] [new password length]
         ///Generator /GenerateAlphaNumericPassword [new password length]
         ///Generator /GeneratePersonalIdentificationNumber [new password length]
@@ -100,7 +99,7 @@ namespace Generator {
         ////AKB
         ////GeneratePasswordUsingAnyCharacterOnAKeyboard
         ///     If this command is specified, the new password can have any character
-        ///     which can be t [rest of string was truncated]&quot;;.
+        ///     which can be typed  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Usage {
             get {
