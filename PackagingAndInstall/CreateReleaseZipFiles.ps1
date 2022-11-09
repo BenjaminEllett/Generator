@@ -53,7 +53,7 @@ function PublishProjectAndCreateZipFiles([string] $projectName)
     }
 
     [string] $zipFileName = "$projectName.zip"
-    [string] $zipFileWithPdbFilesName = "$projectName with PDB Files.zip"
+    [string] $zipFileWithPdbFilesName = $projectName + "WithPdbFiles.zip"
     [string] $zipFilePath = Join-Path $publishedZipFileDirectory $zipFileName
     [string] $zipFileWithPdbFilesPath = Join-Path $publishedZipFileDirectory $zipFileWithPdbFilesName
 
