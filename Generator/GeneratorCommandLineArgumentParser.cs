@@ -35,6 +35,7 @@ namespace Generator
             this.CommandList = new List<Command>()
                 {
                     GeneratePasswordCommand.CreatePinCommand(),
+                    GeneratePasswordCommand.CreateHexCommand(),
                     new GeneratePasswordCommand(
                         shortCommandParameterName: "AN", 
                         longCommandParameterName: "GenerateAlphaNumericPassword",
