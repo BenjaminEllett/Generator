@@ -193,7 +193,7 @@ characters long.
 Generator /PIN 6
 - Creates a 6 digit password using only numbers.  PINs should only be used on
 devices which limit the number of attempts to guess a PIN.  iPhone lock 
-screen PINs, smart cards and USB security keys are examples are devices which 
+screen PINs, smart cards and USB security keys are examples of devices which 
 limit the number of PIN guesses.
 
 Generator /HEX 128

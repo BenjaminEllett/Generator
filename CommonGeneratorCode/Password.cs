@@ -143,8 +143,8 @@ namespace CommonGeneratorCode
             this.Value = GeneratePassword(charactersWhichCanBeInPassword, passwordLengthInCharacters);
             (this.Strength, this.StrengthInBits) = 
                 DeterminePasswordStrength(
-                    charactersWhichCanBeInPassword.Count,
-                    passwordLengthInCharacters);
+                charactersWhichCanBeInPassword.Count,
+                passwordLengthInCharacters);
 
             this.UtcInstantCreated = DateTime.UtcNow;
         }
