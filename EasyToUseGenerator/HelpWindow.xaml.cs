@@ -35,7 +35,7 @@ namespace EasyToUseGenerator
                     UserInterface.GeneratorNameAndVersionFormatString, 
                     currentExecutable.Version.Major, 
                     currentExecutable.Version.Minor, 
-                    currentExecutable.Version.Revision);
+                    currentExecutable.Version.Build);
             }
         }
         
