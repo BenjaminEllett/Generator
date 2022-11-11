@@ -26,7 +26,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyToUseGenerator;
 using System.Globalization;
 
-namespace EasyToUseGeneratorTests
+namespace EasyToUseGenerator.Tests
 {
     [TestClass()]
     public class BoolNotOperationConverterTests

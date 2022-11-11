@@ -32,7 +32,7 @@ using System.Windows;
 using System.Windows.Documents;
 using TestUtil;
 
-namespace EasyToUseGeneratorTests
+namespace EasyToUseGenerator.Tests
 {
     [TestClass]
     public class SimpleDocumentServiceTests

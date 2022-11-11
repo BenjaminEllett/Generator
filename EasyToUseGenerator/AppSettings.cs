@@ -27,7 +27,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace EasyToUseGenerator.Services
+namespace EasyToUseGenerator
 {
     public interface IAppSettingService
     {
@@ -68,7 +68,7 @@ namespace EasyToUseGenerator.Services
         public AppSettings(ITextFileService textFileService)
         {
             this.textFileService = textFileService;
-            InitializeSettings();
+            this.InitializeSettings();
         }
 
         public int DefaultPasswordLengthInChars { get; set; }
@@ -78,9 +78,9 @@ namespace EasyToUseGenerator.Services
         public void Save()
         {
             SerializedSettings serializedSettings = new SerializedSettings(this);
-            string jsonSerializedSettings = JsonSerializer.Serialize(serializedSettings, jsonSerializerOptions);
-            textFileService.CreateDirectoryIfItDoesNotExist(SettingsFileDirectoryPath);
-            textFileService.WriteTextFile(SettingsFileNamePath, jsonSerializedSettings);
+            string jsonSerializedSettings = JsonSerializer.Serialize<SerializedSettings>(serializedSettings, jsonSerializerOptions);
+            this.textFileService.CreateDirectoryIfItDoesNotExist(this.SettingsFileDirectoryPath);
+            this.textFileService.WriteTextFile(this.SettingsFileNamePath, jsonSerializedSettings);
         }
 
         private string SettingsFileDirectoryPath
@@ -100,18 +100,18 @@ namespace EasyToUseGenerator.Services
             {
                 const string SettingsFileName = "GeneratorSettings.json";
 
-                return Path.Combine(SettingsFileDirectoryPath, SettingsFileName);
+                return Path.Combine(this.SettingsFileDirectoryPath, SettingsFileName);
             }
         }
 
         private void InitializeSettings()
         {
-            DefaultPasswordType = Constants.InitialDefaultPasswordType;
-            DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
+            this.DefaultPasswordType = Constants.InitialDefaultPasswordType;
+            this.DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
 
             string? jsonSerializedSettings;
 
-            if (!textFileService.TryReadTextFile(SettingsFileNamePath, out jsonSerializedSettings))
+            if (!this.textFileService.TryReadTextFile(this.SettingsFileNamePath, out jsonSerializedSettings))
             {
                 return;
             }
@@ -128,12 +128,12 @@ namespace EasyToUseGenerator.Services
             if (Password.IsValidPasswordType(serializedSettings.DefaultPasswordType) &&
                 IsSupportedPasswordType(serializedSettings.DefaultPasswordType))
             {
-                DefaultPasswordType = serializedSettings.DefaultPasswordType;
+                this.DefaultPasswordType = serializedSettings.DefaultPasswordType;
             }
 
             if (Password.IsValidPasswordLength(serializedSettings.DefaultPasswordLengthInChars))
             {
-                DefaultPasswordLengthInChars = serializedSettings.DefaultPasswordLengthInChars;
+                this.DefaultPasswordLengthInChars = serializedSettings.DefaultPasswordLengthInChars;
             }
 
             return;
@@ -165,17 +165,17 @@ namespace EasyToUseGenerator.Services
                 // Set the initial values in case they are not in the configuration file.  JsonSerializer.Deserialize<SerializedSettings>()
                 // does not throw an error if a JSON file does not contain an expected property.  Instead, it leaves the property's value as
                 // the default value.
-                DefaultPasswordType = Constants.InitialDefaultPasswordType;
-                DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
+                this.DefaultPasswordType = Constants.InitialDefaultPasswordType;
+                this.DefaultPasswordLengthInChars = Constants.InitialDefaultPasswordLengthInChars;
             }
 
             public SerializedSettings(AppSettings appSettings)
             {
-                DefaultPasswordType = appSettings.DefaultPasswordType;
-                DefaultPasswordLengthInChars = appSettings.DefaultPasswordLengthInChars;
+                this.DefaultPasswordType = appSettings.DefaultPasswordType;
+                this.DefaultPasswordLengthInChars = appSettings.DefaultPasswordLengthInChars;
             }
 
-            public PasswordType DefaultPasswordType { get; set; }
+            public PasswordType DefaultPasswordType { get; set; } 
 
             public int DefaultPasswordLengthInChars { get; set; }
         }

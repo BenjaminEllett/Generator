@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Windows.Controls;
 using TestUtil;
 
-namespace EasyToUseGeneratorTests
+namespace EasyToUseGenerator.Tests
 {
     [TestClass()]
     public class PasswordLengthBindingValidationRuleTests

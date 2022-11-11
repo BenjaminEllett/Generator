@@ -29,7 +29,7 @@ using Moq;
 using Moq.Language.Flow;
 using System.Text.RegularExpressions;
 
-namespace EasyToUseGeneratorTests
+namespace EasyToUseGenerator.Tests
 {
     [TestClass]
     public class AppSettingsTests
