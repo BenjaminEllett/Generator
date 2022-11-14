@@ -23,10 +23,10 @@
 -->
     
 <local:StandardWindow x:Class="EasyToUseGenerator.MainWindow"
-                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                        xmlns:local="clr-namespace:EasyToUseGenerator"
-                        xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:local="clr-namespace:EasyToUseGenerator"
+                      xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
         
         Title="{x:Static resources:UserInterface.MainWindowTitle}"
 
@@ -79,7 +79,7 @@
                     Click="OnCopyToClipBoardPressed"
                     
                     IsDefault="True"
-                                        
+                    
                     Style="{StaticResource StandardButtonStyle}"/>
             
             <Button Content="{x:Static resources:UserInterface.PrintPasswordButtonText}"
