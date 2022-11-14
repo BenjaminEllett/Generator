@@ -69,7 +69,7 @@
                 Click="OnDocumentationClicked"
                 
                 Style="{StaticResource HyperLinkButtonStyle}"
-                Margin="{StaticResource StandardLargeVerticalSpaceBetweenItemsMargin}"/>
+                Margin="{StaticResource Standard_Large_VerticalSpaceBetweenItemsMargin}"/>
 
         <Button Content="{x:Static resources:UserInterface.PasswordAdviceButtonText}"
                 Click="OnPasswordAdviceClicked"
@@ -99,6 +99,6 @@
                 Click="OnOKClicked"
                 HorizontalAlignment="Right"
                 Style="{StaticResource StandardButtonStyle}"
-                Margin="{StaticResource StandardLargeVerticalSpaceBetweenItemsMargin}"/>
+                Margin="{StaticResource Standard_Large_VerticalSpaceBetweenItemsMargin}"/>
     </StackPanel>
 </local:StandardWindow>

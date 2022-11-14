@@ -35,6 +35,7 @@
 
     <Application.Resources>
 
+        <!-- Standard veritical spaces -->
         <Thickness x:Key="StandardVerticalSpaceBetweenItemsMargin"
                    Left="0"
                    Top="5"
@@ -42,17 +43,28 @@
                    Bottom="0">
         </Thickness>
 
+        <Thickness x:Key="Standard_Medium_VerticalSpaceBetweenItemsMargin"
+                   Left="0"
+                   Top="10"
+                   Right="0"
+                   Bottom="0">
+        </Thickness>
 
-        
-        <Thickness x:Key="StandardLargeVerticalSpaceBetweenItemsMargin"
+        <Thickness x:Key="Standard_Large_VerticalSpaceBetweenItemsMargin"
                    Left="0"
                    Top="20"
                    Right="0"
                    Bottom="0">
         </Thickness>
 
+        <Thickness x:Key="Standard_Large_VerticalSpaceBetweenItemsMarginForLabels"
+                   Left="0"
+                   Top="20"
+                   Right="0"
+                   Bottom="5">
+        </Thickness>
 
-
+        <!-- Standard horizontal space -->
         <Thickness x:Key="StandardHorizonalSpaceBetweenItemsMargin"
                    Left="5"
                    Top="0"

@@ -27,8 +27,6 @@ using EasyToUseGenerator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Language.Flow;
-using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace EasyToUseGenerator.Tests
