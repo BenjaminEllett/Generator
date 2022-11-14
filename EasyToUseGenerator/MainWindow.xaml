@@ -27,15 +27,15 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:local="clr-namespace:EasyToUseGenerator"
                       xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
-        
-        Title="{x:Static resources:UserInterface.MainWindowTitle}"
 
-        ResizeMode="CanMinimize"
-                      
-        Style="{StaticResource StandardWindowStyle}"
-                      
-        Width="755"
-        Height="301">
+                      Title="{x:Static resources:UserInterface.MainWindowTitle}"
+
+                      ResizeMode="CanMinimize"
+
+                      Style="{StaticResource StandardWindowStyle}"
+
+                      Width="755"
+                      Height="301">
 
     <StackPanel Style="{StaticResource StandardMainStackPanelStyle}">
         <Label Content="{x:Static resources:UserInterface.NewlyCreatedPasswordLabel}"
