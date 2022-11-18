@@ -22,11 +22,9 @@
 // SOFTWARE.
 //
 
-using EasyToUseGenerator.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Documents;
@@ -39,54 +37,70 @@ namespace EasyToUseGenerator.Tests
     {
         private const string testSectionBody = "0123456789 0123456789 0123456789 0123456789 0123456789";
 
-        private static readonly DocumentSection onlySection = CreateTestSection("Only Section Header");
         private static readonly DocumentSection sectionOne = CreateTestSection(1);
         private static readonly DocumentSection sectionTwo = CreateTestSection(2);
 
-        // Cdwms stands for CreateDocumentWithMultipleSections
+        // Cdws stands for Create Document With Sections.  CreateDocumentWithSections() is the name of a method on the
+        // ISimpleDocumentService interface.
         [TestMethod]
-        public void CdwmsThrowsAnExceptionIfADocumentHasNoSections()
+        public void CdwsThrowsAnExceptionIfADocumentHasNoSections()
         {
             TestHelper.TestActionWhichShouldThrowAnException<ArgumentException>(
-                PassAnEmptyListOfDocumentSectionsToCdwms,
+                PassAnEmptyListOfDocumentSectionsToCdws,
                 "A document must have at least one section.");
             return;
 
-            static void PassAnEmptyListOfDocumentSectionsToCdwms()
+            static void PassAnEmptyListOfDocumentSectionsToCdws()
             {
-                List<DocumentSection> documentSections = new();
-                CreateDocumentWithMultipleSections(documentSections);
+                CreateDocumentWithSections(new DocumentSection[0]);
             }
         }
 
         [TestMethod]
-        public void CdwmsShouldBeAbleToCreateADocumentWithOneSection()
+        public void CdwsShouldBeAbleToCreateADocumentWithOneSection()
         {
-            List<DocumentSection> documentSections = new()
-            {
-                onlySection,
-            };
-
-            FlowDocument flowDocument = CreateDocumentWithMultipleSections(documentSections);
-
-            Assert.IsTrue(
-                DoesDocumentContainSection(flowDocument, onlySection),
-                "The document should contain the Only Section.");
-            Assert.IsTrue(
-                GetSectionCount(flowDocument) == 1,
-                "The document should only contain 1 section.");
+            DocumentSection onlySection = CreateTestSection("Only Section Header");
+            CreateDocumentAndVerifyThatItOnlyContainsThisSection(onlySection);
         }
 
         [TestMethod]
-        public void CdwmsShouldBeAbleToCreateADocumentWithTwoSections()
+        public void ASectionShouldBeAbleToHaveADifferentTypeFace()
         {
-            List<DocumentSection> documentSections = new()
-            {
-                sectionOne,
-                sectionTwo,
-            };
+            DocumentSection sectionWithDifferentBodyTypeFace = new DocumentSection(
+                "Section whoes body has a different type face.",
+                testSectionBody,
+                BodyFontFamily: "Courier New");
 
-            FlowDocument documentWithMultipleSections = CreateDocumentWithMultipleSections(documentSections);
+            CreateDocumentAndVerifyThatItOnlyContainsThisSection(sectionWithDifferentBodyTypeFace);
+        }
+
+        [TestMethod]
+        public void ASectionShouldBeAbleToHaveADifferentTypeSize()
+        {
+            DocumentSection sectionWithDifferentBodyTypeSize = new (
+                "Section whoes body has a different type size.",
+                testSectionBody,
+                BodyFontSize: 30);
+
+            CreateDocumentAndVerifyThatItOnlyContainsThisSection(sectionWithDifferentBodyTypeSize);
+        }
+
+        [TestMethod]
+        public void ASectionShouldBeAbleToHaveADifferentTypeFaceAndTypeSize()
+        {
+            DocumentSection sectionWithDifferentBodyTypeFaceAndSize = new (
+                "Section whoes body has a different type face and size.",
+                testSectionBody,
+                BodyFontFamily: "Courier New",
+                BodyFontSize: 30);
+
+            CreateDocumentAndVerifyThatItOnlyContainsThisSection(sectionWithDifferentBodyTypeFaceAndSize);
+        }
+
+        [TestMethod]
+        public void CdwsShouldBeAbleToCreateADocumentWithTwoSections()
+        {
+            FlowDocument documentWithMultipleSections = CreateDocumentWith2Sections();
 
             Assert.IsTrue(
                 DoesDocumentContainSection(documentWithMultipleSections, sectionOne),
@@ -98,32 +112,64 @@ namespace EasyToUseGenerator.Tests
                 GetSectionCount(documentWithMultipleSections) == 2,
                 "The document should contain 2 sections.");
         }
-        
+
+        [TestMethod]
+        public void CdwsShouldBeAbleToCreateADocumentSectionsInTheRightOrder()
+        {
+            FlowDocument documentWithTwoSections = CreateDocumentWith2Sections();
+
+            Run firstSectionRun = GetFirstSection(documentWithTwoSections);
+            Assert.IsTrue(
+                IsExpectedSection(firstSectionRun, sectionOne),
+                "The first section should be section 1.");
+
+            bool foundSecondSection = TryGetNextSection(firstSectionRun, out Run? secondSectionRun);
+            Assert.IsTrue(
+                foundSecondSection, 
+                "The second section should exist because two sections were passed to ISimpleDocumentService.CreateDocumentWithSections()");
+            Assert.IsTrue(
+                IsExpectedSection(secondSectionRun!, sectionTwo),
+                "The second section should be section 2.");
+
+            Assert.IsFalse(
+                TryGetNextSection(secondSectionRun!, out Run? thirdSectionRun),
+                "The third section should not exist because the document only has two sections.");
+        }
+
+
+
+        #region Create Test Documents
+
         private static DocumentSection CreateTestSection(string header) =>
             new DocumentSection(header, testSectionBody);
 
         private static DocumentSection CreateTestSection(int headerNumber) =>
             CreateTestSection($"Section Header {headerNumber}");
 
-        private static FlowDocument CreateDocumentWithMultipleSections(IEnumerable<DocumentSection> documentSections)
+        private static FlowDocument CreateDocumentWithSections(params DocumentSection[] documentSections)
         {
             ISimpleDocumentService simpleDocumentService = new SimpleDocumentService();
-            return simpleDocumentService.CreateDocumentWithMultipleSections(documentSections);
+            return simpleDocumentService.CreateDocumentWithSections(documentSections);
         }
 
-        private static Paragraph GetFlowDocumentRoot(FlowDocument flowDocument)
-        {
-            Assert.IsTrue(
-                flowDocument.Blocks.Count == 1,
-                "The document should have only one root element.  If this changes, this function needs to be revised.");
+        private static FlowDocument CreateDocumentWith2Sections() =>
+           CreateDocumentWithSections(sectionOne, sectionTwo);
 
-            IList blocks = (IList)flowDocument.Blocks;
-            return (Paragraph)blocks[0]!;
-        }
+        #endregion Create Test Documents
+
+
+
+        #region Simple Document Section Enumerator
 
         private static Run GetFirstSection(FlowDocument simpleDocumentWithSections)
         {
-            Paragraph paragraph = GetFlowDocumentRoot(simpleDocumentWithSections);
+            Assert.IsTrue(
+                simpleDocumentWithSections.Blocks.Count == 1,
+                "The document should have only one root element.  If this changes, this function needs to be revised.");
+
+            IList blocks = (IList)simpleDocumentWithSections.Blocks;
+
+            Paragraph paragraph = (Paragraph)blocks[0]!;
             Inline possibleFirstSectionHeader = paragraph.Inlines.FirstInline;
             Assert.IsTrue(
                 IsSection(possibleFirstSectionHeader), 
@@ -135,17 +181,22 @@ namespace EasyToUseGenerator.Tests
         {
             nextSectionHeader = default(Run);
 
-            Run currentSectionBody = GetBodyFromSectionHeader(currentSectionHeader);
-            if (currentSectionBody.NextInline == null)
+            if (!TryGetBodyFromSectionHeader(currentSectionHeader, out Run? currentSectionBody))
             {
-                // There is no next inline so there is no next section.
+                return false;
+            }
+
+            Inline? currentInline = currentSectionBody.NextInline;
+
+            // There 
+            if (currentInline == null)
+            {
                 return false;
             }
 
             int lineBreakCount = 0;
-            const int ExpectedNumberOfLineBreaksBetweenSections = 3;
-            Inline? currentInline = currentSectionBody.NextInline;
-
+            const int ExpectedNumberOfLineBreaksBetweenSections = 4;
+            
             while (lineBreakCount < ExpectedNumberOfLineBreaksBetweenSections)
             {
                 // null means there is no previous inline
@@ -155,7 +206,7 @@ namespace EasyToUseGenerator.Tests
 
                 Assert.IsTrue(
                     currentInline is LineBreak,
-                    "Only LineBreak objects are allowed between sections.  The reason is they provide space between sections.s");
+                    "Only LineBreak objects are allowed between sections.  The reason is they provide space between sections.");
 
                 currentInline = currentInline.NextInline;
                 lineBreakCount++;
@@ -169,13 +220,42 @@ namespace EasyToUseGenerator.Tests
             return true;
         }
 
-        private static Run GetBodyFromSectionHeader(Run sectionHeader)
+        private static bool TryGetBodyFromSectionHeader(Run sectionHeader, [NotNullWhen(returnValue: true)] out Run? sectionBody)
         {
-            Assert.IsTrue(
-                IsBody(sectionHeader.NextInline),
-                "A section body must come after the section header.");
+            sectionBody = null;
 
-            return (Run)sectionHeader.NextInline;
+            // A header has two parts.  The first part is a Run with the header text.  The second part is a LineBreak element.
+            Inline? sectionBodyInline = sectionHeader?.NextInline?.NextInline;
+            if (sectionBodyInline == null)
+            {
+                return false;
+            }
+
+            Assert.IsTrue(
+                IsBody(sectionBodyInline),
+                "A body section should come after a header section.");
+
+            sectionBody = (Run)sectionBodyInline;
+
+            return true;
+        }
+
+        #endregion Simple Document Section Enumerator
+
+
+
+        #region Verification Functions
+
+        private static void CreateDocumentAndVerifyThatItOnlyContainsThisSection(DocumentSection section)
+        {
+            FlowDocument flowDocument = CreateDocumentWithSections(section);
+
+            Assert.IsTrue(
+                DoesDocumentContainSection(flowDocument, section),
+                $"The document should contain the '{section.Header}' section.");
+            Assert.IsTrue(
+                GetSectionCount(flowDocument) == 1,
+                "The document should only contain 1 section.");
         }
 
         private static bool DoesDocumentContainSection(FlowDocument simpleDocumentWithSections, DocumentSection section)
@@ -210,41 +290,33 @@ namespace EasyToUseGenerator.Tests
 
         private static bool IsSection(Inline inline)
         {
-            if (!IsHeader(inline))
-            {
-                return false;
-            }
-
-            // If the next element is null, it means there is no next element.
-            Inline? nextInline = inline.NextInline;
-            if (nextInline == null)
-            {
-                return false;
-            }
-
-            if (!IsBody(nextInline))
-            {
-                return false;
-            }
-
-            return true;
+            return IsSectionInternal(inline, IsHeader, IsBody);
         }
 
         private static bool IsExpectedSection(Inline inline, DocumentSection section)
         {
-            if (!IsExpectedHeader(inline, section.Header))
+            return IsSectionInternal(
+                inline,
+                isHeader: inline => IsExpectedHeader(inline, section.Header),
+                isBody: inline => IsExpectedBody(inline, section));
+        }
+
+        private static bool IsSectionInternal(Inline inline, Func<Inline, bool> isHeader, Func<Inline, bool> isBody)
+        {
+            if (!isHeader(inline))
             {
                 return false;
             }
 
-            // If the next element is null, it means there is no next element.
-            Inline? nextInline = inline.NextInline?.NextInline;
+            // A header has two parts.  The first part is a Run with the header text.  The second part is a LineBreak element.
+            Inline? nextInline = inline?.NextInline?.NextInline;
             if (nextInline == null)
             {
                 return false;
             }
 
-            if (!IsExpectedBody(nextInline, section))
+            // If the next element is null, it means there is no next element.
+            if (!isBody(nextInline))
             {
                 return false;
             }
@@ -285,8 +357,7 @@ namespace EasyToUseGenerator.Tests
             }
 
             return (run.FontWeight == FontWeights.Normal) &&
-                   (run.TextDecorations.Count == 0) &&
-                   (run.NextInline is LineBreak);
+                   (run.TextDecorations.Count == 0);
         }
 
         private static bool IsExpectedBody(Inline inline, DocumentSection section)
@@ -316,5 +387,7 @@ namespace EasyToUseGenerator.Tests
 
             return string.Equals(run.Text, section.Body, StringComparison.Ordinal);
         }
+
+        #endregion Verification Functions
     }
 }

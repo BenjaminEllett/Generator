@@ -39,12 +39,12 @@ namespace EasyToUseGenerator
 
     public interface ISimpleDocumentService
     {
-        public FlowDocument CreateDocumentWithMultipleSections(IEnumerable<DocumentSection> documentSections);
+        public FlowDocument CreateDocumentWithSections(IEnumerable<DocumentSection> documentSections);
     }
 
     public class SimpleDocumentService : ISimpleDocumentService
     {
-        public FlowDocument CreateDocumentWithMultipleSections(IEnumerable<DocumentSection> documentSections)
+        public FlowDocument CreateDocumentWithSections(IEnumerable<DocumentSection> documentSections)
         {
             if (!documentSections.Any())
             {
@@ -75,7 +75,7 @@ namespace EasyToUseGenerator
                 if (!isFirstSection)
                 {
                     // Add lines after the previous section
-                    const int numLinesBetweenSections = 3;
+                    const int numLinesBetweenSections = 4;
 
                     for (int lineBreakIndex = 0; lineBreakIndex < numLinesBetweenSections; lineBreakIndex++)
                     {
@@ -106,6 +106,7 @@ namespace EasyToUseGenerator
 
                 // Put new section in the document
                 AddText(sections, sectionHeader);
+                AddLineBreak(sections);
                 AddText(sections, sectionBody);
             }
 
@@ -116,7 +117,6 @@ namespace EasyToUseGenerator
             static void AddText(Paragraph paragraph, Run text)
             {
                 paragraph.Inlines.Add(text);
-                AddLineBreak(paragraph);
             }
 
             static void AddLineBreak(Paragraph paragraph)

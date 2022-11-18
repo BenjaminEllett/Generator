@@ -26,11 +26,9 @@ using CommonGeneratorCode;
 using EasyToUseGenerator.Resources;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Media;
 
 namespace EasyToUseGenerator
 {
@@ -42,14 +40,14 @@ namespace EasyToUseGenerator
         {
             this.password = password;
             OptionalWhereIsThisPasswordUsed = string.Empty;
-            OptionalAccountUserName = string.Empty;
+            OptionalAccountUsername = string.Empty;
 
             DataContext = this;
             InitializeComponent();
         }
 
         public string OptionalWhereIsThisPasswordUsed { get; set; }
-        public string OptionalAccountUserName { get; set; }
+        public string OptionalAccountUsername { get; set; }
 
         private void OnPrintPasswordClicked(object sender, RoutedEventArgs e)
         {
@@ -82,7 +80,7 @@ namespace EasyToUseGenerator
             List<DocumentSection> documentSections = new();
 
             AddSectionIfIsUsed(PrintedPasswordPage.WhereIsThisPasswordUsedHeader, OptionalWhereIsThisPasswordUsed);
-            AddSectionIfIsUsed(PrintedPasswordPage.AccountUserNameHeader, OptionalAccountUserName);
+            AddSectionIfIsUsed(PrintedPasswordPage.AccountUserNameHeader, OptionalAccountUsername);
             AddSectionIfIsUsed(
                 PrintedPasswordPage.PrintedPasswordHeader,
                 password.Value,
@@ -93,7 +91,7 @@ namespace EasyToUseGenerator
             AddSectionIfIsUsed(PrintedPasswordPage.DatePasswordCreatedHeader, instantPasswordCreatedLocalTime.ToString());
 
             ISimpleDocumentService simpleDocumentService = App.Current.GetService<ISimpleDocumentService>();
-            return simpleDocumentService.CreateDocumentWithMultipleSections(documentSections);
+            return simpleDocumentService.CreateDocumentWithSections(documentSections);
 
 
 

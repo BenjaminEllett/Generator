@@ -216,6 +216,18 @@
   <data name="OKButtonText" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="OptionalAccountUsernameLabel" xml:space="preserve">
+    <value>_Account Username (Optional)</value>
+    <comment>Used on the Print Password window</comment>
+  </data>
+  <data name="OptionalUsernameTextBoxToolTip" xml:space="preserve">
+    <value>Enter the username associated with this password.  The username will be printed with the password when it is printed.  The username will not be printed if this field is empty.</value>
+    <comment>Used on the Print Password window</comment>
+  </data>
+  <data name="OptionalWhatIsThisPasswordUsedForTextBoxToolTip" xml:space="preserve">
+    <value>This box is used to describe where a password is used.  For example, 'Amazon', 'This password is used to logon to my work PC' or 'https://www.amazon.com'.  If this box is empty, the printed password does not state where it is used.</value>
+    <comment>Used on the Print Password window</comment>
+  </data>
   <data name="PasswordAdviceButtonText" xml:space="preserve">
     <value>Password Advice</value>
     <comment>Used on the Help Window</comment>
@@ -232,6 +244,10 @@
     <value>Print Password</value>
     <comment>Used on the Main Window</comment>
   </data>
+  <data name="PrintPasswordOnPrinterButtonText" xml:space="preserve">
+    <value>Print Password</value>
+    <comment>Used on the Print Password window</comment>
+  </data>
   <data name="PrintPasswordWindowTitle" xml:space="preserve">
     <value>Print Password</value>
     <comment>Used on the Print Password window</comment>
@@ -247,5 +263,9 @@
   <data name="UpdateDefaultPasswordLengthAndTypeCheckBoxText" xml:space="preserve">
     <value>Update default password length and type</value>
     <comment>Used on the Create New Password Window</comment>
+  </data>
+  <data name="WhereIsThisPasswordUsedLabel" xml:space="preserve">
+    <value>_Where is this password used? (Optional)</value>
+    <comment>Used on the Print Password window</comment>
   </data>
 </root>
