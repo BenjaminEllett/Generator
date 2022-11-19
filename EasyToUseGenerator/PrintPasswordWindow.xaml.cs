@@ -85,7 +85,8 @@ namespace EasyToUseGenerator
                 PrintedPasswordPage.PrintedPasswordHeader,
                 password.Value,
                 textFontFamily: DocumentPasswordFontFamily,
-                textFontSize: 30); // A large font size is used because a password should be easy to read.
+                textFontSize: 30); // A large font size is used because it makes it easier to read a password and
+                                   // to distguish similar looking characters (i.e. o, O and 0 / i, l, I and 1).
 
             DateTime instantPasswordCreatedLocalTime = password.UtcInstantCreated.ToLocalTime();
             AddSectionIfIsUsed(PrintedPasswordPage.DatePasswordCreatedHeader, instantPasswordCreatedLocalTime.ToString());

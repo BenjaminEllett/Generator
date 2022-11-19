@@ -31,12 +31,6 @@ using System.Windows.Media;
 
 namespace EasyToUseGenerator
 {
-    public record class DocumentSection(string Header, string Body, string? BodyFontFamily = null, double? BodyFontSize = null)
-    {
-        public bool HasBodyFontFamily => BodyFontFamily != null;
-        public bool HasBodyFontSize => BodyFontSize.HasValue;
-    }
-
     public interface ISimpleDocumentService
     {
         public FlowDocument CreateDocumentWithSections(IEnumerable<DocumentSection> documentSections);

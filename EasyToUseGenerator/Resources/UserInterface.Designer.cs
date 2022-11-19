@@ -304,7 +304,7 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the username associated with this password.  The username will be printed with the password when the password is printed.  The username will not be printed if this field is empty..
+        ///   Looks up a localized string similar to Enter the username associated with this password.  The username will be printed with the password when it is printed.  The username will not be printed if this field is empty..
         /// </summary>
         public static string OptionalUsernameTextBoxToolTip {
             get {
@@ -349,7 +349,7 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Print Password.
+        ///   Looks up a localized string similar to _Print Password.
         /// </summary>
         public static string PrintPasswordButtonText {
             get {
@@ -358,7 +358,7 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Print Password.
+        ///   Looks up a localized string similar to _Print Password.
         /// </summary>
         public static string PrintPasswordOnPrinterButtonText {
             get {

@@ -241,11 +241,11 @@
     <comment>Used on the Main Window</comment>
   </data>
   <data name="PrintPasswordButtonText" xml:space="preserve">
-    <value>Print Password</value>
+    <value>_Print Password</value>
     <comment>Used on the Main Window</comment>
   </data>
   <data name="PrintPasswordOnPrinterButtonText" xml:space="preserve">
-    <value>Print Password</value>
+    <value>_Print Password</value>
     <comment>Used on the Print Password window</comment>
   </data>
   <data name="PrintPasswordWindowTitle" xml:space="preserve">

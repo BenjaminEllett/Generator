@@ -98,8 +98,6 @@
             <Button Content="{x:Static resources:UserInterface.HelpButtonText}"
                     Click="OnHelpClicked"
                     
-                    TabIndex="2"
-                    
                     Style="{StaticResource StandardButtonStyle}"
 
                     Margin="{StaticResource StandardHorizonalSpaceBetweenItemsMargin}"/>
