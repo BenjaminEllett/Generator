@@ -29,7 +29,7 @@
              xmlns:local="clr-namespace:EasyToUseGenerator"             
              xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
              
-             StartupUri="MainWindow.xaml"
+             StartupUri="Windows/MainWindow.xaml"
              
              Exit="OnExit">
 
