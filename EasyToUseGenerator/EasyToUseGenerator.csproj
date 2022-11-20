@@ -49,6 +49,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\PrintedPasswordPage.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PrintedPasswordPage.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\UserInterface.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -60,6 +65,10 @@
     <EmbeddedResource Update="Resources\ErrorMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PrintedPasswordPage.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PrintedPasswordPage.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\UserInterface.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

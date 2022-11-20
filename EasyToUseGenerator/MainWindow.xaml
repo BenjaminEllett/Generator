@@ -27,14 +27,14 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:local="clr-namespace:EasyToUseGenerator"
                       xmlns:resources="clr-namespace:EasyToUseGenerator.Resources"
-        
+
                       Title="{x:Static resources:UserInterface.MainWindowTitle}"
 
                       ResizeMode="CanMinimize"
-                      
+
                       Style="{StaticResource StandardWindowStyle}"
-                      
-                      Width="570"
+
+                      Width="755"
                       Height="301">
 
     <StackPanel Style="{StaticResource StandardMainStackPanelStyle}">
@@ -79,8 +79,14 @@
                     Click="OnCopyToClipBoardPressed"
                     
                     IsDefault="True"
-                                        
+                    
                     Style="{StaticResource StandardButtonStyle}"/>
+            
+            <Button Content="{x:Static resources:UserInterface.PrintPasswordButtonText}"
+                    Click="OnPrintPasswordPressed"
+                    
+                    Style="{StaticResource StandardButtonStyle}"
+                    Margin="{StaticResource StandardHorizonalSpaceBetweenItemsMargin}" />
 
             <Button Content="{x:Static resources:UserInterface.CreateNewPasswordButtonText}"
                     Click="OnCreateNewPasswordClicked"
@@ -91,8 +97,6 @@
 
             <Button Content="{x:Static resources:UserInterface.HelpButtonText}"
                     Click="OnHelpClicked"
-                    
-                    TabIndex="2"
                     
                     Style="{StaticResource StandardButtonStyle}"
 

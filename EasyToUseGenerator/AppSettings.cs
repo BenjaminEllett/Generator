@@ -125,9 +125,8 @@ namespace EasyToUseGenerator
                 return;
             }
 
-            // The GUI version of this application does not support passwords with spaces.
             if (Password.IsValidPasswordType(serializedSettings.DefaultPasswordType) &&
-                (serializedSettings.DefaultPasswordType != PasswordType.AnyKeyOnAnEnglishKeyboard))
+                IsSupportedPasswordType(serializedSettings.DefaultPasswordType))
             {
                 this.DefaultPasswordType = serializedSettings.DefaultPasswordType;
             }
@@ -135,6 +134,24 @@ namespace EasyToUseGenerator
             if (Password.IsValidPasswordLength(serializedSettings.DefaultPasswordLengthInChars))
             {
                 this.DefaultPasswordLengthInChars = serializedSettings.DefaultPasswordLengthInChars;
+            }
+
+            return;
+
+
+
+            static bool IsSupportedPasswordType(PasswordType passwordType)
+            {
+                switch (passwordType)
+                {
+                    case PasswordType.Numeric:
+                    case PasswordType.AlphaNumeric:
+                    case PasswordType.AnyKeyOnAnEnglishKeyboardExceptASpace:
+                        return true;
+
+                    default:
+                        return false;
+                }
             }
         }
 

@@ -295,6 +295,33 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Account Username (Optional).
+        /// </summary>
+        public static string OptionalAccountUsernameLabel {
+            get {
+                return ResourceManager.GetString("OptionalAccountUsernameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the username associated with this password.  The username will be printed with the password when it is printed.  The username will not be printed if this field is empty..
+        /// </summary>
+        public static string OptionalUsernameTextBoxToolTip {
+            get {
+                return ResourceManager.GetString("OptionalUsernameTextBoxToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This box is used to describe where a password is used.  For example, &apos;Amazon&apos;, &apos;This password is used to logon to my work PC&apos; or &apos;https://www.amazon.com&apos;.  If this box is empty, the printed password does not state where it is used..
+        /// </summary>
+        public static string OptionalWhatIsThisPasswordUsedForTextBoxToolTip {
+            get {
+                return ResourceManager.GetString("OptionalWhatIsThisPasswordUsedForTextBoxToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password Advice.
         /// </summary>
         public static string PasswordAdviceButtonText {
@@ -322,6 +349,33 @@ namespace EasyToUseGenerator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Print Password.
+        /// </summary>
+        public static string PrintPasswordButtonText {
+            get {
+                return ResourceManager.GetString("PrintPasswordButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Print Password.
+        /// </summary>
+        public static string PrintPasswordOnPrinterButtonText {
+            get {
+                return ResourceManager.GetString("PrintPasswordOnPrinterButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print Password.
+        /// </summary>
+        public static string PrintPasswordWindowTitle {
+            get {
+                return ResourceManager.GetString("PrintPasswordWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Website.
         /// </summary>
         public static string ProjectWebSiteButtonText {
@@ -345,6 +399,15 @@ namespace EasyToUseGenerator.Resources {
         public static string UpdateDefaultPasswordLengthAndTypeCheckBoxText {
             get {
                 return ResourceManager.GetString("UpdateDefaultPasswordLengthAndTypeCheckBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Where is this password used? (Optional).
+        /// </summary>
+        public static string WhereIsThisPasswordUsedLabel {
+            get {
+                return ResourceManager.GetString("WhereIsThisPasswordUsedLabel", resourceCulture);
             }
         }
     }

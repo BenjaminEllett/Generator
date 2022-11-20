@@ -65,7 +65,13 @@ namespace EasyToUseGenerator
 
         private void OnCopyToClipBoardPressed(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(this.currentPassword.Value, TextDataFormat.Text); 
+            Clipboard.SetText(this.currentPassword.Value, TextDataFormat.UnicodeText);
+        }
+
+        private void OnPrintPasswordPressed(object sender, RoutedEventArgs e)
+        {
+            CreateWindowAndShowDialogBox(
+                () => new PrintPasswordWindow(this.currentPassword));
         }
 
         private void OnCreateNewPasswordClicked(object sender, RoutedEventArgs e)
@@ -87,13 +93,19 @@ namespace EasyToUseGenerator
 
         private void OnHelpClicked(object sender, RoutedEventArgs e)
         {
-            this.CreateWindowAndShowDialogBox<HelpWindow>();
+            CreateWindowAndShowDialogBox<HelpWindow>();
         }
 
-        private (bool?, TWindow) CreateWindowAndShowDialogBox<TWindow>() 
+        private (bool?, TWindow) CreateWindowAndShowDialogBox<TWindow>()
             where TWindow : Window, new()
         {
-            TWindow newWindow = new TWindow();
+            return CreateWindowAndShowDialogBox(() => new TWindow());
+        }
+
+        private (bool?, TWindow) CreateWindowAndShowDialogBox<TWindow>(Func<TWindow> createWindow)
+            where TWindow : Window
+        {
+            TWindow newWindow = createWindow();
             newWindow.Owner = this;
             bool? showDialogResult = newWindow.ShowDialog();
             return (showDialogResult, newWindow);

@@ -22,37 +22,11 @@
 // SOFTWARE.
 //
 
-using CommonGeneratorCode;
-using System.Windows;
-
 namespace EasyToUseGenerator
 {
-    public partial class App : Application
+    public record class DocumentSection(string Header, string Body, string? BodyFontFamily = null, double? BodyFontSize = null)
     {
-        private ServiceFactory serviceFactory;
-
-        public App()
-        {
-            this.serviceFactory = new ServiceFactory();
-            this.serviceFactory.RegisterSingletonService<IAppSettingService, AppSettings>();
-            this.serviceFactory.RegisterSingletonService<ITextFileService, TextFileService>();
-            this.serviceFactory.RegisterSingletonService<ISimpleDocumentService, SimpleDocumentService>();
-
-            this.Settings = this.serviceFactory.GetService<IAppSettingService>();
-        }
-
-        public static new App Current => (App)Application.Current;
-        
-        public IAppSettingService Settings { get; init; }
-
-        public TInterface GetService<TInterface>() where TInterface : class
-        {
-            return this.serviceFactory.GetService<TInterface>();
-        }
-
-        private void OnExit(object sender, ExitEventArgs e)
-        {
-            this.Settings.Save();
-        }
+        public bool HasBodyFontFamily => BodyFontFamily != null;
+        public bool HasBodyFontSize => BodyFontSize.HasValue;
     }
 }
