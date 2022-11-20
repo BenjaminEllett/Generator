@@ -188,7 +188,7 @@ namespace EasyToUseGenerator.Tests
 
             Inline? currentInline = currentSectionBody.NextInline;
 
-            // There 
+            // There is no section after the current section if currentInline is null.
             if (currentInline == null)
             {
                 return false;
@@ -199,10 +199,9 @@ namespace EasyToUseGenerator.Tests
             
             while (lineBreakCount < ExpectedNumberOfLineBreaksBetweenSections)
             {
-                // null means there is no previous inline
                 Assert.IsNotNull(
                     currentInline,
-                    "There should always be three line breaks between sections.  The last section does not have any line breaks after it.");
+                    "There should always be 4 line breaks between sections.  The last section does not have any line breaks after it.");
 
                 Assert.IsTrue(
                     currentInline is LineBreak,
@@ -214,7 +213,7 @@ namespace EasyToUseGenerator.Tests
 
             Assert.IsTrue(
                 IsHeader(currentInline),
-                "A section header must follow the three line breaks which separate sections.");
+                "A section header must follow the 4 line breaks which separate sections.");
 
             nextSectionHeader = (Run)currentInline;
             return true;
@@ -315,7 +314,6 @@ namespace EasyToUseGenerator.Tests
                 return false;
             }
 
-            // If the next element is null, it means there is no next element.
             if (!isBody(nextInline))
             {
                 return false;
