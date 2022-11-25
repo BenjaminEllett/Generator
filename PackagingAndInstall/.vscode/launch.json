@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Install both Generator versions",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/InstallGenerator.ps1",
+            "args": [
+                "-InstallCommandLineVersion"
+            ]
+        },
+
+        {
+            "name": "Add Generator to user's path",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/AddGeneratorToUsersPath.ps1",
+        },
+
+        {
+            "name": "Uninstall Generator",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/UninstallGenerator.ps1",
+        },
+    ]
+}
