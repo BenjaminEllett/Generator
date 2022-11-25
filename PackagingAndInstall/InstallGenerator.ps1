@@ -87,16 +87,16 @@ function CreateEasyToUseGeneratorShortcut([string] $easyToUseGeneratorPath)
     # https://learn.microsoft.com/en-us/troubleshoot/windows-client/admin-development/create-desktop-shortcut-with-wsh
     # https://learn.microsoft.com/en-us/previous-versions//xsy6k3ys(v=vs.85)
     
-    [string] $startMenuShortCutPath = GetGeneratorStartMenuIconPath
+    [string] $startMenuShortcutPath = GetGeneratorStartMenuShortcutPath
     [string] $executablePath = Join-Path -Path $easyToUseGeneratorPath -ChildPath 'EasyToUseGenerator.exe' 
 
     $wsciptShellObject = New-Object -ComObject 'Wscript.shell'
 
-    $shortCutShellLink = $wsciptShellObject.CreateShortcut($startMenuShortCutPath)
-    $shortCutShellLink.TargetPath = $executablePath
-    $shortCutShellLink.WorkingDirectory = $easyToUseGeneratorPath
-    $shortCutShellLink.Description = 'The program creates truly random passwords.'
-    $shortCutShellLink.Save()
+    $shortcutShellLink = $wsciptShellObject.CreateShortcut($startMenuShortcutPath)
+    $shortcutShellLink.TargetPath = $executablePath
+    $shortcutShellLink.WorkingDirectory = $easyToUseGeneratorPath
+    $shortcutShellLink.Description = 'The program creates truly random passwords.'
+    $shortcutShellLink.Save()
 }
 
 function InstallGenerator()
@@ -133,7 +133,7 @@ function InstallGenerator()
     CreateEasyToUseGeneratorShortcut $easyToUseGeneratorPath 
 
     #
-    # Tell PowerShell user how to add Generator to the path if they want to
+    # Tell PowerShell users how to add Generator to the path if they want to
     #
     if ($InstallCommandLineVersion)
     {

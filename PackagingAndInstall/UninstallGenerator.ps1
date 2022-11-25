@@ -24,9 +24,9 @@ function RemoveFileIfItExists([string] $filePath)
 [string] $generatorRootPath = GetGeneratorProgramRootPath
 RemoveDirectoryIfItExists $generatorRootPath
 
-# Remove Generator's Start Menu Icon
-[string] $startMenuIconPath = GetGeneratorStartMenuIconPath
-RemoveFileIfItExists $startMenuIconPath
+# Remove Generator's Start Menu Shortcut
+[string] $startMenuShortcutPath = GetGeneratorStartMenuShortcutPath
+RemoveFileIfItExists $startMenuShortcutPath
 
 # Remove the command line version of Generator from the user's path
 [string] $userPath = GetCurrentUsersPath

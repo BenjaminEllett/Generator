@@ -15,17 +15,17 @@ function GetCommandLineGeneratorDirectoryPath()
     return Join-Path -Path $generatorProgramRootPath -ChildPath "Generator"
 }
 
-function GetGeneratorStartMenuIconPath()
+function GetGeneratorStartMenuShortcutPath()
 {
     [string] $commonStartMenuPath = [System.Environment]::GetFolderPath("CommonPrograms")
-    [string] $startMenuShortCutPath = Join-Path -Path $commonStartMenuPath -ChildPath $easyToUseGeneratorShortCutFileName
-    return $startMenuShortCutPath
+    [string] $startMenuShortcutPath = Join-Path -Path $commonStartMenuPath -ChildPath $easyToUseGeneratorShortCutFileName
+    return $startMenuShortcutPath
 }
 
 function IsDirectoryInPath([string] $path, [string] $directoryPath)
 {
-    [string[]] $existingPathComponents = $path.Split($WindowsPathSeparator)
-    foreach ($currentPathComponent in $existingPathComponents)
+    [string[]] $pathComponents = $path.Split($WindowsPathSeparator)
+    foreach ($currentPathComponent in $pathComponents)
     {
         $currentPathComponent = $currentPathComponent.Normalize()
         $currentPathComponent = $currentPathComponent.Trim()
