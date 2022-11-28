@@ -28,5 +28,12 @@
             "request": "launch",
             "script": "${workspaceFolder}/UninstallGenerator.ps1",
         },
+
+        {
+            "name": "Create Generator Release Package (ZIP Files)",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/CreateReleaseZipFiles.ps1",
+        },
     ]
 }

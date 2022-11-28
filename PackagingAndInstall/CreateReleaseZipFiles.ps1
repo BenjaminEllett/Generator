@@ -1,5 +1,10 @@
+#
+# This program must be run from the \PackagingAndInstall directory
+#
 
-function WriteBuildStep([string] $buildStepName)
+Set-StrictMode -Version 3.0
+
+function WriteHeader([string] $headerText)
 {
     # Create separator line string
 
@@ -15,7 +20,7 @@ function WriteBuildStep([string] $buildStepName)
     # Output build step
     Write-Host
     Write-Host -ForegroundColor Yellow -Object $separatorLineStringBuilder
-    Write-Host -ForegroundColor Yellow -Object "    $buildStepName"
+    Write-Host -ForegroundColor Yellow -Object "    $headerText"
     Write-Host -ForegroundColor Yellow -Object $separatorLineStringBuilder
 }
 
@@ -25,7 +30,14 @@ function AddFileHashToHashTable([hashtable] $ht, [string] $fileName, [string] $f
     $ht.Add($fileName, $getHashResult.Hash)
 }
 
-function PublishProjectAndCreateZipFiles([string] $projectName)
+function CreateFileHashesFile([string] $fileHashesFilePrefix, [string] $publishedZipFileDirectory, [hashtable] $fileHashes)
+{
+    [string] $fileHashesFileName = $fileHashesFilePrefix + "FileHashes.json"
+    [string] $fileHashesFilePath = Join-Path $publishedZipFileDirectory $fileHashesFileName
+    ConvertTo-Json $fileHashes | Out-File -FilePath $fileHashesFilePath
+}
+
+function PublishProjectAndCreateZipFiles([string] $projectName, [string] $publishedZipFileDirectory)
 {
     [string] $csprojRelativeFilePath = Join-Path . $projectName "$projectName.csproj"
 
@@ -42,7 +54,7 @@ function PublishProjectAndCreateZipFiles([string] $projectName)
         throw "ERROR: Cannot find the $projectName's publish (pubxml) file.  Here  is the relative path used: $publishFolderRelativeFilePath"
     }
 
-    WriteBuildStep "Publish $projectName"
+    WriteHeader "Publish $projectName"
 
     dotnet publish $csprojRelativeFilePath -p:PublishProfile=FolderProfile.pubxml    
 
@@ -57,49 +69,83 @@ function PublishProjectAndCreateZipFiles([string] $projectName)
     [string] $zipFilePath = Join-Path $publishedZipFileDirectory $zipFileName
     [string] $zipFileWithPdbFilesPath = Join-Path $publishedZipFileDirectory $zipFileWithPdbFilesName
 
-    Get-ChildItem $publishedFilesDirectoryPath -Exclude "*.pdb" | Compress-Archive -CompressionLevel Optimal -DestinationPath $zipFilePath
-    Get-ChildItem $publishedFilesDirectoryPath | Compress-Archive -CompressionLevel Optimal -DestinationPath $zipFileWithPdbFilesPath
+    Get-ChildItem $publishedFilesDirectoryPath -Exclude "*.pdb" | Compress-Archive -CompressionLevel Optimal -DestinationPath $zipFilePath -ErrorAction Stop
+    Get-ChildItem $publishedFilesDirectoryPath | Compress-Archive -CompressionLevel Optimal -DestinationPath $zipFileWithPdbFilesPath -ErrorAction Stop
 
     [hashtable] $fileHashes = @{}
     AddFileHashToHashTable $fileHashes $zipFileName $zipFilePath
     AddFileHashToHashTable $fileHashes $zipFileWithPdbFilesName $zipFileWithPdbFilesPath
     
-    [string] $fileHashesFileName = $projectName + "FileHashes.json"
-    [string] $fileHashesFilePath = Join-Path $publishedZipFileDirectory $fileHashesFileName
-    ConvertTo-Json $fileHashes | Out-File -FilePath $fileHashesFilePath
+    CreateFileHashesFile $projectName $publishedZipFileDirectory $fileHashes
 }
 
-[System.IO.DirectoryInfo] $currentDirectoryInfo = Get-Item -Path .
-[string] $gitRepositoryRootDirectory = $currentDirectoryInfo.Parent.FullName
-[string] $documentsFolder = [System.Environment]::GetFolderPath("MyDocuments")
-[string] $publishedZipFileDirectory = Join-Path $documentsFolder "PublishedZipFiles"
-    
-if (Test-Path $publishedZipFileDirectory)
+function CreateInstallProgramZipFile([string] $publishedZipFileDirectory)
 {
-    Remove-Item -Path $publishedZipFileDirectory -Recurse -Force
+    WriteHeader 'Create install scripts ZIP file'
+
+    [string] $packagingAndInstallDirectory = $PSScriptRoot
+    Push-Location $packagingAndInstallDirectory
+
+    try 
+    {
+        [string] $zipFileNameWithoutExtension = 'GeneratorInstallScripts'
+        [string] $zipFileName = "$zipFileNameWithoutExtension.zip"
+        [string] $installFilesZipFilePath = Join-Path -Path $publishedZipFileDirectory -ChildPath $zipFileName
+
+        [string[]] $installScriptFiles = 'AddGeneratorToUsersPath.ps1', 'CommonFunctions.ps1', 'InstallGenerator.ps1', 'UninstallGenerator.ps1'
+        Compress-Archive -CompressionLevel Optimal -Path $installScriptFiles -DestinationPath $installFilesZipFilePath -ErrorAction Stop 
+
+        [hashtable] $fileHashes = @{}
+        AddFileHashToHashTable $fileHashes $zipFileName $installFilesZipFilePath
+        CreateFileHashesFile $zipFileNameWithoutExtension $publishedZipFileDirectory $fileHashes
+    }
+    finally 
+    {
+        Pop-Location
+    }
 }
 
-New-Item -Path $publishedZipFileDirectory -ItemType Directory
-
-Push-Location
-
-try 
+function CreateReleaseZipFiles()
 {
-    Set-Location -Path $gitRepositoryRootDirectory
+    if ($PSScriptRoot -ne $PWD) 
+    {
+        throw "ERROR: This program can only be run from the '$PSScriptRoot' directory."
+    }
 
-    WriteBuildStep "Clean Solution"
+    [System.IO.DirectoryInfo] $currentDirectoryInfo = Get-Item -Path .
+    [string] $gitRepositoryRootDirectory = $currentDirectoryInfo.Parent.FullName
+    [string] $documentsFolder = [System.Environment]::GetFolderPath("MyDocuments")
+    [string] $publishedZipFileDirectory = Join-Path $documentsFolder "PublishedZipFiles"
+        
+    if (Test-Path $publishedZipFileDirectory)
+    {
+        Remove-Item -Path $publishedZipFileDirectory -Recurse -Force
+    }
 
-    dotnet clean --configuration Debug
-    dotnet clean --configuration Release
+    New-Item -Path $publishedZipFileDirectory -ItemType Directory
 
-    # This is the safest and easiest way to remove all extra files from the repository
-    git clean -dfx
+    Push-Location
 
-    PublishProjectAndCreateZipFiles "Generator"
-    PublishProjectAndCreateZipFiles "EasyToUseGenerator"
+    try 
+    {
+        Set-Location -Path $gitRepositoryRootDirectory
+
+        WriteHeader "Clean Solution"
+
+        dotnet clean --configuration Debug
+        dotnet clean --configuration Release
+
+        # This is the safest and easiest way to remove all extra files from the repository
+        git clean -dfx
+
+        PublishProjectAndCreateZipFiles "Generator" $publishedZipFileDirectory
+        PublishProjectAndCreateZipFiles "EasyToUseGenerator" $publishedZipFileDirectory
+        CreateInstallProgramZipFile $publishedZipFileDirectory
+    }
+    finally
+    {
+        Pop-Location
+    }
 }
-finally
-{
-    Pop-Location
-}
 
+CreateReleaseZipFiles

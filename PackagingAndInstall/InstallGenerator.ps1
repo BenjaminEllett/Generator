@@ -138,11 +138,9 @@ function InstallGenerator()
     if ($InstallCommandLineVersion)
     {
         WriteBlankLine
-        Write-Host "You can add the command line version of Generator to your PATH by running the following PowerShell commands:"
+        Write-Host "You can add the command line version of Generator to your PATH by running the following PowerShell command:"
         WriteBlankLine
-        Write-Host "    Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri $addGeneratorToUsersPathUri -OutFile '.\AddGeneratorToUsersPath.ps1' "
         Write-Host "    AddGeneratorToUsersPath.ps1 "
-        Write-Host "    Remote-Item -Path .\AddGeneratorToUsersPath.ps1 "
         WriteBlankLine
     }
     
