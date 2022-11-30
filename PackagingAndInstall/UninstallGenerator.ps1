@@ -1,6 +1,6 @@
 Set-StrictMode -Version 3.0
 
-. .\CommonFunctions.ps1
+. .\CommonInstallFunctions.ps1
 
 function RemoveDirectoryIfItExists([string] $directoryPath)
 {

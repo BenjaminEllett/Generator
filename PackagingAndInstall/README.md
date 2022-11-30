@@ -1,10 +1,21 @@
-# Check list for making a Generator release
+# How to make a Generator Release
 
 1. Update the version number in the .NET applications
 
-2. Update the SHA512 hashes and URIs in the following documentation (Instructions for downloading and installing the program)
+2. Run the following PowerShell commands from the root of Generator's GIT repository
+
+        Set-Location .\PackagingAndInstall
+        .\CreateReleaseZipFiles.ps1
 
 3. Update the URIs and SHA512 hashes in the InstallGenerator.ps1 script
+
+4. Run the following PowerShell commands.  PowerShell should still be in the PackagingAndInstall directory.
+
+        .\CreateInstallProgramZipFile.ps1
+
+5. Update the SHA512 hashes and URIs in the following documentation (Instructions for downloading and installing the program)
+
+6. Run the following script to upload the release binaries to Generator's Azure storage account:
 
 
 
@@ -18,9 +29,9 @@ Here is how you install Generator:
 
 3. Run **one** of the PowerShell commands.  Each command is one long line.  The first command installs the easy to use version of Generator (i.e. the GUI version).  The second command installs the easy to use version and the command line version.
 
-        Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri 'https://generatordownload.blob.core.windows.net/v1-3/GeneratorInstallScripts.zip' -OutFile .\GeneratorInstallScripts.zip ; if ('7E63336160A1C8837CCCAB25440E906CD65774F1FE8E95F2A0EF62E4B037B957086FD53D94BE63BF8D91BA9C54CF0457721B54C6180584E377D3B52484B9B755' -ne (Get-FileHash -Algorithm SHA512 -Path .\GeneratorInstallScripts.zip).Hash) { throw "ERROR: Downloaded installation program is corrupted." }; Expand-Archive -Path .\GeneratorInstallScripts.zip -DestinationPath .\GeneratorInstallScripts; Remove-Item -Path .\GeneratorInstallScripts.zip; Set-Location .\GeneratorInstallScripts; .\InstallGenerator.ps1
+        Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri 'https://generatordownload.blob.core.windows.net/v1-3/GeneratorInstallScripts.zip' -OutFile .\GeneratorInstallScripts.zip ; if ('245261ADAFB4F7B21874C91119430D279F2ADA7B6839F3C2CC91E3DF6BF0AF7CE4C527605DD75A1E2047D6398D6A86BCAA640B7929F125BA1876AD33FF0EEBAA' -ne (Get-FileHash -Algorithm SHA512 -Path .\GeneratorInstallScripts.zip).Hash) { throw "ERROR: Downloaded installation program is corrupted." }; Expand-Archive -Path .\GeneratorInstallScripts.zip -DestinationPath .\GeneratorInstallScripts; Remove-Item -Path .\GeneratorInstallScripts.zip; Set-Location .\GeneratorInstallScripts; .\InstallGenerator.ps1
 
-        Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri 'https://generatordownload.blob.core.windows.net/v1-3/GeneratorInstallScripts.zip' -OutFile .\GeneratorInstallScripts.zip ; if ('7E63336160A1C8837CCCAB25440E906CD65774F1FE8E95F2A0EF62E4B037B957086FD53D94BE63BF8D91BA9C54CF0457721B54C6180584E377D3B52484B9B755' -ne (Get-FileHash -Algorithm SHA512 -Path .\GeneratorInstallScripts.zip).Hash) { throw "ERROR: Downloaded installation program is corrupted." }; Expand-Archive -Path .\GeneratorInstallScripts.zip -DestinationPath .\GeneratorInstallScripts; Remove-Item -Path .\GeneratorInstallScripts.zip; Set-Location .\GeneratorInstallScripts; .\InstallGenerator.ps1 -InstallCommandLineVersion
+        Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri 'https://generatordownload.blob.core.windows.net/v1-3/GeneratorInstallScripts.zip' -OutFile .\GeneratorInstallScripts.zip ; if ('245261ADAFB4F7B21874C91119430D279F2ADA7B6839F3C2CC91E3DF6BF0AF7CE4C527605DD75A1E2047D6398D6A86BCAA640B7929F125BA1876AD33FF0EEBAA' -ne (Get-FileHash -Algorithm SHA512 -Path .\GeneratorInstallScripts.zip).Hash) { throw "ERROR: Downloaded installation program is corrupted." }; Expand-Archive -Path .\GeneratorInstallScripts.zip -DestinationPath .\GeneratorInstallScripts; Remove-Item -Path .\GeneratorInstallScripts.zip; Set-Location .\GeneratorInstallScripts; .\InstallGenerator.ps1 -InstallCommandLineVersion
 
 4. If you installed the command line version, you can run .\AddGeneratorToUsersPath.ps1 to add Generator to your path.
 
@@ -60,3 +71,7 @@ Preform the following steps to verify an install or uninstall operation worked:
 
 7. The Generator icon/shortcut on the **All Apps** menu should launch the easy to use (GUI) version of Generator if its installed.
 
+# Useful PowerShell commands for testing if Generator was uploaded to Azure
+
+        $a = Get-AzStorageAccount -ResourceGroup 'GeneratorApplication' -Name 'generatordownload'
+        Get-AzStorageContainer -Context $a.Context

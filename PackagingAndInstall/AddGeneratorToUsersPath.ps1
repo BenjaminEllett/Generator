@@ -1,6 +1,6 @@
 Set-StrictMode -Version 3.0
 
-. .\CommonFunctions.ps1
+. .\CommonInstallFunctions.ps1
 
 [string] $currentUserPath = GetCurrentUsersPath
 [string] $commandLineGeneratorDirectoryPath = GetCommandLineGeneratorDirectoryPath

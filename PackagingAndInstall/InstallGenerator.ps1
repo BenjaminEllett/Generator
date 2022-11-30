@@ -9,19 +9,17 @@ param(
 
 Set-StrictMode -Version 3.0
 
-. .\CommonFunctions.ps1
+. .\CommonInstallFunctions.ps1
 
 #
 # Constants
 #
 
-[string] $easyToUseGeneratorDownloadUri = 'https://generatordownload.blob.core.windows.net/v1-2-1/EasyToUseGenerator.zip'
-[string] $easyToUseGeneratorExpectedFileHash = '226FD3608E56BB11DB90694148207EE5BD6C41F34F735E0CC209EF570DA44E6971A95EF362272B2D8A93DD3E6A270CA3FBCCBCEB4949B0356E8D9863FAA45B55'
+[string] $easyToUseGeneratorDownloadUri = 'https://generatordownload.blob.core.windows.net/v1-3/EasyToUseGenerator.zip'
+[string] $easyToUseGeneratorExpectedFileHash = '713E09ED68F506B42A49824F9EE2BF09D2AB95DD6232107FF7CB8A35EEBE4B202D662F1EDE404E40CADB106795E0DC86A570C777498FD45D46A7B6B6162C72B9'
 
-[string] $commandLineGeneratorDownloadUri = 'https://generatordownload.blob.core.windows.net/v1-2-1/Generator.zip'
-[string] $commandLineGeneratorExpectedFileHash = 'E81678DCF1C11FE158D15FE9599EFF00F4C1A0E36AADD3B06964D378723FD644C1B149DB29E810373B17C3D63108D4B2BF2808539DF2019F23313683FDB1E8F1'
-
-[string] $addGeneratorToUsersPathUri = 'https://generatordownload.blob.core.windows.net/v1-2-1/AddGeneratorToUsersPath.ps1'
+[string] $commandLineGeneratorDownloadUri = 'https://generatordownload.blob.core.windows.net/v1-3/Generator.zip'
+[string] $commandLineGeneratorExpectedFileHash = '812C629E6FD3D7D57B189142FA351E47FD20F281D26E5F56CD61DA47D7EA834D6D6DB87073D82639BF58D623E12FC09654D6AAE1D7474B2496EF1D9AB531FC4C'
 
 function WriteBlankLine()
 {
