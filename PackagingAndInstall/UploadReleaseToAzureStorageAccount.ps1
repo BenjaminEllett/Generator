@@ -54,7 +54,20 @@ try
     $generatorDownloadStorageAccount = Get-AzStorageAccount -ResourceGroup $azureStorageAccountResourceGroup -Name $azureStorageAccountName -ErrorAction Stop
     New-AzStorageContainer -Context $generatorDownloadStorageAccount.Context -Name $generatorVersion -Permission Blob -ErrorAction Stop
    
-    Get-ChildItem -Path $publishedZipFileDirectory | Set-AzStorageBlobContent -Context $generatorDownloadStorageAccount.Context  -Container $generatorVersion -BlobType Block -Force -ErrorAction Stop
+    # We do not want the operations to timeout
+    [int] $timeout = [System.Int32]::MaxValue
+
+    [hashtable] $setAzStorageBlobContentParameters = @{
+        'Context' = $generatorDownloadStorageAccount.Context
+        'Container' = $generatorVersion
+        'BlobType' = 'Block'
+        'ClientTimeoutPerRequest' = $timeout
+        'ServerTimeoutPerRequest' = $timeout
+        'ErrorAction' = 'Stop'
+        'Force' = $true
+    }
+
+    Get-ChildItem -Path $publishedZipFileDirectory | Set-AzStorageBlobContent @setAzStorageBlobContentParameters
 }
 finally
 {
