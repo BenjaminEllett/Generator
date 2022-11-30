@@ -31,11 +31,11 @@
 
 Here is how you install Generator:
 
-1. Open Windows Terminal as an Administrator user
+1. Install the .NET 6.0 desktop runtime if you do not have it on your machine. Here is a link to the runtime: https://dotnet.microsoft.com/download .
 
-2. Start a PowerShell 7 tab
+2. Run PowerShell as an Administrator user
 
-3. Run **one** of the PowerShell commands.  Each command is one long line.  The first command installs the easy to use version of Generator (i.e. the GUI version).  The second command installs the easy to use version and the command line version.
+3. Run **one** of the following PowerShell commands.  Each command is one long line.  The first command installs the easy to use version of Generator (i.e. the GUI version).  The second command installs the easy to use version and the command line version.
 
         Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri 'https://generatordownload.blob.core.windows.net/v1-3/GeneratorInstallScripts.zip' -OutFile .\GeneratorInstallScripts.zip ; if ('EF7CB3A4C4F620E7EF1377996DE26A3D4C21F10F0F5A7FA81B4DE1669EBDCE3855CA4B469827E789AB24C8C73E423339703C061BD89BB03D5792F0610557F650' -ne (Get-FileHash -Algorithm SHA512 -Path .\GeneratorInstallScripts.zip).Hash) { throw "ERROR: Downloaded installation program is corrupted." }; Expand-Archive -Path .\GeneratorInstallScripts.zip -DestinationPath .\GeneratorInstallScripts; Remove-Item -Path .\GeneratorInstallScripts.zip; Set-Location .\GeneratorInstallScripts; .\InstallGenerator.ps1
 
@@ -49,7 +49,7 @@ Here is how you install Generator:
 
         Remove-Item -Path .\GeneratorInstallScripts -Recurse -Force
 
-Now that the program is installed, you can find the GUI version on the Start Menu (it's called Generator).  The command line version is in $env:ProgramFiles\Generator\Generator (usually C:\Program Files\Generator\Generator).  If you added Generator to your path, you will need to open a new terminal window (not tab) or command prompt window to see the path change.
+Now that the program is installed, you can find the GUI version on the Start Menu (it's called Generator).  The command line version is in $env:ProgramFiles\Generator\Generator (usually C:\Program Files\Generator\Generator).  If you added Generator to your path, you will need to open a new terminal window (not a tab) or command prompt window to see the path change.
 
 
 
