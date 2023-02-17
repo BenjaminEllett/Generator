@@ -32,7 +32,7 @@ Here are links to each program's documentation:
 
 [Windows App Documentation](Documentation/WindowsAppGeneratorUsage.md)
 
-[Command Line App Documentation](Documentation/WindowsAppGeneratorUsage.md)
+[Command Line App Documentation](Documentation/CommandLineAppUsage.md)
 
 # Links
 
