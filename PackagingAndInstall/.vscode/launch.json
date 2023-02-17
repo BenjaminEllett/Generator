@@ -35,5 +35,19 @@
             "request": "launch",
             "script": "${workspaceFolder}/CreateReleaseZipFiles.ps1",
         },
+
+        {
+            "name": "Create Generator Install Script Package",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/CreateInstallProgramZipFile.ps1",
+        },
+
+        {
+            "name": "Upload release to Azure storage account",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${workspaceFolder}/UploadReleaseToAzureStorageAccount.ps1",
+        },
     ]
 }

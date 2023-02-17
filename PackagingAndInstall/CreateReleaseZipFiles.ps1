@@ -4,6 +4,8 @@
 
 Set-StrictMode -Version 3.0
 
+. .\CommonPackagingFunctions.ps1
+
 function WriteHeader([string] $headerText)
 {
     # Create separator line string
@@ -22,19 +24,6 @@ function WriteHeader([string] $headerText)
     Write-Host -ForegroundColor Yellow -Object $separatorLineStringBuilder
     Write-Host -ForegroundColor Yellow -Object "    $headerText"
     Write-Host -ForegroundColor Yellow -Object $separatorLineStringBuilder
-}
-
-function AddFileHashToHashTable([hashtable] $ht, [string] $fileName, [string] $filePath)
-{
-    $getHashResult = Get-FileHash -Algorithm SHA512 -Path $filePath
-    $ht.Add($fileName, $getHashResult.Hash)
-}
-
-function CreateFileHashesFile([string] $fileHashesFilePrefix, [string] $publishedZipFileDirectory, [hashtable] $fileHashes)
-{
-    [string] $fileHashesFileName = $fileHashesFilePrefix + "FileHashes.json"
-    [string] $fileHashesFilePath = Join-Path $publishedZipFileDirectory $fileHashesFileName
-    ConvertTo-Json $fileHashes | Out-File -FilePath $fileHashesFilePath
 }
 
 function PublishProjectAndCreateZipFiles([string] $projectName, [string] $publishedZipFileDirectory)
@@ -79,43 +68,13 @@ function PublishProjectAndCreateZipFiles([string] $projectName, [string] $publis
     CreateFileHashesFile $projectName $publishedZipFileDirectory $fileHashes
 }
 
-function CreateInstallProgramZipFile([string] $publishedZipFileDirectory)
-{
-    WriteHeader 'Create install scripts ZIP file'
-
-    [string] $packagingAndInstallDirectory = $PSScriptRoot
-    Push-Location $packagingAndInstallDirectory
-
-    try 
-    {
-        [string] $zipFileNameWithoutExtension = 'GeneratorInstallScripts'
-        [string] $zipFileName = "$zipFileNameWithoutExtension.zip"
-        [string] $installFilesZipFilePath = Join-Path -Path $publishedZipFileDirectory -ChildPath $zipFileName
-
-        [string[]] $installScriptFiles = 'AddGeneratorToUsersPath.ps1', 'CommonFunctions.ps1', 'InstallGenerator.ps1', 'UninstallGenerator.ps1'
-        Compress-Archive -CompressionLevel Optimal -Path $installScriptFiles -DestinationPath $installFilesZipFilePath -ErrorAction Stop 
-
-        [hashtable] $fileHashes = @{}
-        AddFileHashToHashTable $fileHashes $zipFileName $installFilesZipFilePath
-        CreateFileHashesFile $zipFileNameWithoutExtension $publishedZipFileDirectory $fileHashes
-    }
-    finally 
-    {
-        Pop-Location
-    }
-}
-
 function CreateReleaseZipFiles()
 {
-    if ($PSScriptRoot -ne $PWD) 
-    {
-        throw "ERROR: This program can only be run from the '$PSScriptRoot' directory."
-    }
+    VerifyScriptIsBeingRunFromTheDirectoryItIsIn
 
     [System.IO.DirectoryInfo] $currentDirectoryInfo = Get-Item -Path .
     [string] $gitRepositoryRootDirectory = $currentDirectoryInfo.Parent.FullName
-    [string] $documentsFolder = [System.Environment]::GetFolderPath("MyDocuments")
-    [string] $publishedZipFileDirectory = Join-Path $documentsFolder "PublishedZipFiles"
+    [string] $publishedZipFileDirectory = GetPublishedZipFileDirectory
         
     if (Test-Path $publishedZipFileDirectory)
     {
@@ -140,7 +99,6 @@ function CreateReleaseZipFiles()
 
         PublishProjectAndCreateZipFiles "Generator" $publishedZipFileDirectory
         PublishProjectAndCreateZipFiles "EasyToUseGenerator" $publishedZipFileDirectory
-        CreateInstallProgramZipFile $publishedZipFileDirectory
     }
     finally
     {
