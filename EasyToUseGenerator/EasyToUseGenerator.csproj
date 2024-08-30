@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <OutputType>WinExe</OutputType>
 
@@ -12,15 +12,15 @@
 
     <ApplicationIcon>Generator.ico</ApplicationIcon>
 
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.3.0.0</FileVersion>
-    <Version>1.3.0</Version>
+    <AssemblyVersion>1.4.0.0</AssemblyVersion>
+    <FileVersion>1.4.0.0</FileVersion>
+    <Version>1.4.0</Version>
 
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Authors>Benjamin Ellett</Authors>
     <Company />
     <Product>Generator</Product>
-    <Copyright>Benjamin Ellett 2019-2022</Copyright>
+    <Copyright>Benjamin Ellett 2019-2024</Copyright>
     <RepositoryType>GIT</RepositoryType>
     <Description>Easy to Use Generator creates secure random passwords.  It is easier to use because it has a graphical user interface (GUI).  It can create passwords which can have any character on a US English keyboard, any English alpha-numeric character or a PIN.  Generator uses a cryptographically secure random number generator to create passwords.</Description>
     <PackageProjectUrl>https://github.com/BenjaminEllett/Generator</PackageProjectUrl>
@@ -32,7 +32,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <WarningLevel>5</WarningLevel>
+    <WarningLevel>9999</WarningLevel>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -40,7 +40,7 @@
     <WarningsAsErrors />
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
-    <WarningLevel>5</WarningLevel>
+    <WarningLevel>9999</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -84,7 +84,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.3">
+    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

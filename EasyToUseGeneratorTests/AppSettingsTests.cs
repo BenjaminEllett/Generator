@@ -1,7 +1,7 @@
 ﻿//
 // MIT License
 //
-// Copyright(c) 2019-2022 Benjamin Ellett
+// Copyright(c) 2019-2024 Benjamin Ellett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,8 @@
 //
 
 using CommonGeneratorCode;
-using EasyToUseGenerator;
+using EasyToUseGeneratorTests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Moq.Language.Flow;
 using System.Text.RegularExpressions;
 
 namespace EasyToUseGenerator.Tests
@@ -82,23 +80,23 @@ namespace EasyToUseGenerator.Tests
         [TestMethod]
         public void SaveShouldPersistTheSpecifiedSettings()
         {
-            (AppSettingsService appSettings, Mock <ITextFileService> textFileServiceMock) = 
+            (AppSettingsService appSettings, MockTextFileService textFileServiceMock) = 
                 TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
                     expectedDefaultPasswordType: PasswordType.AlphaNumeric,
                     expectedDefaultPasswordLength: 10);
 
             appSettings.Save();
 
-            textFileServiceMock.Verify(
-                tfs => tfs.CreateDirectoryIfItDoesNotExist(It.IsAny<string>()),
-                Times.Once,
+            Assert.IsTrue(
+                textFileServiceMock.NumTimesCreateDirectoryIfItDoesNotExistCalled == 1, 
                 "The AppSettings class must create the directory which holds the settings file before it writes the settings file.");
 
-            textFileServiceMock.Verify(
-                tfs => tfs.WriteTextFile(
-                    It.IsAny<string>(), 
-                    It.Is<string>(json => IsSettingsFileContentValid(json, PasswordType.AlphaNumeric, 10))),
-                Times.Once,
+            Assert.IsTrue(
+                textFileServiceMock.NumTimesWriteTextFileCalled == 1,
+                "The AppSettings class must write its settings to disk.  It only needs to do this once.");
+
+            Assert.IsTrue(
+                IsSettingsFileContentValid(textFileServiceMock.LastTextPassedToWriteTextFile, PasswordType.AlphaNumeric, 10),
                 "The AppSettings class must correctly write its current settings.");
         }
 
@@ -124,38 +122,14 @@ namespace EasyToUseGenerator.Tests
             }
         }
 
-        private static (AppSettingsService, Mock<ITextFileService>) CreateAppSettingsClass(string? expectedSettingsFileContent)
+        private static (AppSettingsService, MockTextFileService) CreateAppSettingsClass(string? expectedSettingsFileContent)
         {
-            Mock<ITextFileService> textFileServiceMock = CreateTextServiceMock(expectedSettingsFileContent);
-            AppSettingsService newAppSettings = new AppSettingsService(textFileServiceMock.Object);
+            MockTextFileService textFileServiceMock = new MockTextFileService(expectedSettingsFileContent);
+            AppSettingsService newAppSettings = new AppSettingsService(textFileServiceMock);
             return (newAppSettings, textFileServiceMock);
         }
 
-        private static Mock<ITextFileService> CreateTextServiceMock(string? expectedTextFileContent)
-        {
-            Mock<ITextFileService> textFileServiceMock = new Mock<ITextFileService>(MockBehavior.Strict);
-
-            ISetup<ITextFileService, bool> textFileServiceMockSetup;
-
-            // TFS stands for Text File Service.
-            textFileServiceMockSetup = textFileServiceMock.Setup(tfs => tfs.TryReadTextFile(It.IsAny<string>(), out expectedTextFileContent));
-
-            if (expectedTextFileContent != null)
-            {
-                textFileServiceMockSetup.Returns(true);
-            }
-            else
-            {
-                textFileServiceMockSetup.Returns(false);
-            }
-
-            textFileServiceMock.Setup(tfs => tfs.CreateDirectoryIfItDoesNotExist(It.IsAny<string>()));
-            textFileServiceMock.Setup(tfs => tfs.WriteTextFile(It.IsAny<string>(), It.IsAny<string>()));
-
-            return textFileServiceMock;
-        }
-
-        private static (AppSettingsService, Mock<ITextFileService>) TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
+        private static (AppSettingsService, MockTextFileService) TestAppSettingsCorrectlyParsesSettingsInSettingsFile(
             PasswordType expectedDefaultPasswordType, 
             int expectedDefaultPasswordLength, 
             PasswordType? defaultPasswordTypeInConfigurationFile = null)
@@ -171,7 +145,7 @@ namespace EasyToUseGenerator.Tests
                 $"    \"DefaultPasswordLengthInChars\": {expectedDefaultPasswordLength}                    \n" +
                  "}                                                                                        \n";
 
-            (AppSettingsService appSettings, Mock<ITextFileService> textFileServiceMock) = CreateAppSettingsClass(settingsFileContent);
+            (AppSettingsService appSettings, MockTextFileService textFileServiceMock) = CreateAppSettingsClass(settingsFileContent);
 
             AssertAppSettingsMatchExpectedValues(
                 appSettings,
