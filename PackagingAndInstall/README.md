@@ -31,15 +31,17 @@
 
 Here is how you install Generator:
 
-1. Install the .NET 6.0 desktop runtime if you do not have it on your machine. Here is a link to the runtime: https://dotnet.microsoft.com/download .
+1. Install the .NET 8.0 desktop runtime if you do not have it on your machine. Here is a link to the runtime: https://dotnet.microsoft.com/en-us/download/dotnet/8.0 or https://dotnet.microsoft.com/download .  You can also install it by running the following winget command:
+
+        winget install --id Microsoft.DotNet.DesktopRuntime.8 --source winget
 
 2. Run PowerShell as an Administrator user
 
 3. Run **one** of the following PowerShell commands.  Each command is one long line.  The first command installs the easy to use version of Generator (i.e. the GUI version).  The second command installs the easy to use version and the command line version.
 
-        Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri 'https://generatordownload.blob.core.windows.net/v1-3/GeneratorInstallScripts.zip' -OutFile .\GeneratorInstallScripts.zip ; if ('EF7CB3A4C4F620E7EF1377996DE26A3D4C21F10F0F5A7FA81B4DE1669EBDCE3855CA4B469827E789AB24C8C73E423339703C061BD89BB03D5792F0610557F650' -ne (Get-FileHash -Algorithm SHA512 -Path .\GeneratorInstallScripts.zip).Hash) { throw "ERROR: Downloaded installation program is corrupted." }; Expand-Archive -Path .\GeneratorInstallScripts.zip -DestinationPath .\GeneratorInstallScripts; Remove-Item -Path .\GeneratorInstallScripts.zip; Set-Location .\GeneratorInstallScripts; .\InstallGenerator.ps1
+        Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri 'https://generatordownload.blob.core.windows.net/v1-4/GeneratorInstallScripts.zip' -OutFile .\GeneratorInstallScripts.zip ; if ('EF7CB3A4C4F620E7EF1377996DE26A3D4C21F10F0F5A7FA81B4DE1669EBDCE3855CA4B469827E789AB24C8C73E423339703C061BD89BB03D5792F0610557F650' -ne (Get-FileHash -Algorithm SHA512 -Path .\GeneratorInstallScripts.zip).Hash) { throw "ERROR: Downloaded installation program is corrupted." }; Expand-Archive -Path .\GeneratorInstallScripts.zip -DestinationPath .\GeneratorInstallScripts; Remove-Item -Path .\GeneratorInstallScripts.zip; Set-Location .\GeneratorInstallScripts; .\InstallGenerator.ps1
 
-        Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri 'https://generatordownload.blob.core.windows.net/v1-3/GeneratorInstallScripts.zip' -OutFile .\GeneratorInstallScripts.zip ; if ('EF7CB3A4C4F620E7EF1377996DE26A3D4C21F10F0F5A7FA81B4DE1669EBDCE3855CA4B469827E789AB24C8C73E423339703C061BD89BB03D5792F0610557F650' -ne (Get-FileHash -Algorithm SHA512 -Path .\GeneratorInstallScripts.zip).Hash) { throw "ERROR: Downloaded installation program is corrupted." }; Expand-Archive -Path .\GeneratorInstallScripts.zip -DestinationPath .\GeneratorInstallScripts; Remove-Item -Path .\GeneratorInstallScripts.zip; Set-Location .\GeneratorInstallScripts; .\InstallGenerator.ps1 -InstallCommandLineVersion
+        Invoke-WebRequest -Method GET -SslProtocol Tls12 -Uri 'https://generatordownload.blob.core.windows.net/v1-4/GeneratorInstallScripts.zip' -OutFile .\GeneratorInstallScripts.zip ; if ('EF7CB3A4C4F620E7EF1377996DE26A3D4C21F10F0F5A7FA81B4DE1669EBDCE3855CA4B469827E789AB24C8C73E423339703C061BD89BB03D5792F0610557F650' -ne (Get-FileHash -Algorithm SHA512 -Path .\GeneratorInstallScripts.zip).Hash) { throw "ERROR: Downloaded installation program is corrupted." }; Expand-Archive -Path .\GeneratorInstallScripts.zip -DestinationPath .\GeneratorInstallScripts; Remove-Item -Path .\GeneratorInstallScripts.zip; Set-Location .\GeneratorInstallScripts; .\InstallGenerator.ps1 -InstallCommandLineVersion
 
 4. If you installed the command line version, you can run .\AddGeneratorToUsersPath.ps1 to add Generator to your path.
 
