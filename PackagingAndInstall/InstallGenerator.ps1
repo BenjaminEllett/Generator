@@ -15,11 +15,11 @@ Set-StrictMode -Version 3.0
 # Constants
 #
 
-[string] $easyToUseGeneratorDownloadUri = 'https://generatordownload.blob.core.windows.net/v1-3/EasyToUseGenerator.zip'
-[string] $easyToUseGeneratorExpectedFileHash = '713E09ED68F506B42A49824F9EE2BF09D2AB95DD6232107FF7CB8A35EEBE4B202D662F1EDE404E40CADB106795E0DC86A570C777498FD45D46A7B6B6162C72B9'
+[string] $easyToUseGeneratorDownloadUri = 'https://generatordownload.blob.core.windows.net/v1-4/EasyToUseGenerator.zip'
+[string] $easyToUseGeneratorExpectedFileHash = '078624A65C9E8F8312CCF27B1383A6518FEC78850E0E2D89F231DE61ACBD10BA36AABC1A9A3DD80F38446CE541567F48FB618DE8546966E2DF1FE097A2AB4C9A'
 
-[string] $commandLineGeneratorDownloadUri = 'https://generatordownload.blob.core.windows.net/v1-3/Generator.zip'
-[string] $commandLineGeneratorExpectedFileHash = '812C629E6FD3D7D57B189142FA351E47FD20F281D26E5F56CD61DA47D7EA834D6D6DB87073D82639BF58D623E12FC09654D6AAE1D7474B2496EF1D9AB531FC4C'
+[string] $commandLineGeneratorDownloadUri = 'https://generatordownload.blob.core.windows.net/v1-4/Generator.zip'
+[string] $commandLineGeneratorExpectedFileHash = 'F3D1757A0286A29C4DA2D926DA3D15F1453A1A5953343BAABAF8DFD607BE8E130CAA0EE715CAA8B6D2BE7A0280FA1C5E4C01CE6BE68DA8DCAA5AAC1639774AAD'
 
 function WriteBlankLine()
 {
